@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,4 +14,8 @@ extension UIExt on BuildContext {
     FocusScopeNode currentFocus = FocusScope.of(this);
     if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
   }
+}
+
+extension DblExt on double {
+  double percent(double percent) => (this / 100) * percent;
 }

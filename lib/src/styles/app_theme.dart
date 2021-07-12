@@ -7,7 +7,7 @@ class AppTheme {
 
   static ThemeData get() => ThemeData(
       backgroundColor: Colors.white,
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: AppColors.primaryBg,
       fontFamily: AppFonts.poppins,
       primaryColor: AppColors.primary,
       colorScheme: AppColors.lightScheme,
@@ -79,5 +79,4 @@ class AppTheme {
 /*
 SAMPLING Area
 
- 
 */
