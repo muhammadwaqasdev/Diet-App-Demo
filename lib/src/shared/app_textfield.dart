@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_starter_app/src/shared/spacing.dart';
-import 'package:flutter_starter_app/src/styles/app_colors.dart';
-import 'package:flutter_starter_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/shared/spacing.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 
 enum DefaultValidators { REQUIRED, VALID_EMAIL, VALID_PASSWORD }
 
@@ -11,7 +11,7 @@ class AppTextField extends StatefulWidget {
   final String? label;
   final String? image;
   final String? initialValue;
-  final String placeholder;
+  final String? placeholder;
   final bool ifNoErrorStyle;
   final FormFieldValidator<String>? validator;
   List<DefaultValidators> defaultValidators;
@@ -46,7 +46,7 @@ class AppTextField extends StatefulWidget {
       this.onTap,
       this.textCapitalization,
       this.onSuffixPressed,
-      this.placeholder = "Please set 'placeholder' property",
+      this.placeholder,
       this.ifNoErrorStyle = false,
       this.validator,
       this.defaultValidators = const [],
@@ -63,95 +63,110 @@ class AppTextField extends StatefulWidget {
 class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
       children: [
-        if (widget.label != null) ...[
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(widget.label!, style: context.textTheme().headline5),
-          ),
-          VerticalSpacing(5)
-        ],
-        Opacity(
-          opacity: this.widget.readOnly && this.widget.readonlyEffect ? .5 : 1,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: AppColors.greyBorder, width: 1)),
-            child: Transform.translate(
-              offset: Offset(0, _getPrefixIcon() != null ? -2 : 0),
-              child: TextFormField(
-                onChanged: widget.onChange,
-                enabled: !widget.readOnly,
-                inputFormatters: widget.formatters,
-                style: context
-                    .textTheme()
-                    .subtitle2
-                    ?.copyWith(fontWeight: FontWeight.w300),
-                textCapitalization:
-                    widget.textCapitalization ?? TextCapitalization.none,
-                cursorColor: Colors.black,
-                autofocus: false,
-                onTap: widget.onTap ?? null,
-                controller: widget.controller,
-                readOnly: widget.readOnly,
-                keyboardType: widget.keyboardType,
-                textInputAction: widget.textInputAction,
-                validator: (widget.defaultValidators == null
-                    ? widget.validator
-                    : (val) {
-                        if ((widget.defaultValidators)
-                                .contains(DefaultValidators.REQUIRED) &&
-                            (val?.isEmpty ?? true)) {
-                          return (widget.ifNoErrorStyle)
-                              ? ''
-                              : "${widget.placeholder} is required";
-                        }
-                        if ((widget.defaultValidators)
-                            .contains(DefaultValidators.VALID_EMAIL)) {
-                          if (!RegExp(
-                                  r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                              .hasMatch(val ?? '')) {
-                            return "${widget.placeholder} is not valid";
-                          }
-                        }
-                        if ((widget.defaultValidators)
-                            .contains(DefaultValidators.VALID_PASSWORD)) {
-                          if ((val ?? '').length < 6 ||
-                              (val ?? '').length > 20) {
-                            return '${widget.placeholder} must be betweem 5 and 20 characters';
-                          }
-                        }
-                        if (widget.validator != null) {
-                          return widget.validator!(val);
-                        }
-                        return null;
-                      }),
-                minLines: 1,
-                initialValue: widget.initialValue,
-                maxLength: widget.maxLength,
-                maxLines: widget.maxLines ?? 1,
-                obscureText: (widget.defaultValidators)
-                    .contains(DefaultValidators.VALID_PASSWORD),
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.zero,
-                  border: InputBorder.none,
-                  suffixIcon: widget.suffixIcon,
-                  prefix: _getPrefixIcon(),
-                  hintText: widget.hint,
-                  hintStyle: context
-                      .textTheme()
-                      .subtitle2
-                      ?.copyWith(fontWeight: FontWeight.w300),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.label != null) ...[
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child:
+                    Text(widget.label!, style: context.textTheme().headline5),
+              ),
+              VerticalSpacing(5)
+            ],
+            Opacity(
+              opacity:
+                  this.widget.readOnly && this.widget.readonlyEffect ? .5 : 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: AppColors.greyBorder, width: 1)),
+                child: Transform.translate(
+                  offset: Offset(0, _getPrefixIcon() != null ? -2 : 0),
+                  child: TextFormField(
+                    onChanged: widget.onChange,
+                    inputFormatters: widget.formatters,
+                    style: context
+                        .textTheme()
+                        .subtitle2
+                        ?.copyWith(fontWeight: FontWeight.w300),
+                    textCapitalization:
+                        widget.textCapitalization ?? TextCapitalization.none,
+                    cursorColor: Colors.black,
+                    autofocus: false,
+                    onTap: widget.onTap ?? null,
+                    controller: widget.controller,
+                    readOnly: widget.readOnly,
+                    keyboardType: widget.keyboardType,
+                    textInputAction: widget.textInputAction,
+                    validator: (widget.defaultValidators == null
+                        ? widget.validator
+                        : (val) {
+                            if ((widget.defaultValidators)
+                                    .contains(DefaultValidators.REQUIRED) &&
+                                (val?.isEmpty ?? true)) {
+                              return (widget.ifNoErrorStyle)
+                                  ? ''
+                                  : "${widget.label} is required";
+                            }
+                            if ((widget.defaultValidators)
+                                .contains(DefaultValidators.VALID_EMAIL)) {
+                              if (!RegExp(
+                                      r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                  .hasMatch(val ?? '')) {
+                                return "${widget.label} is not valid";
+                              }
+                            }
+                            if ((widget.defaultValidators)
+                                .contains(DefaultValidators.VALID_PASSWORD)) {
+                              if ((val ?? '').length < 6 ||
+                                  (val ?? '').length > 20) {
+                                return '${widget.label} must be betweem 5 and 20 characters';
+                              }
+                            }
+                            if (widget.validator != null) {
+                              return widget.validator!(val);
+                            }
+                            return null;
+                          }),
+                    minLines: 1,
+                    initialValue: widget.initialValue,
+                    maxLength: widget.maxLength,
+                    maxLines: widget.maxLines ?? 1,
+                    obscureText: (widget.defaultValidators)
+                        .contains(DefaultValidators.VALID_PASSWORD),
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      border: InputBorder.none,
+                      suffixIcon: widget.suffixIcon,
+                      prefix: _getPrefixIcon(),
+                      hintText: widget.placeholder ?? widget.hint,
+                      hintStyle: context
+                          .textTheme()
+                          .subtitle2
+                          ?.copyWith(fontWeight: FontWeight.w300),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
+        if (widget.readOnly)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+            child: Container(
+              color: Colors.transparent,
+            ),
+          )
       ],
     );
   }

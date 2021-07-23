@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_starter_app/src/shared/app_elevated_button.dart';
-import 'package:flutter_starter_app/src/shared/empty_app_bar.dart';
-import 'package:flutter_starter_app/src/base/utils/utils.dart';
-import 'package:flutter_starter_app/src/shared/page_end_spacer.dart';
-import 'package:flutter_starter_app/src/shared/spacing.dart';
-import 'package:flutter_starter_app/src/shared/goal_step_progress_bar.dart';
+import 'package:diet_app/src/shared/app_elevated_button.dart';
+import 'package:diet_app/src/shared/empty_app_bar.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/shared/page_end_spacer.dart';
+import 'package:diet_app/src/shared/spacing.dart';
+import 'package:diet_app/src/shared/goal_step_progress_bar.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_starter_app/generated/images.asset.dart';
+import 'package:diet_app/generated/images.asset.dart';
 import 'setup_goal_view_model.dart';
 
 class SetupGoalView extends StatelessWidget {

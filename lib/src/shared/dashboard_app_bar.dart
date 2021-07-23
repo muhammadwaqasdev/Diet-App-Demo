@@ -1,13 +1,16 @@
+import 'package:diet_app/src/configs/app_setup.locator.dart';
+import 'package:diet_app/src/services/local/auth_service.dart';
+import 'package:diet_app/src/shared/load_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/generated/images.asset.dart';
-import 'package:flutter_starter_app/src/styles/app_colors.dart';
+import 'package:diet_app/generated/images.asset.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
 
 class DashboardAppBar extends PreferredSize {
   final GestureTapCallback? onDrawerIconTap;
-  final GestureTapCallback? onProfileIconTap;
 
-  const DashboardAppBar({this.onDrawerIconTap, this.onProfileIconTap})
-      : super(
+  const DashboardAppBar({
+    this.onDrawerIconTap,
+  }) : super(
             child: const SizedBox.shrink(),
             preferredSize: const Size.fromHeight(90));
 
@@ -30,21 +33,18 @@ class DashboardAppBar extends PreferredSize {
             ),
           ),
           Spacer(),
-          GestureDetector(
-            onTap: onProfileIconTap,
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(42 / 2),
-                child: Image.asset(
-                  Images.pp,
-                  width: 42,
-                  height: 42,
-                  fit: BoxFit.cover,
+          if (locator<AuthService>().user != null)
+            GestureDetector(
+              onTap: onDrawerIconTap,
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: LoadImage(
+                  locator<AuthService>().user!.displayImageUrl,
+                  size: Size(42, 42),
+                  isCircle: true,
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

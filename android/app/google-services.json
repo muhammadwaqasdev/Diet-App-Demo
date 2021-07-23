@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1065186445767",
+    "project_id": "pocketsystems-diet-app",
+    "storage_bucket": "pocketsystems-diet-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065186445767:android:b6c4e61816ba7c8ee4f1e2",
+        "android_client_info": {
+          "package_name": "com.pocketsystems.dietapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065186445767-b7ravfoonh3k1eon9cd0m7sutnp5j866.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7NZqHEV-PmwoqcA6FuaxsXhW6gwkNfxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065186445767-b7ravfoonh3k1eon9cd0m7sutnp5j866.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1065186445767-1v0qc3mst6cpuflv42tqhiumn60dhcks.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pocketsystems.dietapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065186445767:android:1071d07bbbea117fe4f1e2",
+        "android_client_info": {
+          "package_name": "com.pocketsystems.dietapp.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065186445767-b7ravfoonh3k1eon9cd0m7sutnp5j866.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7NZqHEV-PmwoqcA6FuaxsXhW6gwkNfxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065186445767-b7ravfoonh3k1eon9cd0m7sutnp5j866.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1065186445767-1v0qc3mst6cpuflv42tqhiumn60dhcks.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pocketsystems.dietapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

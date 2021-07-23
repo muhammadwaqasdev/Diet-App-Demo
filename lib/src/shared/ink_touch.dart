@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class InkTouch extends StatelessWidget {
-  final GestureTapCallback? onTap;
+  final Function? onTap;
   final Widget? child;
   final Color? color;
   final Color? splashColor;
   final BorderRadius? borderRadius;
 
   InkTouch(
-      {this.onTap,
+      {required this.onTap,
       this.child,
       this.color,
       this.borderRadius,
@@ -21,7 +21,7 @@ class InkTouch extends StatelessWidget {
       borderRadius: borderRadius,
       child: InkWell(
         borderRadius: borderRadius,
-        onTap: onTap,
+        onTap: () => onTap!(),
         child: child,
       ),
     );

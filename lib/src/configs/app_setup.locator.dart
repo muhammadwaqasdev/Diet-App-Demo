@@ -14,6 +14,7 @@ import '../services/local/auth_service.dart';
 import '../services/local/connectivity_service.dart';
 import '../services/local/keyboard_service.dart';
 import '../services/remote/api_service.dart';
+import '../services/remote/firebase_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -25,9 +26,11 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
 // Register dependencies
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());
+  locator.registerLazySingleton(() => SnackbarService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => AuthService());
   locator.registerLazySingleton(() => ConnectivityService());
   locator.registerLazySingleton(() => KeyboardService());
   locator.registerLazySingleton(() => ApiService());
+  locator.registerLazySingleton(() => FirebaseService());
 }

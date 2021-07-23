@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/styles/app_colors.dart';
-import 'package:flutter_starter_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class DashboardHeader extends StatelessWidget {

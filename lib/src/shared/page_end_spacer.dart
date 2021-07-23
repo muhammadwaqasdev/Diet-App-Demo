@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/shared/spacing.dart';
+import 'package:diet_app/src/shared/spacing.dart';
 
 class PageEndSpacer extends StatelessWidget {
   const PageEndSpacer();

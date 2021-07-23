@@ -52,8 +52,11 @@ class StackedRouter extends RouterBase {
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
     SplashView: (data) {
+      var args = data.getArgs<SplashViewArguments>(
+        orElse: () => SplashViewArguments(),
+      );
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => SplashView(),
+        builder: (context) => SplashView(isInit: args.isInit),
         settings: data,
       );
     },
@@ -94,4 +97,14 @@ class StackedRouter extends RouterBase {
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// SplashView arguments holder class
+class SplashViewArguments {
+  final bool isInit;
+  SplashViewArguments({this.isInit = false});
 }

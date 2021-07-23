@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_starter_app/src/models/wrappers/error_wrapper.dart';
-import 'package:flutter_starter_app/src/models/wrappers/response_wrapper.dart';
-import 'package:flutter_starter_app/src/services/local/flavor_service.dart';
+import 'package:diet_app/src/models/wrappers/error_wrapper.dart';
+import 'package:diet_app/src/models/wrappers/response_wrapper.dart';
+import 'package:diet_app/src/services/local/flavor_service.dart';
 
 const _defaultConnectTimeout = Duration.millisecondsPerMinute;
 const _defaultReceiveTimeout = Duration.millisecondsPerMinute;

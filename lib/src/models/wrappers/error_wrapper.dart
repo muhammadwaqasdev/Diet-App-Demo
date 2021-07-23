@@ -1,4 +1,4 @@
-import 'package:flutter_starter_app/src/models/wrappers/response_wrapper.dart';
+import 'package:diet_app/src/models/wrappers/response_wrapper.dart';
 
 class ErrorWrapper extends ResponseWrapper {
   final dynamic error;

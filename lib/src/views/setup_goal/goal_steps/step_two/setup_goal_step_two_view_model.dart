@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/services/local/navigation_service.dart';
+import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_starter_app/generated/images.asset.dart';
+import 'package:diet_app/generated/images.asset.dart';
 
 class _DietGoalOption {
   final String title;

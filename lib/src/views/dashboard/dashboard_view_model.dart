@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/views/dashboard/widgets/todays_meals/todays_meal_item.dart';
+import 'package:diet_app/src/shared/drawer_container.dart';
+import 'package:diet_app/src/views/dashboard/widgets/todays_meals/todays_meal_item.dart';
 import 'package:stacked/stacked.dart';
 
 import 'widgets/todays_meals/todays_meal_sub_item.dart';
 
 class DashboardViewModel extends BaseViewModel {
-  final Animation<double> animation;
-  final AnimationController controller;
-
-  DashboardViewModel(this.animation, this.controller);
+  DrawerContainerController drawerContainerController =
+      DrawerContainerController();
 
   List<TodaysMealItemModel> get todaysMeals => [
         TodaysMealItemModel(
@@ -48,7 +46,4 @@ class DashboardViewModel extends BaseViewModel {
                       "1 cup, cooked, shredded, - 2 cals, 124 p, 34.9 c, 45.2 f"),
             ])
       ];
-
-  void onDrawerToggleTap() =>
-      (animation.value == 0) ? controller.reverse() : controller.forward();
 }

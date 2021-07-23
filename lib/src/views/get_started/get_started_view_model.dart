@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_controller.dart';
-import 'package:flutter_starter_app/src/services/local/navigation_service.dart';
+import 'package:diet_app/src/services/local/navigation_service.dart';
+import 'package:diet_app/src/shared/drawer_container.dart';
 import 'package:stacked/stacked.dart';
 
 class GetStartedViewModel extends BaseViewModel {
+  DrawerContainerController drawerContainerController =
+      DrawerContainerController();
+
   List<int> get slides => [1, 2, 3, 4, 5];
   CarouselController buttonCarouselController = CarouselController();
 

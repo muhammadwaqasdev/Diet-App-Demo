@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 
 class DashboardSectionTitle extends StatelessWidget {
   final String text;

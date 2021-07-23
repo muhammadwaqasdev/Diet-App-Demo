@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/generated/images.asset.dart';
-import 'package:flutter_starter_app/src/shared/completed_check.dart';
-import 'package:flutter_starter_app/src/shared/spacing.dart';
-import 'package:flutter_starter_app/src/styles/app_colors.dart';
-import 'package:flutter_starter_app/src/base/utils/utils.dart';
+import 'package:diet_app/generated/images.asset.dart';
+import 'package:diet_app/src/shared/completed_check.dart';
+import 'package:diet_app/src/shared/spacing.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 
 class TodaysMealItemHeader extends StatelessWidget {
   final String title;

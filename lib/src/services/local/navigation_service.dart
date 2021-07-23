@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_starter_app/src/configs/app_setup.locator.dart';
-import 'package:flutter_starter_app/src/configs/app_setup.router.dart';
+import 'package:diet_app/src/configs/app_setup.locator.dart';
+import 'package:diet_app/src/configs/app_setup.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class NavService {
@@ -18,6 +18,10 @@ class NavService {
   static void pop() => _navigationService!.popRepeated(1);
 
   // routes with args
+  static Future<dynamic>? splash({bool isInit = true}) =>
+      _navigationService!.clearStackAndShow(Routes.splashView,
+          arguments: SplashViewArguments(isInit: isInit));
+
   static Future<dynamic>? signIn(
           {dynamic arguments, bool shouldReplace = false}) =>
       (!shouldReplace
@@ -33,10 +37,10 @@ class NavService {
           arguments: arguments);
 
   static Future<dynamic>? getStarted(
-          {dynamic arguments, bool shouldReplace = false}) =>
-      (!shouldReplace
+          {dynamic arguments, bool shouldClear = false}) =>
+      (!shouldClear
               ? _navigationService!.navigateTo
-              : _navigationService!.replaceWith)(Routes.getStartedView,
+              : _navigationService!.clearStackAndShow)(Routes.getStartedView,
           arguments: arguments);
 
   static Future<dynamic>? setupGoal(

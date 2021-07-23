@@ -1,8 +1,8 @@
 import 'package:another_xlider/another_xlider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/shared/spacing.dart';
-import 'package:flutter_starter_app/src/styles/app_colors.dart';
-import 'package:flutter_starter_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/shared/spacing.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 
 class AppValuesSlider extends StatelessWidget {
   final List<double> values;

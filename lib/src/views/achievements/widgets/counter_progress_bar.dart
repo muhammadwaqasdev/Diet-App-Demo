@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_app/src/styles/app_colors.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
 
 class CounterProgressBar extends StatelessWidget {
   final int total;
