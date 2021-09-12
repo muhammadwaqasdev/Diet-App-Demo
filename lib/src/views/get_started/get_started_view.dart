@@ -1,3 +1,5 @@
+import 'package:diet_app/src/configs/app_setup.locator.dart';
+import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:diet_app/src/shared/drawer_container.dart';
 import 'package:diet_app/src/views/dashboard/widgets/dashboard_drawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,7 +55,7 @@ class _SplashViewState extends State<GetStartedView>
                           builder: (BuildContext context) {
                             return Column(
                               children: [
-                                Text("Lets' get Started",
+                                Text("Let's get Started",
                                     style: context.textTheme().headline3,
                                     textAlign: TextAlign.center),
                                 VerticalSpacing(10),

@@ -12,6 +12,7 @@ class AppElevatedButton extends StatefulWidget {
   final bool isLarge;
   final bool isFlat;
   final bool isLoading;
+  final bool isEnabled;
 
   const AppElevatedButton(
       {required this.child,
@@ -19,7 +20,8 @@ class AppElevatedButton extends StatefulWidget {
       this.icon,
       this.isLarge = false,
       this.isLoading = false,
-      this.isFlat = false});
+      this.isFlat = false,
+      this.isEnabled = true});
 
   const AppElevatedButton.withIcon(
       {required this.child,
@@ -27,7 +29,8 @@ class AppElevatedButton extends StatefulWidget {
       this.icon,
       this.isLarge = true,
       this.isLoading = false,
-      this.isFlat = false});
+      this.isFlat = false,
+      this.isEnabled = true});
 
   const AppElevatedButton.flat(
       {required this.child,
@@ -35,7 +38,8 @@ class AppElevatedButton extends StatefulWidget {
       this.icon,
       this.isLarge = false,
       this.isLoading = false,
-      this.isFlat = true});
+      this.isFlat = true,
+      this.isEnabled = true});
 
   @override
   _AppElevatedButtonState createState() => _AppElevatedButtonState();
@@ -70,10 +74,12 @@ class _AppElevatedButtonState extends State<AppElevatedButton>
           Center(
             child: InkTouch(
               borderRadius: BorderRadius.circular(widget.isLoading ? 25 : 14.0),
-              color: widget.isFlat
-                  ? AppColors.activeLightGreen
-                  : AppColors.primary,
-              onTap: widget.isLoading ? null : widget.onTap,
+              color: (widget.isFlat
+                      ? AppColors.activeLightGreen
+                      : AppColors.primary)
+                  .withOpacity(widget.isEnabled ? 1 : .5),
+              onTap:
+                  widget.isLoading || !widget.isEnabled ? null : widget.onTap,
               child: AnimatedSize(
                 vsync: this,
                 duration: Duration(milliseconds: 500),

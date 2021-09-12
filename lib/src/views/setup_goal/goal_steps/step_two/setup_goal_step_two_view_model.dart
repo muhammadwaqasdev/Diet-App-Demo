@@ -1,45 +1,83 @@
+import 'package:diet_app/src/configs/app_setup.locator.dart';
+import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:diet_app/generated/images.asset.dart';
 
 class _DietGoalOption {
-  final String title;
+  final GoalTarget goalTarget;
+  String get title => describeEnum(goalTarget).replaceAll("_", " ");
   final String icon;
 
-  _DietGoalOption({required this.title, required this.icon});
+  _DietGoalOption({required this.goalTarget, required this.icon});
 
   bool operator ==(o) =>
       o is _DietGoalOption && title == o.title && icon == o.icon;
   int get hashCode => int.parse(title.characters.last);
 }
 
-class SetupGoalStepTwoViewModel extends BaseViewModel {
+class SetupGoalStepTwoViewModel extends ReactiveViewModel {
+  final GoalCreationStepsService _goalCreationStepsService =
+      locator<GoalCreationStepsService>();
+
+  Goal get goal => _goalCreationStepsService.goal;
+
   List<_DietGoalOption> get dietOptions => [
-        _DietGoalOption(title: "Weight Loss", icon: Images.icWeightLoss),
-        _DietGoalOption(title: "Gain Weight", icon: Images.icWeightGain),
-        _DietGoalOption(title: "Maintain", icon: Images.icWeightMaintain),
+        _DietGoalOption(
+            goalTarget: GoalTarget.Weight_Loss, icon: Images.icWeightLoss),
+        _DietGoalOption(
+            goalTarget: GoalTarget.Gain_Weight, icon: Images.icWeightGain),
+        _DietGoalOption(
+            goalTarget: GoalTarget.Maintain, icon: Images.icWeightMaintain),
       ];
 
-  int _selectedDietGoalIndex = 0;
-  int get selectedDietGoalIndex => this._selectedDietGoalIndex;
-  set selectedDietGoalIndex(int value) {
-    this._selectedDietGoalIndex = value;
-    notifyListeners();
-  }
-
-  _DietGoalOption get selectedDietOption => dietOptions[selectedDietGoalIndex];
+  List<PreferredDiet> get preferredEatingDiet => PreferredDiet.values;
 
   final TextEditingController heightTextFieldController =
-      TextEditingController(text: "5.11");
+      TextEditingController();
   final TextEditingController weightTextFieldController =
-      TextEditingController(text: "80");
+      TextEditingController();
   final TextEditingController lowCarbsTextFieldController =
-      TextEditingController(text: "low carbs");
+      TextEditingController(text: describeEnum(PreferredDiet.values.first));
 
   void onContinue() => NavService.getStarted();
 
-  void onDietGoalTap(_DietGoalOption option) {
-    selectedDietGoalIndex = dietOptions.indexOf(option);
+  init() {
+    if (goal.targetHeightFt.value > 0) {
+      heightTextFieldController.text =
+          "${goal.heightFt.value > 0 ? "${goal.targetHeightFt.value}.${goal.targetHeightIn.value}" : ''}";
+    }
+    weightTextFieldController.text =
+        "${goal.targetWeight.value > 0 ? goal.targetWeight.value.round() : ''}";
+    lowCarbsTextFieldController.text =
+        "${describeEnum(PreferredDiet.values.first)}";
+  }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices =>
+      [_goalCreationStepsService];
+
+  void onChangeWeight(String value) {
+    goal.targetWeight.value = value.isNotEmpty ? double.parse(value) : 0;
+    if (goal.targetWeight.value == goal.weight.value) {
+      goal.goalTarget.value = GoalTarget.Maintain;
+    } else if (goal.targetWeight.value > goal.weight.value) {
+      goal.goalTarget.value = GoalTarget.Gain_Weight;
+    } else if (goal.targetWeight.value < goal.weight.value) {
+      goal.goalTarget.value = GoalTarget.Weight_Loss;
+    }
+  }
+
+  void onPreferredDietSelect(int value) {
+    goal.preferredDiet.value = preferredEatingDiet[value];
+  }
+
+  onChangeMeal(double mealCount) {
+    goal.meals.value = mealCount.round();
+    goal.alarmData.clear();
+    goal.alarmData.addAll(Goal.mealSets[goal.meals.value] ?? []);
   }
 }

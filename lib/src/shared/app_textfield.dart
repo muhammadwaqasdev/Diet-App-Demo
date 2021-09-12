@@ -30,6 +30,7 @@ class AppTextField extends StatefulWidget {
   final Color? textColor;
   final bool readonlyEffect;
   final ValueChanged<String>? onChange;
+  final double rightSpacing;
 
   AppTextField(
       {this.controller,
@@ -52,6 +53,7 @@ class AppTextField extends StatefulWidget {
       this.defaultValidators = const [],
       this.textInputAction = TextInputAction.done,
       this.formatters = const [],
+      this.rightSpacing = 0,
       this.prefixIcon,
       this.textColor,
       this.onChange});
@@ -141,9 +143,10 @@ class _AppTextFieldState extends State<AppTextField> {
                         .contains(DefaultValidators.VALID_PASSWORD),
                     decoration: InputDecoration(
                       isDense: true,
-                      contentPadding: EdgeInsets.zero,
+                      contentPadding: widget.suffixIcon == null
+                          ? EdgeInsets.zero
+                          : EdgeInsets.only(right: widget.rightSpacing),
                       border: InputBorder.none,
-                      suffixIcon: widget.suffixIcon,
                       prefix: _getPrefixIcon(),
                       hintText: widget.placeholder ?? widget.hint,
                       hintStyle: context
@@ -157,6 +160,7 @@ class _AppTextFieldState extends State<AppTextField> {
             ),
           ],
         ),
+        if (widget.suffixIcon != null) widget.suffixIcon!,
         if (widget.readOnly)
           Positioned(
             left: 0,

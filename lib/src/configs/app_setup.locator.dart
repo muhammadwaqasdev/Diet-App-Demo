@@ -12,9 +12,10 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../services/local/auth_service.dart';
 import '../services/local/connectivity_service.dart';
+import '../services/local/goal_creation_steps_service.dart';
 import '../services/local/keyboard_service.dart';
 import '../services/remote/api_service.dart';
-import '../services/remote/firebase_service.dart';
+import '../services/remote/firebase_auth_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -32,5 +33,6 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => ConnectivityService());
   locator.registerLazySingleton(() => KeyboardService());
   locator.registerLazySingleton(() => ApiService());
-  locator.registerLazySingleton(() => FirebaseService());
+  locator.registerLazySingleton(() => FirebaseAuthService());
+  locator.registerLazySingleton(() => GoalCreationStepsService());
 }

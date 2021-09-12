@@ -19,7 +19,14 @@ class AppView extends StatelessWidget {
       theme: AppTheme.get(),
       builder: (context, child) {
         return Stack(
-          children: [child!],
+          children: [
+            NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (overscroll) {
+                  overscroll.disallowGlow();
+                  return true;
+                },
+                child: child!),
+          ],
         );
       },
     );

@@ -39,7 +39,7 @@ class SignUpView extends StatelessWidget {
                             Text("Sign Up",
                                 style: context.textTheme().headline2,
                                 textAlign: TextAlign.center),
-                            Text("Login to continue app",
+                            Text("Sign Up to continue app",
                                 style: context.textTheme().subtitle2,
                                 textAlign: TextAlign.center),
                           ],

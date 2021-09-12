@@ -8,12 +8,11 @@ import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:diet_app/src/views/dashboard/widgets/daily_stat_item.dart';
 import 'package:diet_app/src/views/dashboard/widgets/dashboard_drawer.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/views/dashboard/widgets/dashboard_header.dart';
 import 'package:diet_app/src/views/dashboard/widgets/dashboard_section_title.dart';
 import 'package:diet_app/src/views/dashboard/widgets/todays_meals/todays_meal_item.dart';
 import 'package:stacked/stacked.dart';
-
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'dashboard_view_model.dart';
 
 class DashboardView extends StatelessWidget {
@@ -24,6 +23,7 @@ class DashboardView extends StatelessWidget {
           controller: model.drawerContainerController,
           drawer: DashboardDrawer(
             onDrawerCloseTap: model.drawerContainerController.toggleDrawer,
+            isGoalSetup: true,
           ),
           body: Scaffold(
             appBar: DashboardAppBar(

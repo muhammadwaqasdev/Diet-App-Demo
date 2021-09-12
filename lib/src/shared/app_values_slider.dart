@@ -9,9 +9,13 @@ class AppValuesSlider extends StatelessWidget {
   final String label;
   final String subLabel;
   final bool shouldRound;
+  final ValueChanged<double> onChanged;
+  final double value;
 
   const AppValuesSlider(
       {required this.label,
+      required this.value,
+      required this.onChanged,
       this.subLabel = "",
       required this.values,
       this.shouldRound = true});
@@ -56,48 +60,26 @@ class AppValuesSlider extends StatelessWidget {
                 ),
               ),
             ),
-            FlutterSlider(
-              min: values.first,
-              max: values.last,
-              values: values,
-              selectByTap: true,
-              handler: FlutterSliderHandler(
-                decoration: BoxDecoration(),
-                child: Material(
-                  type: MaterialType.canvas,
-                  elevation: 3,
-                  borderRadius: BorderRadius.circular(16 / 2),
-                  child: Container(
-                    width: 16,
-                    height: 16,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16 / 2),
-                      color: AppColors.primary,
-                      border: Border.all(width: 2.0, color: AppColors.primary),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0x29000000),
-                          offset: Offset(0, 3),
-                          blurRadius: 9,
-                        ),
-                      ],
-                    ),
+            Transform.scale(
+              scale: 1.1,
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    trackHeight: 7,
+                    inactiveTrackColor: Colors.black12,
+                    activeTrackColor: AppColors.activeLightGreen,
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6.0),
+                  ),
+                  child: Slider(
+                    min: values.first,
+                    max: values.last,
+                    value: value,
+                    onChanged: onChanged,
                   ),
                 ),
               ),
-              trackBar: FlutterSliderTrackBar(
-                activeTrackBarDraggable: true,
-                activeTrackBarHeight: 10,
-                inactiveTrackBarHeight: 10,
-                inactiveTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.black12,
-                ),
-                activeTrackBar: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: AppColors.activeLightGreen),
-              ),
-            )
+            ),
           ],
         ),
       ],

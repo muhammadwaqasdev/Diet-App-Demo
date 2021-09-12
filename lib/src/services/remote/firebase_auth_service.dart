@@ -1,25 +1,18 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/app_user.dart';
 import 'package:diet_app/src/services/local/auth_service.dart';
+import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-class FireDatabase {
-  static CollectionReference<AppUser> get users =>
-      FirebaseFirestore.instance.collection('users').withConverter<AppUser>(
-            fromFirestore: (snapshot, _) =>
-                AppUser.fromJson(snapshot.data() ?? {}),
-            toFirestore: (movie, _) => movie.toJson(),
-          );
-}
+import 'firestore_service.dart';
 
-class FirebaseService {
+class FirebaseAuthService {
   FirebaseService() {
     Firebase.initializeApp();
   }
@@ -28,7 +21,7 @@ class FirebaseService {
     await Firebase.initializeApp();
     if (FirebaseAuth.instance.currentUser != null) {
       try {
-        var snap = (await FireDatabase.users
+        var snap = (await FirestoreService.users
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .get());
         if (!snap.exists) {
@@ -59,7 +52,7 @@ class FirebaseService {
       }
       userCredential.user!.updateDisplayName(appUser.fullName);
       appUser.id = userCredential.user!.uid;
-      FireDatabase.users.doc(userCredential.user?.uid).set(appUser);
+      FirestoreService.users.doc(userCredential.user?.uid).set(appUser);
       await setupAppUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -90,14 +83,15 @@ class FirebaseService {
 
   Future<void> setupAppUser() async {
     try {
-      var snap = (await FireDatabase.users
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get());
-      if (!snap.exists) {
-        return;
+      var isLoggedIn = await init();
+      if (isLoggedIn) {
+        var isLoaded = await (locator<GoalCreationStepsService>()).fetch();
+        if (!isLoaded) {
+          NavService.getStarted(shouldClear: true);
+        } else {
+          NavService.dashboard();
+        }
       }
-      locator<AuthService>().user = snap.data();
-      NavService.getStarted(shouldClear: true);
     } catch (e) {
       print(e);
     }

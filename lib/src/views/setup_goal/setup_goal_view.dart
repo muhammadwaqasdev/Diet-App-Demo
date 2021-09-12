@@ -60,12 +60,28 @@ class SetupGoalView extends StatelessWidget {
                     ),
                   ),
                   // Steps goes here
-                  AppElevatedButton.withIcon(
-                    child: model.currentStep.buttonLabel,
-                    onTap: model.onStepSubmit,
-                    icon: Image.asset(Images.icRightArrow),
-                  ),
-                  PageEndSpacer()
+                  if (!model.isKeyboardVisible) ...[
+                    Row(
+                      children: [
+                        if (model.currentGoalStepIndex > 0) ...[
+                          Expanded(
+                            child: AppElevatedButton.flat(
+                                child: "BACK", onTap: model.onStepBack),
+                          ),
+                          HorizontalSpacing(10)
+                        ],
+                        Expanded(
+                          child: AppElevatedButton.withIcon(
+                            isEnabled: model.currentStep.validate(model.goal),
+                            child: model.currentStep.buttonLabel,
+                            onTap: () => model.onStepSubmit(context),
+                            icon: Image.asset(Images.icRightArrow),
+                          ),
+                        ),
+                      ],
+                    ),
+                    PageEndSpacer()
+                  ]
                 ],
               ),
             ),

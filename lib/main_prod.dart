@@ -4,7 +4,6 @@ import 'package:diet_app/src/app/app_view.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/services/local/flavor_service.dart';
 import 'package:package_info/package_info.dart';
-
 import 'src/configs/app_init.dart';
 
 void main() async {

@@ -22,9 +22,9 @@ class FlavorService {
   static String get getBaseApi {
     // return prod url
     if (env == Env.prod) {
-      return "";
+      return "http://142.93.215.75/diet-app/api";
     }
     // return url other than prod one
-    return "";
+    return "http://142.93.215.75/diet-app/api";
   }
 }

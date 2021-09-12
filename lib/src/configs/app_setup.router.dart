@@ -8,6 +8,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import '../views/achievements/achievements_view.dart';
 import '../views/dashboard/dashboard_view.dart';
@@ -55,43 +56,43 @@ class StackedRouter extends RouterBase {
       var args = data.getArgs<SplashViewArguments>(
         orElse: () => SplashViewArguments(),
       );
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => SplashView(isInit: args.isInit),
         settings: data,
       );
     },
     SignInView: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => SignInView(),
         settings: data,
       );
     },
     SignUpView: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => SignUpView(),
         settings: data,
       );
     },
     GetStartedView: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => GetStartedView(),
         settings: data,
       );
     },
     SetupGoalView: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => SetupGoalView(),
         settings: data,
       );
     },
     DashboardView: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => DashboardView(),
         settings: data,
       );
     },
     AchievementsView: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => AchievementsView(),
         settings: data,
       );
@@ -106,5 +107,5 @@ class StackedRouter extends RouterBase {
 /// SplashView arguments holder class
 class SplashViewArguments {
   final bool isInit;
-  SplashViewArguments({this.isInit = false});
+  SplashViewArguments({this.isInit = true});
 }

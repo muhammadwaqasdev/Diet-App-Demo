@@ -1,5 +1,5 @@
 import 'package:diet_app/src/configs/app_setup.locator.dart';
-import 'package:diet_app/src/services/remote/firebase_service.dart';
+import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
@@ -26,7 +26,7 @@ class DashboardDrawer extends StatelessWidget {
               icon: Images.icDrawerClose,
               size: Size(23, 23),
               onTap: this.onDrawerCloseTap),
-          VerticalSpacing(140),
+          Spacer(),
           if (this.isGoalSetup)
             _iconControl(context,
                 icon: Images.icHome,
@@ -48,7 +48,7 @@ class DashboardDrawer extends StatelessWidget {
           _iconControl(context,
               icon: Images.icLogout,
               size: Size(41, 41),
-              onTap: locator<FirebaseService>().signOut),
+              onTap: locator<FirebaseAuthService>().signOut),
         ],
       ),
     );
@@ -61,7 +61,8 @@ class DashboardDrawer extends StatelessWidget {
           color: Colors.transparent,
           onTap: onTap,
           child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30),
+              padding: EdgeInsets.symmetric(
+                  vertical: context.screenSize().height < 600 ? 20 : 30),
               width: 100,
               child: Image.asset(
                 icon,

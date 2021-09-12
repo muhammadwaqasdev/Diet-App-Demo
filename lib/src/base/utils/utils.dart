@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 extension UIExt on BuildContext {
@@ -50,5 +52,51 @@ extension SnackExt on SnackbarService {
         variant: SnackbarType.ERROR,
         duration: duration,
         onTap: NavService.pop);
+  }
+}
+
+double calculateTimeValue(TimeOfDay start, TimeOfDay end) =>
+    (((end.hour) + (end.minute / 60)) - (start.hour + (start.minute / 60)));
+
+List<TimeOfDay> buildTimeSlots(
+    double sectionSize, TimeOfDay start, TimeOfDay end) {
+  var totalTimeVal = calculateTimeValue(start, end);
+  sectionSize += 0.5;
+  var intervalValue = totalTimeVal / (sectionSize);
+  List<TimeOfDay> splitValues = [];
+  List<String> splittedIntervalValue = "$intervalValue".split(".");
+  int intervalHours = int.parse(splittedIntervalValue.first);
+  var intervalMinutes = double.parse("0." + splittedIntervalValue.last) * 60;
+  for (var i = 0; i < sectionSize; i++) {
+    splitValues.add(TimeOfDay(
+        hour: (splitValues.isNotEmpty ? splitValues.last.hour : start.hour) +
+            intervalHours,
+        minute: intervalMinutes.round()));
+  }
+  /*
+  var finalMins = finalValue - finalValue.truncate();
+  int finalHour =
+      int.parse("$finalValue".split(".").first) + splitValues.last.hour;
+
+  splitValues.add(TimeOfDay(hour: finalHour, minute: (finalMins * 60).round()));
+  */
+  return splitValues;
+}
+
+heightValueOnChange(
+    ReactiveValue<int> heightFt, ReactiveValue<int> heightIn, String value) {
+  if (value.isNotEmpty) {
+    if (value.contains(".")) {
+      heightFt.value = int.parse(value.split(".").first);
+      if (value.split(".").last.isNotEmpty) {
+        heightIn.value = int.parse(value.split(".").last);
+      }
+    } else {
+      heightFt.value = int.parse(value);
+      heightIn.value = 0;
+    }
+  } else {
+    heightFt.value = 0;
+    heightIn.value = 0;
   }
 }

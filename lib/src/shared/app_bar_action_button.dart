@@ -1,4 +1,3 @@
-import 'package:adobe_xd/adobe_xd.dart';
 import 'package:flutter/material.dart';
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';

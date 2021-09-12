@@ -1,3 +1,5 @@
+import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
@@ -12,21 +14,31 @@ import 'setup_goal_step_one_view_model.dart';
 class SetupGoalStepOneView extends GoalStep {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SetupGoalStepOneViewModel>.nonReactive(
+    return ViewModelBuilder<SetupGoalStepOneViewModel>.reactive(
       builder: (context, model, child) => ListView(
         padding: EdgeInsets.only(bottom: 50),
         children: [
           AppTextField(
-            controller: model.heightTextFieldController,
-            label: "Height",
+            keyboardType:
+                TextInputType.numberWithOptions(decimal: true, signed: true),
+            onChange: (value) => heightValueOnChange(
+                model.goal.heightFt, model.goal.heightIn, value),
+            controller: model.heightTextCtrl,
+            label: "Height (ft)",
           ),
           VerticalSpacing(25),
           AppTextField(
-            controller: model.weightTextFieldController,
-            label: "Weight",
+            keyboardType:
+                TextInputType.numberWithOptions(decimal: true, signed: true),
+            onChange: (value) => model.goal.weight.value =
+                value.isNotEmpty ? double.parse(value) : 0,
+            controller: model.weightTextCtrl,
+            label: "Weight (lbs)",
           ),
           VerticalSpacing(20),
           AppValuesSlider(
+              onChanged: (value) => model.goal.activityLevel.value = value,
+              value: model.goal.activityLevel.value,
               label: "Activity Level",
               values: [0.8, 1, 1.2, 1.35, 1.5],
               shouldRound: false),
@@ -43,15 +55,22 @@ class SetupGoalStepOneView extends GoalStep {
             ]),
             child: Column(
               children: [
-                Text('2900', style: context.textTheme().headline1),
-                Text('Calculated Calories',
-                    style: context.textTheme().subtitle1),
+                Text(
+                    (model.goal.heightFt.value > 0 &&
+                            model.goal.weight.value > 0)
+                        ? '${model.goal.calculatedCalories.round()}'
+                        : "0",
+                    style: context.textTheme().headline1),
+                Text('Basal Metabolic Rate (BMR)',
+                    style: context.textTheme().subtitle1,
+                    textAlign: TextAlign.center),
               ],
             ),
           ),
         ],
       ),
       viewModelBuilder: () => SetupGoalStepOneViewModel(),
+      onModelReady: (model) => model.init(),
     );
   }
 
@@ -63,4 +82,7 @@ class SetupGoalStepOneView extends GoalStep {
 
   @override
   String get title => "Calculate Calories";
+
+  @override
+  bool validate(Goal goal) => goal.heightFt.value > 0 && goal.weight.value > 0;
 }

@@ -1,9 +1,10 @@
+import 'package:diet_app/src/models/goal.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
 import 'package:diet_app/src/shared/app_values_slider.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
-import 'package:diet_app/src/shared/ink_touch.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:diet_app/src/views/setup_goal/goal_steps/base/goal_step.dart';
@@ -25,26 +26,30 @@ class SetupGoalStepTwoView extends GoalStep {
               children: model.dietOptions
                   .map((dietOption) => Expanded(
                         child: GestureDetector(
-                          onTap: () => model.onDietGoalTap(dietOption),
+                          onTap: () => model.goal.goalTarget.value =
+                              dietOption.goalTarget,
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 250),
                             margin: EdgeInsets.symmetric(horizontal: 5),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 17),
                             decoration: BoxDecoration(
-                              color: model.selectedDietOption == dietOption
+                              color: model.goal.goalTarget.value ==
+                                      dietOption.goalTarget
                                   ? AppColors.activeLightGreen
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(20.0),
                               border: Border.all(
                                   width: 1.0,
-                                  color: model.selectedDietOption == dietOption
+                                  color: model.goal.goalTarget.value ==
+                                          dietOption.goalTarget
                                       ? AppColors.activeBorderLightGreen
                                       : AppColors.greyBorder),
                               boxShadow: [
-                                if (dietOption == model.selectedDietOption)
+                                if (model.goal.goalTarget.value ==
+                                    dietOption.goalTarget)
                                   BoxShadow(
-                                    color: const Color(0xffeafab0),
+                                    color: AppColors.activeLightGreen,
                                     offset: Offset(0, 7),
                                     blurRadius: 16,
                                   ),
@@ -73,28 +78,67 @@ class SetupGoalStepTwoView extends GoalStep {
           ),
           VerticalSpacing(25),
           AppTextField(
+            keyboardType:
+                TextInputType.numberWithOptions(decimal: true, signed: true),
+            onChange: (value) => heightValueOnChange(
+                model.goal.targetHeightFt, model.goal.targetHeightIn, value),
             controller: model.heightTextFieldController,
-            label: "Height",
+            label: "Target Height (ft)",
           ),
           VerticalSpacing(25),
           AppTextField(
+            keyboardType:
+                TextInputType.numberWithOptions(decimal: true, signed: true),
+            onChange: model.onChangeWeight,
             controller: model.weightTextFieldController,
-            label: "Weight",
+            label: "Target Weight (lbs)",
           ),
           VerticalSpacing(20),
           AppValuesSlider(
+              onChanged: (value) =>
+                  model.goal.targetSleep.value = value.round(),
+              value: model.goal.targetSleep.value.toDouble(),
               label: "How much sleep",
               subLabel: "hrs",
               values: [4, 5, 6, 7, 8, 9]),
           VerticalSpacing(5),
           AppValuesSlider(
+              onChanged: (value) =>
+                  model.goal.targetStress.value = value.round(),
+              value: model.goal.targetStress.value.toDouble(),
               label: "Stress level",
               subLabel: "hrs",
               values: List.generate(10, (index) => index + 1)),
           VerticalSpacing(5),
-          AppTextField(
-            controller: model.lowCarbsTextFieldController,
-            label: "low carbs",
+          AppValuesSlider(
+              onChanged: model.onChangeMeal,
+              value: model.goal.meals.value.toDouble(),
+              label: "Meals",
+              subLabel: "per day",
+              values: List.generate(3, (index) => index + 3)),
+          VerticalSpacing(5),
+          PopupMenuButton(
+            onSelected: model.onPreferredDietSelect,
+            itemBuilder: (ctx) => model.preferredEatingDiet
+                .map((preferredDiet) => PopupMenuItem(
+                      child: Text(
+                          describeEnum(preferredDiet).replaceAll("_", " "),
+                          style: context
+                              .textTheme()
+                              .subtitle2
+                              ?.copyWith(fontWeight: FontWeight.w300)),
+                      value: model.preferredEatingDiet.indexOf(preferredDiet),
+                    ))
+                .toList(),
+            child: AppTextField(
+              readOnly: true,
+              readonlyEffect: false,
+              controller: TextEditingController(
+                  text: describeEnum(model.goal.preferredDiet.value)
+                      .replaceAll("_", " ")),
+              label: "Preferred Eating Diet",
+              defaultValidators: [DefaultValidators.REQUIRED],
+            ),
           ),
           VerticalSpacing(25),
           Container(
@@ -109,7 +153,8 @@ class SetupGoalStepTwoView extends GoalStep {
             ]),
             child: Column(
               children: [
-                Text('4900', style: context.textTheme().headline1),
+                Text('${model.goal.caloriesIntake.round()}',
+                    style: context.textTheme().headline1),
                 Text('Calories Intake', style: context.textTheme().subtitle1),
               ],
             ),
@@ -117,6 +162,7 @@ class SetupGoalStepTwoView extends GoalStep {
         ],
       ),
       viewModelBuilder: () => SetupGoalStepTwoViewModel(),
+      onModelReady: (model) => model.init(),
     );
   }
 
@@ -128,4 +174,8 @@ class SetupGoalStepTwoView extends GoalStep {
 
   @override
   String get title => "Your Target";
+
+  @override
+  bool validate(Goal goal) =>
+      goal.targetHeightFt.value > 0 && goal.targetWeight.value > 0;
 }

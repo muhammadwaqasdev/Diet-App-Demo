@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
+enum Gender { MALE, FEMALE }
 
 class AppUser {
   String? id;
@@ -8,6 +7,10 @@ class AppUser {
   String? displayImageUrl;
   String? gender;
   DateTime? dateOfBirth;
+
+  Gender get userGender => gender == "Male" ? Gender.MALE : Gender.FEMALE;
+
+  double get age => 31;//DateTime.now().difference(dateOfBirth!).inDays / 365;
 
   AppUser(
       {this.id,
