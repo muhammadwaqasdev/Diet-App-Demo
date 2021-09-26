@@ -10,7 +10,7 @@ class AppUser {
 
   Gender get userGender => gender == "Male" ? Gender.MALE : Gender.FEMALE;
 
-  double get age => 31;//DateTime.now().difference(dateOfBirth!).inDays / 365;
+  double get age => 31; //DateTime.now().difference(dateOfBirth!).inDays / 365;
 
   AppUser(
       {this.id,

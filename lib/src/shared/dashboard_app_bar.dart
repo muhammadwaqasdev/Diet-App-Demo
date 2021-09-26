@@ -1,9 +1,9 @@
+import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:diet_app/src/shared/load_image.dart';
-import 'package:flutter/material.dart';
-import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class DashboardAppBar extends PreferredSize {
   final GestureTapCallback? onDrawerIconTap;

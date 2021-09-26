@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/shared/app_progress_indicator.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
 
 class _ImagePickOptions {
   static const String camera = 'Camera';

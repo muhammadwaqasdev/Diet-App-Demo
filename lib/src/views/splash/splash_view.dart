@@ -1,14 +1,15 @@
-import 'package:diet_app/src/shared/app_progress_indicator.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:diet_app/generated/images.asset.dart';
-import 'package:diet_app/src/shared/app_elevated_button.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/shared/app_elevated_button.dart';
+import 'package:diet_app/src/shared/app_progress_indicator.dart';
 import 'package:diet_app/src/shared/empty_app_bar.dart';
 import 'package:diet_app/src/shared/spacing.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import 'splash_view_model.dart';
 
 class SplashView extends StatefulWidget {

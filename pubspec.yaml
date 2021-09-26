@@ -48,10 +48,30 @@ dependencies:
   cloud_firestore: "^2.4.0"
   firebase_storage: "^10.0.1"
 
+  # Local DB
+  floor: ^1.2.0
+
+  #alarm
+  flutter_local_notifications: ^8.2.0 
+
+  # debugging
+  flutter_stetho:
+    git:
+      url: git://github.com/jasonlewicki/flutter_stetho.git
+      ref: master
+  #flutter_flipperkit: ^0.0.27
+  #flipperkit_sqflite_driver:
+    # git:
+    #   url: https://github.com/ishaquehassan/flutter_flipperkit_plugins
+    #   ref: null_safety    #branch name
+    #   path: packages/flipperkit_sqflite_driver
+
 dev_dependencies:
   assets_indexer: ^0.0.10
   stacked_generator: ^0.5.0
+  floor_generator: ^1.2.0
   build_runner: ^2.1.2
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

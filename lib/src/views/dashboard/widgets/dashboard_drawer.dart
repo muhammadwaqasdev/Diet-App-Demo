@@ -1,12 +1,11 @@
-import 'package:diet_app/src/configs/app_setup.locator.dart';
-import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
-import 'package:flutter/material.dart';
 import 'package:diet_app/generated/images.asset.dart';
-import 'package:diet_app/src/services/local/navigation_service.dart';
-import 'package:diet_app/src/shared/ink_touch.dart';
-import 'package:diet_app/src/shared/spacing.dart';
-import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/configs/app_setup.locator.dart';
+import 'package:diet_app/src/services/local/navigation_service.dart';
+import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
+import 'package:diet_app/src/shared/ink_touch.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class DashboardDrawer extends StatelessWidget {
   final Function? onDrawerCloseTap;

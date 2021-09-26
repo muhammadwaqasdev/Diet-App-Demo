@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 enum DefaultValidators { REQUIRED, VALID_EMAIL, VALID_PASSWORD }
 

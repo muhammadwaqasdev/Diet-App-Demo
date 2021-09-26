@@ -1,9 +1,9 @@
-import 'package:diet_app/src/shared/app_progress_indicator.dart';
-import 'package:flutter/material.dart';
 import 'package:diet_app/generated/images.asset.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/shared/app_progress_indicator.dart';
 import 'package:diet_app/src/shared/ink_touch.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:flutter/material.dart';
 
 class AppElevatedButton extends StatefulWidget {
   final dynamic child;

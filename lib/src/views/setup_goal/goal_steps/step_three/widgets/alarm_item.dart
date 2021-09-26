@@ -1,9 +1,9 @@
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/shared/ink_touch.dart';
+import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
-import 'package:diet_app/src/styles/app_colors.dart';
 
 class AlarmItem extends StatelessWidget {
   final AlarmData alarmData;

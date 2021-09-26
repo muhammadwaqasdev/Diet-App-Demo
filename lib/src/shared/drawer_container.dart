@@ -16,12 +16,14 @@ class DrawerContainer extends StatefulWidget {
   final Duration animationDuration;
   final DrawerGestureMode gestureMode;
   final Curve animationCurve;
+  final bool enableSwipe;
 
   DrawerContainer(
       {required this.body,
       required this.drawer,
       this.controller,
       this.width = 100,
+      this.enableSwipe = false,
       this.animationDuration = const Duration(milliseconds: 250),
       this.animationCurve = Curves.easeInOutQuint,
       this.gestureMode = DrawerGestureMode.OPEN_AND_CLOSE});
@@ -34,6 +36,7 @@ class _DrawerContainerState extends State<DrawerContainer>
     with TickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
+  late Animation<double> animationDrawer;
 
   @override
   void initState() {
@@ -46,32 +49,39 @@ class _DrawerContainerState extends State<DrawerContainer>
     controller =
         new AnimationController(duration: widget.animationDuration, vsync: this)
           ..addListener(() => setState(() {}));
-    animation = Tween(begin: -widget.width, end: 0.0).animate(
+    animation = Tween(begin: 0.0, end: -widget.width).animate(
+        CurvedAnimation(parent: controller, curve: widget.animationCurve));
+    animationDrawer = Tween(begin: -widget.width, end: 0.0).animate(
         CurvedAnimation(parent: controller, curve: widget.animationCurve));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Transform.translate(
-      offset: Offset(animation.value, 0),
-      child: SizedBox(
-        width: context.screenSize().width + widget.width,
-        child: Stack(
-          children: [
-            Material(
-                child: SizedBox(child: widget.drawer, width: widget.width)),
-            GestureDetector(
+    var content =SizedBox(
+    width: context.screenSize().width,
+    height: context.screenSize().height,
+    child: widget.body);
+    return SizedBox(
+      width: context.screenSize().width + widget.width,
+      height: context.screenSize().height,
+      child: Stack(
+        children: [
+          Positioned(
+            left: animationDrawer.value,
+            child: Material(
+                child: SizedBox(child: widget.drawer, width: widget.width,height: context.screenSize().height,)),
+          ),
+          if(widget.enableSwipe)
+          Positioned(
+            right: animation.value,
+            child: GestureDetector(
               onHorizontalDragUpdate: onSwipe,
-              child: Transform.translate(
-                offset: Offset(widget.width, 0),
-                child: SizedBox(
-                    width: context.screenSize().width,
-                    height: context.screenSize().height,
-                    child: widget.body),
-              ),
+              child: content,
             ),
-          ],
-        ),
+          ),
+          if(!widget.enableSwipe)
+          Positioned(child: content,right: animation.value)
+        ],
       ),
     );
   }
@@ -94,7 +104,7 @@ class _DrawerContainerState extends State<DrawerContainer>
   void setupDrawerController() {
     if (widget.controller != null) {
       widget.controller!.toggleDrawer = () =>
-          (animation.value == 0) ? controller.reverse() : controller.forward();
+          (animation.value < 0) ? controller.reverse() : controller.forward();
     }
   }
 }

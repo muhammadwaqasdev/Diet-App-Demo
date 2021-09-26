@@ -14,6 +14,8 @@ import '../services/local/auth_service.dart';
 import '../services/local/connectivity_service.dart';
 import '../services/local/goal_creation_steps_service.dart';
 import '../services/local/keyboard_service.dart';
+import '../services/local/local_database_service.dart';
+import '../services/local/local_notification_service.dart';
 import '../services/remote/api_service.dart';
 import '../services/remote/firebase_auth_service.dart';
 
@@ -25,6 +27,7 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  locator.registerLazySingleton(() => LocalNotificationService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => SnackbarService());
@@ -35,4 +38,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => ApiService());
   locator.registerLazySingleton(() => FirebaseAuthService());
   locator.registerLazySingleton(() => GoalCreationStepsService());
+  locator.registerLazySingleton(() => LocalDatabaseService());
 }

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class GoalStepProgressBar extends StatefulWidget {
   final int progress;
@@ -14,6 +14,7 @@ class GoalStepProgressBar extends StatefulWidget {
       this.color = AppColors.primary,
       this.bgColor = AppColors.greyBgDark,
       this.height = 5});
+
   @override
   _GoalStepProgressBarState createState() => _GoalStepProgressBarState();
 }

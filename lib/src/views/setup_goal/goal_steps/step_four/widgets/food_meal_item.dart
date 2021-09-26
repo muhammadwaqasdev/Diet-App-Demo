@@ -1,8 +1,7 @@
-import 'package:diet_app/src/models/foods_reponse.dart';
-import 'package:diet_app/src/shared/ink_touch.dart';
-import 'package:flutter/material.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/models/foods_reponse.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class FoodMealItem extends StatelessWidget {
   final Food food;

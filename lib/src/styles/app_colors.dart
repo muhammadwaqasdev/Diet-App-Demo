@@ -16,6 +16,7 @@ class AppColors {
   static const Color activeLightGreen = Color(0xFFEAFAB0);
   static const Color activeBorderLightGreen = Color(0xFFE8F9AB);
   static const Color progressGreen = Color(0xFF6CD924);
+  static const Color semiWhite = Color(0xFFF0F4F5);
 
   static const Color protienLightPurple = Color(0xFFF6F8FE);
   static const Color protienPurple = Color(0xFFB9B6FF);

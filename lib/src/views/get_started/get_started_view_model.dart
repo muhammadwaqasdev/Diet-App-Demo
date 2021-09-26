@@ -14,6 +14,7 @@ class GetStartedViewModel extends BaseViewModel {
   CarouselController buttonCarouselController = CarouselController();
 
   int _currentSlideIndex = 0;
+
   int get currentSlideIndex => this._currentSlideIndex;
 
   set currentSlideIndex(int value) {
@@ -29,8 +30,9 @@ class GetStartedViewModel extends BaseViewModel {
     buttonCarouselController.jumpToPage(currentSlideIndex);
   }
 
-  void onSetupGoalTap(){
-    locator<GoalCreationStepsService>().goal.uid = FirebaseAuth.instance.currentUser!.uid;
+  void onSetupGoalTap() {
+    locator<GoalCreationStepsService>().goal.uid =
+        FirebaseAuth.instance.currentUser!.uid;
     NavService.setupGoal();
   }
 }

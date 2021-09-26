@@ -2,6 +2,8 @@ import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:diet_app/src/services/local/connectivity_service.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/keyboard_service.dart';
+import 'package:diet_app/src/services/local/local_database_service.dart';
+import 'package:diet_app/src/services/local/local_notification_service.dart';
 import 'package:diet_app/src/services/remote/api_service.dart';
 import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
 import 'package:diet_app/src/views/achievements/achievements_view.dart';
@@ -24,6 +26,7 @@ import 'package:stacked_services/stacked_services.dart';
   CupertinoRoute(page: AchievementsView),
 ], dependencies: [
   // Lazy singletons
+  LazySingleton(classType: LocalNotificationService),
   LazySingleton(classType: DialogService),
   LazySingleton(classType: BottomSheetService),
   LazySingleton(classType: SnackbarService),
@@ -34,6 +37,7 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: ApiService),
   LazySingleton(classType: FirebaseAuthService),
   LazySingleton(classType: GoalCreationStepsService),
+  LazySingleton(classType: LocalDatabaseService),
 ])
 class AppSetup {
   /** This class has no puporse besides housing the annotation that generates the required functionality **/

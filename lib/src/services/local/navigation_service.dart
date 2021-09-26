@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/configs/app_setup.router.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class NavService {

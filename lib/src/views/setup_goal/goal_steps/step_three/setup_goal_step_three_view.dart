@@ -1,12 +1,10 @@
-import 'dart:math';
-import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:diet_app/src/views/setup_goal/goal_steps/base/goal_step.dart';
 import 'package:diet_app/src/views/setup_goal/goal_steps/step_three/widgets/alarm_item.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import 'setup_goal_step_three_view_model.dart';
 
 class SetupGoalStepThreeView extends GoalStep {

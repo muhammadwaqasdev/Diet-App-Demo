@@ -1,14 +1,15 @@
+import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
+import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:diet_app/generated/images.asset.dart';
 
 class _DietGoalOption {
   final GoalTarget goalTarget;
+
   String get title => describeEnum(goalTarget).replaceAll("_", " ");
   final String icon;
 
@@ -16,6 +17,7 @@ class _DietGoalOption {
 
   bool operator ==(o) =>
       o is _DietGoalOption && title == o.title && icon == o.icon;
+
   int get hashCode => int.parse(title.characters.last);
 }
 

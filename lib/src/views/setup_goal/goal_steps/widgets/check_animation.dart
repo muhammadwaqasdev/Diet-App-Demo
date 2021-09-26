@@ -13,6 +13,7 @@ class _CheckAnimationState extends State<CheckAnimation> {
 
   Artboard? _riveArtboard;
   RiveAnimationController? _controller;
+
   @override
   void initState() {
     super.initState();

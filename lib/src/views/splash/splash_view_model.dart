@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
-import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
 import 'package:stacked/stacked.dart';
@@ -14,6 +13,7 @@ class SplashViewModel extends BaseViewModel {
   CarouselController buttonCarouselController = CarouselController();
 
   int _currentSlideIndex = 0;
+
   int get currentSlideIndex => this._currentSlideIndex;
 
   init() async {

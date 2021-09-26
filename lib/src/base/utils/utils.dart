@@ -1,18 +1,20 @@
-import 'dart:math';
-
-import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 extension UIExt on BuildContext {
   double topSpace() => MediaQuery.of(this).padding.top;
+
   double appBarHeight() => AppBar().preferredSize.height;
+
   Size screenSize() => MediaQuery.of(this).size;
+
   ThemeData appTheme() => Theme.of(this);
+
   TextTheme textTheme() => Theme.of(this).textTheme;
 
   void closeKeyboardIfOpen() {
@@ -24,6 +26,10 @@ extension UIExt on BuildContext {
 
 extension DblExt on double {
   double percent(double percent) => (this / 100) * percent;
+}
+
+extension DateExt on DateTime {
+  String get toFormat1 => DateFormat("MMM d, y").format(this);
 }
 
 enum SnackbarType { ERROR }
@@ -85,17 +91,22 @@ List<TimeOfDay> buildTimeSlots(
 
 heightValueOnChange(
     ReactiveValue<int> heightFt, ReactiveValue<int> heightIn, String value) {
-  if (value.isNotEmpty) {
-    if (value.contains(".")) {
-      heightFt.value = int.parse(value.split(".").first);
-      if (value.split(".").last.isNotEmpty) {
-        heightIn.value = int.parse(value.split(".").last);
+  try {
+    if (value.isNotEmpty) {
+      if (value.contains(".")) {
+        heightFt.value = int.parse(value.split(".").first);
+        if (value.split(".").last.isNotEmpty) {
+          heightIn.value = int.parse(value.split(".").last);
+        }
+      } else {
+        heightFt.value = int.parse(value);
+        heightIn.value = 0;
       }
     } else {
-      heightFt.value = int.parse(value);
+      heightFt.value = 0;
       heightIn.value = 0;
     }
-  } else {
+  } catch (e) {
     heightFt.value = 0;
     heightIn.value = 0;
   }

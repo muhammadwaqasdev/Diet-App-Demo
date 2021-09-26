@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class TodaysMealSubItemModel {
   final String title;

@@ -1,21 +1,22 @@
+import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/services/local/local_notification_service.dart';
 import 'package:diet_app/src/services/remote/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class GoalCreationStepsService with ReactiveServiceMixin {
   ReactiveValue<Goal> _goal = ReactiveValue<Goal>(Goal(
       id: "",
       uid: "",
-      heightFt: ReactiveValue(0),
-      heightIn: ReactiveValue(0),
-      weight: ReactiveValue(0),
+      heightFt: ReactiveValue(5),
+      heightIn: ReactiveValue(1),
+      weight: ReactiveValue(170),
       activityLevel: ReactiveValue(0.8),
       goalTarget: ReactiveValue(GoalTarget.Weight_Loss),
-      targetHeightFt: ReactiveValue(0),
-      targetHeightIn: ReactiveValue(0),
-      targetWeight: ReactiveValue(0),
+      targetHeightFt: ReactiveValue(5),
+      targetHeightIn: ReactiveValue(1),
+      targetWeight: ReactiveValue(180),
       targetSleep: ReactiveValue(4),
       targetStress: ReactiveValue(1),
       meals: ReactiveValue(Goal.mealSets.keys.first),
@@ -24,6 +25,13 @@ class GoalCreationStepsService with ReactiveServiceMixin {
       dislikedMeals: ReactiveList()));
 
   Goal get goal => _goal.value;
+
+  ReactiveValue<int> _loadingStep = ReactiveValue<int>(0);
+  int get loadingStep => _loadingStep.value;
+
+  set loadingStep(int value) {
+    _loadingStep.value = value;
+  }
 
   GoalCreationStepsService() {
     listenToReactiveValues([
@@ -40,6 +48,7 @@ class GoalCreationStepsService with ReactiveServiceMixin {
       _goal.value.targetStress,
       _goal.value.preferredDiet,
       _goal.value.alarmData,
+      _loadingStep
     ]);
   }
 
@@ -58,6 +67,7 @@ class GoalCreationStepsService with ReactiveServiceMixin {
     } else {
       this.goal.id = existingGoal.docs.first.id;
     }
+    await locator<LocalNotificationService>().schedule(goal);
     await FirestoreService.goals.doc(this.goal.id).set(this.goal);
   }
 

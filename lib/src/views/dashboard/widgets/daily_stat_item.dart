@@ -1,11 +1,10 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/shared/goal_step_progress_bar.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class DailyStatItem extends StatelessWidget {
   final Color lightColor;

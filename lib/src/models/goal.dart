@@ -1,10 +1,11 @@
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/app_user.dart';
+import 'package:diet_app/src/models/foods_reponse.dart';
 import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
 
 enum GoalTarget { Weight_Loss, Gain_Weight, Maintain }
 enum PreferredDiet { Keto, Balanced, Low_Carbs }
@@ -13,12 +14,41 @@ enum AlarmType { Wakeup, Breakfast, Lunch, Snacks, Dinner, Sleep }
 class AlarmData {
   final AlarmType type;
   TimeOfDay time;
+  bool isDone;
+  List<Food> foods;
+  int notificationId;
 
-  AlarmData({required this.type, required this.time});
+  int get totalCalories => foods.isEmpty
+      ? 0
+      : foods.map((food) => food.calories).reduce((v1, v2) => v1 + v2);
+
+  int get totalFats => foods.isEmpty
+      ? 0
+      : foods.map((food) => food.fat.round()).reduce((v1, v2) => v1 + v2);
+
+  int get totalProteins => foods.isEmpty
+      ? 0
+      : foods.map((food) => food.protein.round()).reduce((v1, v2) => v1 + v2);
+
+  int get totalCarbs => foods.isEmpty
+      ? 0
+      : foods.map((food) => food.carbs.round()).reduce((v1, v2) => v1 + v2);
+
+  bool get isMeal => (type != AlarmType.Wakeup && type != AlarmType.Sleep);
+
+  AlarmData(
+      {required this.type,
+      required this.time,
+      this.notificationId = 0,
+      this.foods = const [],
+      this.isDone = false});
 
   Map<String, dynamic> toJson() {
     return {
+      "foods": foods.map((e) => e.toJson()).toList(),
       "type": describeEnum(this.type),
+      "notification_id": notificationId,
+      "is_done": isDone,
       "time":
           "${this.time.hour < 10 ? '0${this.time.hour}' : this.time.hour}:${this.time.minute < 10 ? "0${this.time.minute}" : this.time.minute}",
     };
@@ -26,7 +56,16 @@ class AlarmData {
 
   factory AlarmData.fromJson(Map<String, dynamic> json) {
     List<String> timeElements = (json["time"] as String).split(":");
+    List<Food> foods = [];
+    if (json['foods'] != null) {
+      for (var food in (json['foods'] as List<dynamic>)) {
+        foods.add(Food.fromJson(food));
+      }
+    }
     return AlarmData(
+      notificationId: json['notification_id'],
+      isDone: json['is_done'],
+      foods: foods,
       type: AlarmType.values[AlarmType.values
           .map((e) => describeEnum(e))
           .toList()
@@ -36,8 +75,18 @@ class AlarmData {
           minute: int.parse(timeElements.last)),
     );
   }
+
 //
 
+  @override
+  bool operator ==(Object other) =>
+      other is AlarmData &&
+      other.time.hour == time.hour &&
+      other.time.minute == time.minute &&
+      other.type == type;
+
+  @override
+  int get hashCode => time.hour.hashCode;
 }
 
 class Goal {
@@ -101,17 +150,25 @@ class Goal {
   final ReactiveValue<int> meals;
   final ReactiveValue<PreferredDiet> preferredDiet;
   final ReactiveList<AlarmData> alarmData;
+
   AlarmData get wakeUpAlarm =>
       alarmData.where((alarm) => alarm.type == AlarmType.Wakeup).first;
+
   AlarmData get breakfastAlarm =>
       alarmData.where((alarm) => alarm.type == AlarmType.Breakfast).first;
+
   AlarmData get lunchAlarm =>
       alarmData.where((alarm) => alarm.type == AlarmType.Lunch).first;
+
   AlarmData get dinnerAlarm =>
       alarmData.where((alarm) => alarm.type == AlarmType.Dinner).first;
+
   AlarmData get sleepAlarm =>
       alarmData.where((alarm) => alarm.type == AlarmType.Sleep).first;
   final ReactiveList<String> dislikedMeals;
+
+  List<int> get dislikedMealIds =>
+      dislikedMeals.map((mealIdStr) => int.parse(mealIdStr)).toList();
 
   double get finalHeight =>
       ((heightFt.value * 30.48) + (heightIn.value * 2.54));

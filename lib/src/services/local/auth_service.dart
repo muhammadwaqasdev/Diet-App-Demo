@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 
 class AuthService with ReactiveServiceMixin {
   ReactiveValue<AppUser?> _user = ReactiveValue<AppUser?>(null);
+
   AppUser? get user => _user.value;
 
   AuthService() {

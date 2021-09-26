@@ -73,16 +73,32 @@ class Food {
       this.protein = 0});
 
   Food.fromJson(Map<String, dynamic> json) {
+    double per = 0;
+    try {
+      per = double.parse("${json['per']}");
+    } catch (e) {
+      try {
+        per = int.parse("${json['per']}") + 0.0;
+      } catch (e) {
+        String perStr = json['per'];
+        if (perStr.contains("/")) {
+          json['food_name'] += " " + json['per'];
+          per = int.parse(perStr.split("/").first) /
+              int.parse(perStr.split("/").last);
+        }
+      }
+    }
+
     foodDescription = json['food_description'];
     foodId = json['food_id'];
     foodName = json['food_name'];
     foodType = json['food_type'];
     foodUrl = json['food_url'];
-    per = int.parse(json['per']);
-    calories = int.parse(json['calories']);
-    fat = double.parse(json['fat']);
-    carbs = double.parse(json['carbs']);
-    protein = double.parse(json['protein']);
+    per = per;
+    calories = int.parse("${json['calories']}");
+    fat = double.parse("${json['fat']}");
+    carbs = double.parse("${json['carbs']}");
+    protein = double.parse("${json['protein']}");
   }
 
   Map<String, dynamic> toJson() {

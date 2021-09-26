@@ -19,16 +19,19 @@ class SetupGoalStepFourViewModel extends ReactiveViewModel {
   CancelToken? _cancelToken;
 
   List<Food> _foods = [];
+
   List<Food> get foods => this
       ._foods
       .where((element) => !goal.dislikedMeals.contains(element.foodId))
       .toList();
+
   set foods(List<Food> value) {
     this._foods = value;
     notifyListeners();
   }
 
   bool _isSearchBoxEmpty = false;
+
   bool get isSearchBoxEmpty => this._isSearchBoxEmpty;
 
   set isSearchBoxEmpty(bool value) {
@@ -46,9 +49,15 @@ class SetupGoalStepFourViewModel extends ReactiveViewModel {
       isSearchBoxEmpty = value.isEmpty;
       setBusy(true);
 
-      var res = await _apiService.getFoods(value, _cancelToken!);
-      if (res?.foods != null) {
-        foods = res!.foods!.food!;
+      var res = await _apiService.getFoods(value,
+          minCalorieLimit: goal.caloriesIntake / this.goal.meals.value,
+          dislikedMeals:
+              goal.dislikedMeals.map((mealId) => int.parse(mealId)).toList(),
+          cancelToken: _cancelToken!);
+      if (res != null) {
+        foods = res;
+      } else {
+        foods = [];
       }
     } catch (e) {
       print(e);

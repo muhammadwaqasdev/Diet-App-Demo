@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:diet_app/generated/images.asset.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/shared/app_bar_action_button.dart';
 import 'package:diet_app/src/shared/app_elevated_button.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
 import 'package:diet_app/src/shared/empty_app_bar.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import 'sign_in_view_model.dart';

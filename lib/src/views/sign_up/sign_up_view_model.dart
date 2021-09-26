@@ -1,15 +1,15 @@
 import 'dart:io';
 
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/app_user.dart';
+import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
 import 'package:diet_app/src/styles/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SignUpViewModel extends BaseViewModel {
