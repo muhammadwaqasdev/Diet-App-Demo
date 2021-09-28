@@ -13,6 +13,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../views/achievements/achievements_view.dart';
 import '../views/dashboard/dashboard_view.dart';
 import '../views/get_started/get_started_view.dart';
+import '../views/profile/profile_view.dart';
 import '../views/setup_goal/setup_goal_view.dart';
 import '../views/sign_in/sign_in_view.dart';
 import '../views/sign_up/sign_up_view.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String setupGoalView = '/setup-goal-view';
   static const String dashboardView = '/dashboard-view';
   static const String achievementsView = '/achievements-view';
+  static const String profileView = '/profile-view';
   static const all = <String>{
     splashView,
     signInView,
@@ -34,6 +36,7 @@ class Routes {
     setupGoalView,
     dashboardView,
     achievementsView,
+    profileView,
   };
 }
 
@@ -48,6 +51,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.setupGoalView, page: SetupGoalView),
     RouteDef(Routes.dashboardView, page: DashboardView),
     RouteDef(Routes.achievementsView, page: AchievementsView),
+    RouteDef(Routes.profileView, page: ProfileView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -94,6 +98,12 @@ class StackedRouter extends RouterBase {
     AchievementsView: (data) {
       return CupertinoPageRoute<CupertinoRoute<dynamic>>(
         builder: (context) => AchievementsView(),
+        settings: data,
+      );
+    },
+    ProfileView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => ProfileView(),
         settings: data,
       );
     },

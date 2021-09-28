@@ -1,6 +1,7 @@
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/db/daily_intake/daily_intake.dart';
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/local_database_service.dart';
 import 'package:diet_app/src/services/local/local_notification_service.dart';
@@ -24,6 +25,8 @@ class DashboardViewModel extends ReactiveViewModel {
 
   final LocalNotificationService _localNotificationService =
       locator<LocalNotificationService>();
+
+  final AuthService _authService = locator<AuthService>();
 
   Future<DailyIntake> get _dailyIntakeRecord async =>
       (await _localDatabaseService.intakeDao.getAllIntakes())
@@ -62,7 +65,8 @@ class DashboardViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_goalService];
+  List<ReactiveServiceMixin> get reactiveServices =>
+      [_goalService, _authService];
 
   void onMealExpansionTap(TodaysMealItemModel mealModel) async {
     if (expandedAlarm == mealModel.alarm) {

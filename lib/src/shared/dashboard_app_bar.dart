@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 
 class DashboardAppBar extends PreferredSize {
   final GestureTapCallback? onDrawerIconTap;
+  final GestureTapCallback? onProfileIconTap;
 
   const DashboardAppBar({
     this.onDrawerIconTap,
+    this.onProfileIconTap,
   }) : super(
             child: const SizedBox.shrink(),
             preferredSize: const Size.fromHeight(90));
@@ -35,7 +37,7 @@ class DashboardAppBar extends PreferredSize {
           Spacer(),
           if (locator<AuthService>().user != null)
             GestureDetector(
-              onTap: onDrawerIconTap,
+              onTap: onProfileIconTap,
               child: Padding(
                 padding: const EdgeInsets.all(24),
                 child: LoadImage(

@@ -102,4 +102,23 @@ class FirebaseAuthService {
     locator<AuthService>().user = null;
     await NavService.splash(isInit: false);
   }
+
+  updateProfile(AppUser appUser, File? profileImage) async {
+    if (profileImage != null) {
+      var lastImgUrl = appUser.displayImageUrl;
+      var file = await FirebaseStorage.instance
+          .ref(
+              "${DateTime.now().millisecondsSinceEpoch}.${profileImage.path.split("/").last.split(".").last}")
+          .putFile(profileImage);
+      appUser.displayImageUrl = await file.ref.getDownloadURL();
+      //await FirebaseStorage.instance.ref(lastImgUrl).delete();
+    }
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    if (appUser.displayImageUrl != null) {
+      firebaseUser!.updatePhotoURL(appUser.displayImageUrl);
+    }
+    firebaseUser?.updateDisplayName(appUser.fullName);
+    await FirestoreService.users.doc(firebaseUser?.uid).set(appUser);
+    locator<AuthService>().user = appUser;
+  }
 }

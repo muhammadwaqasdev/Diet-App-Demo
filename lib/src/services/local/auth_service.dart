@@ -12,5 +12,6 @@ class AuthService with ReactiveServiceMixin {
 
   set user(AppUser? user) {
     _user.value = user;
+    notifyListeners();
   }
 }

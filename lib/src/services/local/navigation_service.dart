@@ -56,4 +56,7 @@ class NavService {
   static Future<dynamic>? achievements({dynamic arguments}) =>
       _navigationService!
           .navigateTo(Routes.achievementsView, arguments: arguments);
+
+  static Future<dynamic>? profile({dynamic arguments}) =>
+      _navigationService!.navigateTo(Routes.profileView, arguments: arguments);
 }

@@ -9,6 +9,7 @@ import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
 import 'package:diet_app/src/views/achievements/achievements_view.dart';
 import 'package:diet_app/src/views/dashboard/dashboard_view.dart';
 import 'package:diet_app/src/views/get_started/get_started_view.dart';
+import 'package:diet_app/src/views/profile/profile_view.dart';
 import 'package:diet_app/src/views/setup_goal/setup_goal_view.dart';
 import 'package:diet_app/src/views/sign_in/sign_in_view.dart';
 import 'package:diet_app/src/views/sign_up/sign_up_view.dart';
@@ -24,6 +25,7 @@ import 'package:stacked_services/stacked_services.dart';
   CupertinoRoute(page: SetupGoalView),
   CupertinoRoute(page: DashboardView),
   CupertinoRoute(page: AchievementsView),
+  CupertinoRoute(page: ProfileView),
 ], dependencies: [
   // Lazy singletons
   LazySingleton(classType: LocalNotificationService),
