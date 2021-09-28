@@ -10,6 +10,7 @@ import 'package:diet_app/src/views/achievements/achievements_view.dart';
 import 'package:diet_app/src/views/dashboard/dashboard_view.dart';
 import 'package:diet_app/src/views/get_started/get_started_view.dart';
 import 'package:diet_app/src/views/profile/profile_view.dart';
+import 'package:diet_app/src/views/settings/settings_view.dart';
 import 'package:diet_app/src/views/setup_goal/setup_goal_view.dart';
 import 'package:diet_app/src/views/sign_in/sign_in_view.dart';
 import 'package:diet_app/src/views/sign_up/sign_up_view.dart';
@@ -26,6 +27,7 @@ import 'package:stacked_services/stacked_services.dart';
   CupertinoRoute(page: DashboardView),
   CupertinoRoute(page: AchievementsView),
   CupertinoRoute(page: ProfileView),
+  CupertinoRoute(page: SettingsView),
 ], dependencies: [
   // Lazy singletons
   LazySingleton(classType: LocalNotificationService),

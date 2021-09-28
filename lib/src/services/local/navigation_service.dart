@@ -59,4 +59,7 @@ class NavService {
 
   static Future<dynamic>? profile({dynamic arguments}) =>
       _navigationService!.navigateTo(Routes.profileView, arguments: arguments);
+
+  static Future<dynamic>? settings({dynamic arguments}) =>
+      _navigationService!.navigateTo(Routes.settingsView, arguments: arguments);
 }

@@ -121,4 +121,12 @@ class FirebaseAuthService {
     await FirestoreService.users.doc(firebaseUser?.uid).set(appUser);
     locator<AuthService>().user = appUser;
   }
+
+  updatePassword(String email, String oldPassword, String newPassword) async {
+    AuthCredential credential =
+        EmailAuthProvider.credential(email: email, password: oldPassword);
+    await FirebaseAuth.instance.currentUser
+        ?.reauthenticateWithCredential(credential);
+    await FirebaseAuth.instance.currentUser?.updatePassword(newPassword);
+  }
 }

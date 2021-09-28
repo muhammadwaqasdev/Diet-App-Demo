@@ -39,10 +39,20 @@ class DashboardDrawer extends StatelessWidget {
               }
               NavService.achievements();
             }),
-          _iconControl(context,
-              icon: Images.icProfile, size: Size(38, 38), onTap: () {}),
-          _iconControl(context,
-              icon: Images.icSettings, size: Size(41, 41), onTap: () {}),
+          _iconControl(context, icon: Images.icProfile, size: Size(38, 38),
+              onTap: () {
+            if (onDrawerCloseTap != null) {
+              onDrawerCloseTap!();
+            }
+            NavService.profile();
+          }),
+          _iconControl(context, icon: Images.icSettings, size: Size(41, 41),
+              onTap: () {
+            if (onDrawerCloseTap != null) {
+              onDrawerCloseTap!();
+            }
+            NavService.settings();
+          }),
           Spacer(),
           _iconControl(context,
               icon: Images.icLogout,
