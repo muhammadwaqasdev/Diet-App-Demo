@@ -142,14 +142,14 @@ class Goal {
   final ReactiveValue<double> weight;
   final ReactiveValue<double> activityLevel;
   final ReactiveValue<GoalTarget> goalTarget;
-  final ReactiveValue<int> targetHeightFt;
-  final ReactiveValue<int> targetHeightIn;
   final ReactiveValue<double> targetWeight;
   final ReactiveValue<int> targetSleep;
   final ReactiveValue<int> targetStress;
   final ReactiveValue<int> meals;
   final ReactiveValue<PreferredDiet> preferredDiet;
   final ReactiveList<AlarmData> alarmData;
+  final ReactiveValue<double> additionalIntakePercentage;
+  final ReactiveValue<double> lastCalculatedIntake;
 
   AlarmData get wakeUpAlarm =>
       alarmData.where((alarm) => alarm.type == AlarmType.Wakeup).first;
@@ -186,7 +186,7 @@ class Goal {
       (5 * locator<AuthService>().user!.age) -
       161;
 
-  double get calculatedCalories =>
+  double get calculatedBMR =>
       locator<AuthService>().user!.userGender == Gender.MALE
           ? _maleBMR
           : _femaleBMR;
@@ -197,9 +197,27 @@ class Goal {
           ? (_caloriesIntakeBase).percent(15)
           : (_caloriesIntakeBase).percent(-15);
 
-  double get _caloriesIntakeBase => (calculatedCalories * activityLevel.value);
+  double get _caloriesIntakeBase => (calculatedBMR * activityLevel.value);
 
   double get caloriesIntake => _caloriesIntakeBase + _goalCalculatedSumValue;
+
+  double get calculatedCaloriesIntake {
+    var baseIntake = caloriesIntake;
+    if (lastCalculatedIntake.value > 0) {
+      baseIntake = lastCalculatedIntake.value;
+    }
+
+    if (additionalIntakePercentage.value < 0) {
+      lastCalculatedIntake.value =
+          baseIntake - (baseIntake.percent(additionalIntakePercentage.value));
+    } else if (additionalIntakePercentage.value > 0) {
+      lastCalculatedIntake.value =
+          baseIntake + (baseIntake.percent(additionalIntakePercentage.value));
+    } else {
+      lastCalculatedIntake.value = baseIntake;
+    }
+    return lastCalculatedIntake.value;
+  }
 
   Goal(
       {required this.heightFt,
@@ -207,8 +225,6 @@ class Goal {
       required this.weight,
       required this.activityLevel,
       required this.goalTarget,
-      required this.targetHeightFt,
-      required this.targetHeightIn,
       required this.targetWeight,
       required this.targetSleep,
       required this.targetStress,
@@ -217,7 +233,9 @@ class Goal {
       required this.alarmData,
       required this.dislikedMeals,
       required this.uid,
-      required this.id});
+      required this.id,
+      required this.additionalIntakePercentage,
+      required this.lastCalculatedIntake});
 
   Map<String, dynamic> toJson() {
     return {
@@ -228,8 +246,6 @@ class Goal {
       "weight": this.weight.value,
       "activityLevel": this.activityLevel.value,
       "goalTarget": describeEnum(this.goalTarget.value),
-      "targetHeightFt": this.targetHeightFt.value,
-      "targetHeightIn": this.targetHeightIn.value,
       "targetWeight": this.targetWeight.value,
       "targetSleep": this.targetSleep.value,
       "targetStress": this.targetStress.value,
@@ -237,6 +253,7 @@ class Goal {
       "preferredDiet": describeEnum(this.preferredDiet.value),
       "alarmData": this.alarmData.map((alarm) => alarm.toJson()).toList(),
       "dislikedMeals": this.dislikedMeals,
+      "lastCalculatedIntake": this.calculatedCaloriesIntake,
     };
   }
 
@@ -252,8 +269,6 @@ class Goal {
           .map((e) => describeEnum(e))
           .toList()
           .indexOf(json["goalTarget"])]),
-      targetHeightFt: ReactiveValue<int>(json["targetHeightFt"]),
-      targetHeightIn: ReactiveValue<int>(json["targetHeightIn"]),
       targetWeight: ReactiveValue<double>(json["targetWeight"]),
       targetSleep: ReactiveValue<int>(json["targetSleep"]),
       targetStress: ReactiveValue<int>(json["targetStress"]),
@@ -270,6 +285,8 @@ class Goal {
           (json["dislikedMeals"] as List<dynamic>)
               .map((e) => e as String)
               .toList()),
+      additionalIntakePercentage: ReactiveValue(0),
+      lastCalculatedIntake: ReactiveValue<double>(json["lastCalculatedIntake"]),
     );
   }
 //

@@ -64,7 +64,8 @@ class SetupGoalView extends StatelessWidget {
                   if (!model.isKeyboardVisible) ...[
                     Row(
                       children: [
-                        if (model.currentGoalStepIndex > 0 && !model.isBusy) ...[
+                        if (model.currentGoalStepIndex > 0 &&
+                            !model.isBusy) ...[
                           Expanded(
                             child: AppElevatedButton.flat(
                                 child: "BACK", onTap: model.onStepBack),

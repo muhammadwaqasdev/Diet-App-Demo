@@ -13,4 +13,6 @@ class LocalDatabaseService {
         .databaseBuilder(Constants.mainLocalDbName)
         .build();
   }
+
+  Future<void> clearIntakes() async => await intakeDao.clearIntakes();
 }

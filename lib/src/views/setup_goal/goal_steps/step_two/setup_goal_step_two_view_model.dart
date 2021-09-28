@@ -48,10 +48,6 @@ class SetupGoalStepTwoViewModel extends ReactiveViewModel {
   void onContinue() => NavService.getStarted();
 
   init() {
-    if (goal.targetHeightFt.value > 0) {
-      heightTextFieldController.text =
-          "${goal.heightFt.value > 0 ? "${goal.targetHeightFt.value}.${goal.targetHeightIn.value}" : ''}";
-    }
     weightTextFieldController.text =
         "${goal.targetWeight.value > 0 ? goal.targetWeight.value.round() : ''}";
     lowCarbsTextFieldController.text =

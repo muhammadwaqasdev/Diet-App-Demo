@@ -12,15 +12,32 @@ import 'package:diet_app/src/base/utils/utils.dart';
 import 'setup_goal_step_five_view_model.dart';
 
 class SetupGoalStepFiveView extends GoalStep {
+  final bool isForCheckIn;
+
+  SetupGoalStepFiveView({this.isForCheckIn = false});
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SetupGoalStepFiveViewModel>.reactive(
       builder: (context, model, child) => Center(
         child: Column(
-          children:[
-            progressItem(context,"Analyzing goal data",model.goalSaveProgressIndex > 0),
-            ...model.goal.alarmData.where((alarm) => alarm.isMeal).map((type) =>  progressItem(context,"Setting up your ${describeEnum(type.type)} for a week!",model.goalSaveProgressIndex-1 > model.goal.alarmData.indexOf(type))).toList(),
-            progressItem(context,"Finalizing goal setup",model.goalSaveProgressIndex-1 > model.goal.alarmData.where((alarm) => alarm.isMeal).length+1),
+          children: [
+            progressItem(context, "Analyzing goal data",
+                model.goalSaveProgressIndex > 0),
+            ...model.goal.alarmData
+                .where((alarm) => alarm.isMeal)
+                .map((type) => progressItem(
+                    context,
+                    "Setting up your ${describeEnum(type.type)} for a week!",
+                    model.goalSaveProgressIndex - 1 >
+                        model.goal.alarmData.indexOf(type)))
+                .toList(),
+            progressItem(
+                context,
+                "Finalizing goal setup",
+                model.goalSaveProgressIndex - 1 >
+                    model.goal.alarmData.where((alarm) => alarm.isMeal).length +
+                        1),
           ],
         ),
       ),
@@ -28,17 +45,21 @@ class SetupGoalStepFiveView extends GoalStep {
     );
   }
 
-  Widget progressItem(BuildContext context, String label,bool isDone) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 6,horizontal: 10),
-    child: Row(children: [
-      isDone ? Icon(Icons.check_circle,color: Colors.lightGreen,size: 13) : LoadingIndicator(size: 10,strokeWidth: 2),
-      HorizontalSpacing(10),
-      Text(label,style: context
-          .textTheme()
-          .caption
-          ?.copyWith(color: AppColors.primary))
-    ]),
-  );
+  Widget progressItem(BuildContext context, String label, bool isDone) =>
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+        child: Row(children: [
+          isDone
+              ? Icon(Icons.check_circle, color: Colors.lightGreen, size: 13)
+              : LoadingIndicator(size: 10, strokeWidth: 2),
+          HorizontalSpacing(10),
+          Text(label,
+              style: context
+                  .textTheme()
+                  .caption
+                  ?.copyWith(color: AppColors.primary))
+        ]),
+      );
 
   @override
   String get buttonLabel => "NEXT";

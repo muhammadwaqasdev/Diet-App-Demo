@@ -32,6 +32,7 @@ class _SplashViewState extends State<AchievementsView>
   Widget build(BuildContext context) {
     return ViewModelBuilder<AchievementsViewModel>.reactive(
       builder: (viewModelContext, model, child) => Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(color: AppColors.semiWhite),
         body: model.isBusy || model.intakes.isEmpty
@@ -47,7 +48,8 @@ class _SplashViewState extends State<AchievementsView>
                         Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 25),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
                               child: AppBarActionButton(
                                 bgColor: Colors.white,
                               ),
@@ -141,10 +143,12 @@ class _SplashViewState extends State<AchievementsView>
                               ColorWideBox(
                                   color: AppColors.activeLightGreen,
                                   leftTitleSet: ColorBoxTitleSet(
-                                      title: model.firstIntake.date.toFormat1,
+                                      title:
+                                          model.goalStartDate?.toFormat1 ?? "",
                                       subTitle: "Goal Start Date"),
                                   rightTitleSet: ColorBoxTitleSet(
-                                      title: "0", subTitle: "Total Check Ins")),
+                                      title: "${model.totalCheckins}",
+                                      subTitle: "Total Check Ins")),
                               VerticalSpacing(30),
                               ColorWideBox(
                                   bottom: Padding(
@@ -166,15 +170,17 @@ class _SplashViewState extends State<AchievementsView>
                                       title: model.lastIntake.date.toFormat1,
                                       subTitle: "Next Check In")),
                               VerticalSpacing(15),
-                              Text(
-                                  "${model.intakes.length} days until your next check in",
-                                  style: context.textTheme().subtitle2),
+                              if (model.nextCheckinDaysLeft > 0)
+                                Text(
+                                    "${model.nextCheckinDaysLeft} days until your next check in",
+                                    style: context.textTheme().subtitle2),
                               VerticalSpacing(20),
-                              AppElevatedButton.withIcon(
-                                child: "Check In",
-                                onTap: () {},
-                                icon: Image.asset(Images.icRightArrow),
-                              ),
+                              if (model.nextCheckinHoursLeft <= 0)
+                                AppElevatedButton.withIcon(
+                                  child: "Check In",
+                                  onTap: () => model.onCheckInTap(context),
+                                  icon: Image.asset(Images.icRightArrow),
+                                ),
                               PageEndSpacer()
                             ],
                           ),

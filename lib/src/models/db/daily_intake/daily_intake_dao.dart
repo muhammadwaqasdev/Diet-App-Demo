@@ -20,4 +20,7 @@ abstract class DailyInakeDao {
 
   @update
   Future<void> updateDailyIntake(DailyIntake dailyIntake);
+
+  @Query("DELETE FROM daily_intake")
+  Future<void> clearIntakes();
 }

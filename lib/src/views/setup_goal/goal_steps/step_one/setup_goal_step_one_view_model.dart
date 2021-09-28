@@ -9,7 +9,8 @@ class SetupGoalStepOneViewModel extends ReactiveViewModel {
   final GoalCreationStepsService _goalCreationStepsService =
       locator<GoalCreationStepsService>();
 
-  final TextEditingController heightTextCtrl = TextEditingController();
+  final TextEditingController heightFtTextCtrl = TextEditingController();
+  final TextEditingController heightInTextCtrl = TextEditingController();
   final TextEditingController weightTextCtrl = TextEditingController();
 
   Goal get goal => _goalCreationStepsService.goal;
@@ -17,8 +18,11 @@ class SetupGoalStepOneViewModel extends ReactiveViewModel {
   void onContinue() => NavService.getStarted();
 
   init() {
-    heightTextCtrl.text =
-        "${goal.heightFt.value > 0 ? "${goal.heightFt.value}.${goal.heightIn.value}" : ''}";
+    heightFtTextCtrl.text =
+        goal.heightFt.value > 0 ? "${goal.heightFt.value}" : "";
+    heightInTextCtrl.text =
+        goal.heightIn.value > 0 ? "${goal.heightIn.value}" : "";
+    /*"${goal.heightFt.value > 0 ? "${goal.heightFt.value}.${goal.heightIn.value}" : ''}";*/
     weightTextCtrl.text = "${goal.weight.value > 0 ? goal.weight.value : ''}";
   }
 

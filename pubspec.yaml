@@ -50,6 +50,7 @@ dependencies:
 
   # Local DB
   floor: ^1.2.0
+  shared_preferences: ^2.0.8
 
   #alarm
   flutter_local_notifications: ^8.2.0 

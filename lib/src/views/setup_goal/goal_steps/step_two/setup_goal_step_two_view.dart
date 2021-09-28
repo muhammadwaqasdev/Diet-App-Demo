@@ -81,15 +81,6 @@ class SetupGoalStepTwoView extends GoalStep {
           AppTextField(
             keyboardType:
                 TextInputType.numberWithOptions(decimal: true, signed: true),
-            onChange: (value) => heightValueOnChange(
-                model.goal.targetHeightFt, model.goal.targetHeightIn, value),
-            controller: model.heightTextFieldController,
-            label: "Target Height (ft)",
-          ),
-          VerticalSpacing(25),
-          AppTextField(
-            keyboardType:
-                TextInputType.numberWithOptions(decimal: true, signed: true),
             onChange: model.onChangeWeight,
             controller: model.weightTextFieldController,
             label: "Target Weight (lbs)",
@@ -178,5 +169,5 @@ class SetupGoalStepTwoView extends GoalStep {
 
   @override
   bool validate(Goal goal) =>
-      goal.targetHeightFt.value > 0 && goal.targetWeight.value > 0;
+       goal.targetWeight.value > 0;
 }

@@ -16,7 +16,10 @@ Future<dynamic> onReceiveNotification(
 }
 
 Future<dynamic> onSelectNotification(String? payload) async {
-  print(payload);
+  var payloadSplit = (payload ?? "").split("|");
+  int notificationId = int.parse(payloadSplit.last);
+  int dateMills = int.parse(payloadSplit.first);
+  FlutterLocalNotificationsPlugin().cancel(notificationId);
 }
 
 class LocalNotificationService {
@@ -48,10 +51,10 @@ class LocalNotificationService {
     makeKey(AlarmData alarm) =>
         "${alarm.time.hour}:${alarm.time.minute}-${describeEnum(alarm.type)}";
     var currentDate = tz.TZDateTime.now(tz.local);
-    var endDate = tz.TZDateTime.now(tz.local).add(Duration(days: 7));
     var db = locator<LocalDatabaseService>().db;
     var api = locator<ApiService>();
-    var perMealMaxCalorieLimit = goal.caloriesIntake / goal.meals.value;
+    var perMealMaxCalorieLimit =
+        goal.calculatedCaloriesIntake / goal.meals.value;
     var perMealCalorieLimit = perMealMaxCalorieLimit / 2;
     var notificationId = 0;
     Map<String, List<Food>> foods = {};
@@ -87,6 +90,7 @@ class LocalNotificationService {
       }
       foods[makeKey(alarm)]?.addAll(foodsRes);
     }
+    await db.dailyIntakeDao.clearIntakes();
     for (int i = 1; i <= alarmDays; i++) {
       for (int alarmIndex = 0;
           alarmIndex < goal.alarmData.length;

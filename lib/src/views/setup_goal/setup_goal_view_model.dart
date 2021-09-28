@@ -1,3 +1,4 @@
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
@@ -64,10 +65,13 @@ class SetupGoalViewModel extends ReactiveViewModel {
     if (currentGoalStepIndex + 2 > steps.length) {
       setBusy(true);
       await _goalService.save();
+      await saveDataInPref(PrefKeys.GOAL_CREATION_DATE,
+          DateTime.now().millisecondsSinceEpoch, PrefDataType.INT);
       setBusy(false);
       showModalBottomSheet(
           isDismissible: false,
-          context: context, builder: (_) => CompletionBottomSheet());
+          context: context,
+          builder: (_) => CompletionBottomSheet());
     }
   }
 

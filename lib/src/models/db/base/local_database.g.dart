@@ -175,6 +175,11 @@ class _$DailyInakeDao extends DailyInakeDao {
   }
 
   @override
+  Future<void> clearIntakes() async {
+    await _queryAdapter.queryNoReturn('DELETE FROM daily_intake');
+  }
+
+  @override
   Future<void> insertDailyIntake(DailyIntake dailyIntake) async {
     await _dailyIntakeInsertionAdapter.insert(
         dailyIntake, OnConflictStrategy.abort);

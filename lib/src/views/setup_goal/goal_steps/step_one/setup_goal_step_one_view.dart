@@ -18,13 +18,67 @@ class SetupGoalStepOneView extends GoalStep {
       builder: (context, model, child) => ListView(
         padding: EdgeInsets.only(bottom: 50),
         children: [
-          AppTextField(
-            keyboardType:
-                TextInputType.numberWithOptions(decimal: true, signed: true),
-            onChange: (value) => heightValueOnChange(
-                model.goal.heightFt, model.goal.heightIn, value),
-            controller: model.heightTextCtrl,
-            label: "Height (ft)",
+          Row(
+            children: [
+              Expanded(
+                child: AppTextField(
+                  keyboardType: TextInputType.numberWithOptions(
+                      decimal: true, signed: true),
+                  onChange: (value) {
+                    if (value.isEmpty) {
+                      model.goal.heightFt.value = 0;
+                      model.heightFtTextCtrl.text = "";
+                      context.closeKeyboardIfOpen();
+                      return;
+                    }
+                    try {
+                      var val = value.isNotEmpty ? int.parse(value) : 0;
+                      if (val <= 8) {
+                        model.goal.heightFt.value = val;
+                      } else {
+                        model.heightFtTextCtrl.text = "8";
+                        model.heightFtTextCtrl.selection =
+                            TextSelection.fromPosition(TextPosition(offset: 1));
+                      }
+                    } catch (e) {
+                      model.heightFtTextCtrl.text = "";
+                    }
+                  },
+                  controller: model.heightFtTextCtrl,
+                  label: "Height (ft)",
+                ),
+              ),
+              HorizontalSpacing(20),
+              Expanded(
+                child: AppTextField(
+                  keyboardType: TextInputType.numberWithOptions(
+                      decimal: true, signed: true),
+                  onChange: (value) {
+                    if (value.isEmpty) {
+                      model.goal.heightIn.value = 0;
+                      model.heightInTextCtrl.text = "";
+                      context.closeKeyboardIfOpen();
+                      return;
+                    }
+                    try {
+                      var val = value.isNotEmpty ? int.parse(value) : 0;
+                      if (val <= 11) {
+                        model.goal.heightIn.value = val;
+                      } else {
+                        model.heightInTextCtrl.text = "11";
+                        model.heightInTextCtrl.selection =
+                            TextSelection.fromPosition(TextPosition(
+                                offset: model.heightInTextCtrl.text.length));
+                      }
+                    } catch (e) {
+                      model.heightInTextCtrl.text = "";
+                    }
+                  },
+                  controller: model.heightInTextCtrl,
+                  label: "Height (In)",
+                ),
+              ),
+            ],
           ),
           VerticalSpacing(25),
           AppTextField(
@@ -58,7 +112,7 @@ class SetupGoalStepOneView extends GoalStep {
                 Text(
                     (model.goal.heightFt.value > 0 &&
                             model.goal.weight.value > 0)
-                        ? '${model.goal.calculatedCalories.round()}'
+                        ? '${model.goal.calculatedBMR.round()}'
                         : "0",
                     style: context.textTheme().headline1),
                 Text('Basal Metabolic Rate (BMR)',

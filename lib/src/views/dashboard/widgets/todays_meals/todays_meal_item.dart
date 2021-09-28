@@ -1,3 +1,4 @@
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,9 @@ class TodaysMealItemModel {
   final AlarmData alarm;
   final String subTitle;
   bool get isCompleted => alarm.isDone;
+  bool get isTimePassed =>
+      DateTime.now().setTime(alarm.time).difference(DateTime.now()).inSeconds <
+      0;
   final List<TodaysMealSubItemModel> mealItems;
 
   const TodaysMealItemModel(
@@ -82,6 +86,7 @@ class TodaysMealItem extends StatelessWidget {
                   subTitle: itemData.subTitle,
                   isCompleted: itemData.isCompleted,
                   isExpanded: isExpanded,
+                  isEnabled: itemData.isTimePassed,
                   onCompleteTap: toggleCompletion,
                   onToggleExpansion: toggleExpansion,
                 ),

@@ -1,10 +1,12 @@
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 extension UIExt on BuildContext {
   double topSpace() => MediaQuery.of(this).padding.top;
@@ -30,6 +32,11 @@ extension DblExt on double {
 
 extension DateExt on DateTime {
   String get toFormat1 => DateFormat("MMM d, y").format(this);
+  DateTime setTime(TimeOfDay timeOfDay) {
+    var dt = subtract(Duration(
+        hours: hour - timeOfDay.hour, minutes: minute - timeOfDay.minute));
+    return dt;
+  }
 }
 
 enum SnackbarType { ERROR }
@@ -110,4 +117,32 @@ heightValueOnChange(
     heightFt.value = 0;
     heightIn.value = 0;
   }
+}
+
+enum PrefKeys { GOAL_CREATION_DATE, CHECK_IN_COUNT }
+enum PrefDataType { STRING, INT, BOOL, DOUBLE, LIST_OF_STRINGS }
+
+saveDataInPref(PrefKeys key, dynamic value, PrefDataType type) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  Map<PrefDataType, Function> prefFuns = {
+    PrefDataType.STRING: prefs.setString,
+    PrefDataType.INT: prefs.setInt,
+    PrefDataType.DOUBLE: prefs.setDouble,
+    PrefDataType.BOOL: prefs.setBool,
+    PrefDataType.LIST_OF_STRINGS: prefs.setStringList,
+  };
+
+  await prefFuns[type]!(describeEnum(key), value);
+}
+
+Future<dynamic> getDataFromPref(PrefKeys key, PrefDataType type) async {
+  var prefs = (await SharedPreferences.getInstance());
+  Map<PrefDataType, Function> prefFuns = {
+    PrefDataType.STRING: prefs.getString,
+    PrefDataType.INT: prefs.getInt,
+    PrefDataType.DOUBLE: prefs.getDouble,
+    PrefDataType.BOOL: prefs.getBool,
+    PrefDataType.LIST_OF_STRINGS: prefs.getStringList,
+  };
+  return await prefFuns[type]!(describeEnum(key));
 }
