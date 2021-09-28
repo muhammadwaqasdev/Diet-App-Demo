@@ -1,3 +1,4 @@
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/db/daily_intake/daily_intake.dart';
 import 'package:diet_app/src/models/foods_reponse.dart';
@@ -173,5 +174,38 @@ class LocalNotificationService {
 
   cancelAlarm(AlarmData alarm) {
     flutterLocalNotificationsPlugin.cancel(alarm.notificationId);
+  }
+
+  scheduleSingleAlarm(int dailyIntakeId, AlarmData alarm) async {
+    DailyIntake? dailyIntake = await locator<LocalDatabaseService>()
+        .db
+        .dailyIntakeDao
+        .findIntakeById(dailyIntakeId);
+    if (dailyIntake == null) {
+      return;
+    }
+    var notiDateTime = tz.TZDateTime.fromMillisecondsSinceEpoch(
+        tz.local, dailyIntake.date.setTime(alarm.time).millisecondsSinceEpoch);
+    var notiId = DateTime.now().millisecondsSinceEpoch;
+    flutterLocalNotificationsPlugin.cancel(alarm.notificationId);
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        notiId,
+        '${describeEnum(alarm.type)} Meal Alarm!',
+        'You need to take your meal ${alarm.foods.map((meal) => meal.foodName).join(", ")} now!',
+        notiDateTime,
+        const NotificationDetails(
+            iOS: IOSNotificationDetails(presentAlert: false, badgeNumber: 1),
+            android: AndroidNotificationDetails(
+                'meals_reminder_channel',
+                'Meals reminder channel',
+                'To suggest meals for your daily calorie intake!',
+                priority: Priority.max,
+                importance: Importance.max,
+                autoCancel: false,
+                ongoing: true)),
+        androidAllowWhileIdle: true,
+        payload: "${dailyIntake.date.millisecondsSinceEpoch}|$notiId",
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 }

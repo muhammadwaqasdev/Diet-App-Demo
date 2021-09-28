@@ -21,7 +21,7 @@ class SplashViewModel extends BaseViewModel {
     var authService = locator<FirebaseAuthService>();
     var isLoggedIn = await authService.init();
     if (isLoggedIn) {
-      await authService.setupAppUser();
+      await authService.setupAppUser(null);
     }
     setBusy(false);
   }

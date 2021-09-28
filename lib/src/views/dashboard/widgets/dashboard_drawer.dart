@@ -54,10 +54,36 @@ class DashboardDrawer extends StatelessWidget {
             NavService.settings();
           }),
           Spacer(),
-          _iconControl(context,
-              icon: Images.icLogout,
-              size: Size(41, 41),
-              onTap: locator<FirebaseAuthService>().signOut),
+          _iconControl(context, icon: Images.icLogout, size: Size(41, 41),
+              onTap: () async {
+            var confirm = await showDialog<bool>(
+                context: context,
+                builder: (childCtx) => AlertDialog(
+                      title: Text("Logging out!",
+                          style: context.textTheme().headline2),
+                      content: Text(
+                          "Would you like to continue logout? this will result in the destruction of your current goal record!",
+                          style: context.textTheme().subtitle2),
+                      actions: [
+                        TextButton(
+                          child: Text("Cancel",
+                              style: TextStyle(color: Colors.red)),
+                          onPressed: () {
+                            Navigator.pop(context, false);
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Continue"),
+                          onPressed: () {
+                            Navigator.pop(context, true);
+                          },
+                        ),
+                      ],
+                    ));
+            if (confirm == true) {
+              await locator<FirebaseAuthService>().signOut();
+            }
+          }),
         ],
       ),
     );

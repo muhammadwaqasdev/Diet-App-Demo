@@ -53,7 +53,7 @@ class SignUpViewModel extends BaseViewModel {
       context.closeKeyboardIfOpen();
       try {
         await firebaseService.signUpWithEmail(
-            user, passwordTextFieldController.text, selectedImage);
+            context, user, passwordTextFieldController.text, selectedImage);
       } on FlutterError catch (error) {
         scnakbarService.showErrorMessage(error.message);
       } catch (e) {

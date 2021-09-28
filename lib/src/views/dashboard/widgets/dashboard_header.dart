@@ -48,9 +48,12 @@ class DashboardHeader extends StatelessWidget {
         new CircularPercentIndicator(
           radius: 84.0,
           lineWidth: 5.0,
-          percent: ((dailyIntake.consumedCalories/dailyIntake.totalCalories)*100)/100,
-          backgroundColor: Colors.transparent,
-          center: new Text("${((dailyIntake.consumedCalories/dailyIntake.totalCalories)*100).round()}%",
+          percent: ((dailyIntake.consumedCalories / dailyIntake.totalCalories) *
+                  100) /
+              100,
+          backgroundColor: Colors.grey.withOpacity(.3),
+          center: new Text(
+              "${((dailyIntake.consumedCalories / dailyIntake.totalCalories) * 100).round()}%",
               style: context.textTheme().button?.copyWith(color: Colors.black)),
           progressColor: AppColors.progressGreen,
         )

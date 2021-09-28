@@ -47,17 +47,19 @@ class SetupGoalStepFiveView extends GoalStep {
 
   Widget progressItem(BuildContext context, String label, bool isDone) =>
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Row(children: [
           isDone
               ? Icon(Icons.check_circle, color: Colors.lightGreen, size: 13)
               : LoadingIndicator(size: 10, strokeWidth: 2),
           HorizontalSpacing(10),
-          Text(label,
-              style: context
-                  .textTheme()
-                  .caption
-                  ?.copyWith(color: AppColors.primary))
+          Flexible(
+            child: Text(label,
+                style: context
+                    .textTheme()
+                    .subtitle2
+                    ?.copyWith(color: AppColors.primary)),
+          )
         ]),
       );
 

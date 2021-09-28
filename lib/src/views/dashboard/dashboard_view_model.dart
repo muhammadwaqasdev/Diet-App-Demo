@@ -85,12 +85,16 @@ class DashboardViewModel extends ReactiveViewModel {
         .findIntakeById(mealModel.dailyIntakeId);
 
     var alarmIndex = intake!.alams.indexOf(mealModel.alarm);
-    intake.alams[alarmIndex].isDone = true;
+    intake.alams[alarmIndex].isDone = !intake.alams[alarmIndex].isDone;
 
     await _localDatabaseService.intakeDao.updateDailyIntake(intake);
-    mealModel.alarm.isDone = true;
-    _localNotificationService.cancelAlarm(mealModel.alarm);
-
+    mealModel.alarm.isDone = !mealModel.alarm.isDone;
+    if (mealModel.alarm.isDone) {
+      _localNotificationService.cancelAlarm(mealModel.alarm);
+    } else {
+      _localNotificationService.scheduleSingleAlarm(
+          mealModel.dailyIntakeId, mealModel.alarm);
+    }
     notifyListeners();
   }
 }

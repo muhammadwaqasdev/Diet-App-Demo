@@ -42,9 +42,9 @@ class TodaysMealItem extends StatelessWidget {
   }
 
   void toggleCompletion() async {
-    if (itemData.isCompleted) {
-      return;
-    }
+    // if (itemData.isCompleted) {
+    //   return;
+    // }
     onCompleteTap(itemData);
     //_additionalDelayFix();
   }

@@ -68,7 +68,7 @@ class AchievementsViewModel extends ReactiveViewModel {
     setBusy(false);
   }
 
-  Future<bool?> _showWeightSheet(BuildContext context,
+  static Future<bool?> showWeightSheet(BuildContext context,
           {bool isForProgress = false}) async =>
       showModalBottomSheet<bool>(
           isDismissible: !isForProgress,
@@ -80,9 +80,9 @@ class AchievementsViewModel extends ReactiveViewModel {
               Form(child: CheckinBottomSheet(isForProgress: isForProgress)));
 
   onCheckInTap(BuildContext context) async {
-    bool? isDone = await _showWeightSheet(context);
+    bool? isDone = await showWeightSheet(context);
     if (isDone != null && isDone) {
-      _showWeightSheet(context, isForProgress: true);
+      showWeightSheet(context, isForProgress: true);
       await _goalCreationStepsService.save();
       _goalCreationStepsService.loadingStep = 0;
       NavService.dashboard();

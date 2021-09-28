@@ -154,7 +154,7 @@ class SignUpView extends StatelessWidget {
                     SizedBox(width: 25, height: 1),
                   ],
                 ),
-                Spacer(),
+                VerticalSpacing(25),
                 GestureDetector(
                   onTap: model.onSignInTap,
                   child: Center(

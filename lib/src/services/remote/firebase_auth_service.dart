@@ -4,7 +4,9 @@ import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/app_user.dart';
 import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
+import 'package:diet_app/src/services/local/local_database_service.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
+import 'package:diet_app/src/views/achievements/achievements_view_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -35,7 +37,8 @@ class FirebaseAuthService {
     return (locator<AuthService>().user ?? AppUser()).id != null;
   }
 
-  signUpWithEmail(AppUser appUser, String password, File? profileImage) async {
+  signUpWithEmail(BuildContext context, AppUser appUser, String password,
+      File? profileImage) async {
     try {
       if (profileImage != null) {
         var file = await FirebaseStorage.instance
@@ -53,7 +56,7 @@ class FirebaseAuthService {
       userCredential.user!.updateDisplayName(appUser.fullName);
       appUser.id = userCredential.user!.uid;
       FirestoreService.users.doc(userCredential.user?.uid).set(appUser);
-      await setupAppUser();
+      await setupAppUser(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw FlutterError('The password provided is too weak.');
@@ -65,11 +68,11 @@ class FirebaseAuthService {
     }
   }
 
-  signInWithEmail(String email, String password) async {
+  signInWithEmail(BuildContext context, String email, String password) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      await setupAppUser();
+      await setupAppUser(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw FlutterError('No user found for that email.');
@@ -81,7 +84,7 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> setupAppUser() async {
+  Future<void> setupAppUser(BuildContext? context) async {
     try {
       var isLoggedIn = await init();
       if (isLoggedIn) {
@@ -89,7 +92,12 @@ class FirebaseAuthService {
         if (!isLoaded) {
           NavService.getStarted(shouldClear: true);
         } else {
-          NavService.dashboard();
+          if (context != null) {
+            AchievementsViewModel.showWeightSheet(context, isForProgress: true);
+            locator<GoalCreationStepsService>().loadingStep = 0;
+            await locator<GoalCreationStepsService>().save();
+          }
+          await NavService.dashboard();
         }
       }
     } catch (e) {
@@ -101,6 +109,7 @@ class FirebaseAuthService {
     await FirebaseAuth.instance.signOut();
     locator<AuthService>().user = null;
     await NavService.splash(isInit: false);
+    await locator<LocalDatabaseService>().clearIntakes();
   }
 
   updateProfile(AppUser appUser, File? profileImage) async {

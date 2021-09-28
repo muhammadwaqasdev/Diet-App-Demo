@@ -56,10 +56,10 @@ dependencies:
   flutter_local_notifications: ^8.2.0 
 
   # debugging
-  flutter_stetho:
-    git:
-      url: git://github.com/jasonlewicki/flutter_stetho.git
-      ref: master
+  #flutter_stetho:
+  #  git: 
+  #    url: git://github.com/jasonlewicki/flutter_stetho.git
+  #    ref: master
   #flutter_flipperkit: ^0.0.27
   #flipperkit_sqflite_driver:
     # git:

@@ -9,8 +9,6 @@ class CompletionBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      decoration: BoxDecoration(
-          border: Border(left: BorderSide(color: Colors.red, width: 5))),
       padding: EdgeInsets.only(
           top: 10,
           bottom: MediaQuery.of(context).padding.bottom > 0

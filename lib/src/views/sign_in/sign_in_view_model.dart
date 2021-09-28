@@ -25,7 +25,7 @@ class SignInViewModel extends ReactiveViewModel {
     try {
       setBusy(true);
       context.closeKeyboardIfOpen();
-      await firebaseService.signInWithEmail(
+      await firebaseService.signInWithEmail(context,
           emailTextFieldController.text, passwordTextFieldController.text);
     } on FlutterError catch (error) {
       scnakbarService.showErrorMessage(error.message);
