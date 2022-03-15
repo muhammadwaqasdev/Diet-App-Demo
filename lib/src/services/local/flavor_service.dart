@@ -22,9 +22,9 @@ class FlavorService {
   static String get getBaseApi {
     // return prod url
     if (env == Env.prod) {
-      return "";
+      return "https://projects.pocketsystems.net/diet-app/api";
     }
     // return url other than prod one
-    return "";
+    return "https://projects.pocketsystems.net/diet-app/api";
   }
 }

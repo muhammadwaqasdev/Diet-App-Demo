@@ -23,7 +23,8 @@
       "flutterMode": "debug",
       "args": [
           "--flavor",
-          "dev"
+          "dev",
+          "--no-sound-null-safety"
         ]
     },
     {
@@ -31,7 +32,7 @@
       "program": "lib/main_dev.dart",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release",
+      "flutterMode": "debug",
       "args": [
           "--flavor",
           "dev"

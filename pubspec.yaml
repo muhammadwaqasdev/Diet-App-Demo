@@ -1,5 +1,5 @@
-name: flutter_starter_app
-description: Flutter starter app
+name: diet_app
+description: Diet App for helping you to achieve your fitness goals!
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -28,14 +28,50 @@ dependencies:
   stacked: ^2.1.8
   stacked_services: ^0.8.7
   get_it: ^7.1.4
-  observable_ish: ^3.0.0
   package_info: ^2.0.2
   dio: ^4.0.0
   flutter_keyboard_visibility: ^5.0.2
+  adobe_xd: ^2.0.0+1
+  carousel_slider: ^4.0.0
+  flutter_svg: ^0.21.0+1
+  another_xlider: ^1.0.0
+  intl: ^0.17.0
+  percent_indicator: ^3.0.1
+  flutter_rounded_date_picker: ^2.0.2
+  cached_network_image: ^3.1.0
+  image_picker: ^0.8.2
+  rive: ^0.7.6
+  
+  # Firebase
+  firebase_core: "^1.4.0"
+  firebase_auth: "^3.0.1"
+  cloud_firestore: "^2.4.0"
+  firebase_storage: "^10.0.1"
+
+  # Local DB
+  floor: ^1.2.0
+  shared_preferences: ^2.0.8
+
+  #alarm
+  flutter_local_notifications: ^8.2.0 
+
+  # debugging
+  #flutter_stetho:
+  #  git: 
+  #    url: git://github.com/jasonlewicki/flutter_stetho.git
+  #    ref: master
+  #flutter_flipperkit: ^0.0.27
+  #flipperkit_sqflite_driver:
+    # git:
+    #   url: https://github.com/ishaquehassan/flutter_flipperkit_plugins
+    #   ref: null_safety    #branch name
+    #   path: packages/flipperkit_sqflite_driver
 
 dev_dependencies:
-  build_runner: ^2.0.4
-  stacked_generator: ^0.4.6
+  assets_indexer: ^0.0.10
+  stacked_generator: ^0.5.0
+  floor_generator: ^1.2.0
+  build_runner: ^2.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -48,6 +84,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/animations/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -69,6 +106,50 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Poppins-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Poppins-Black.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-BlackItalic.ttf
+          weight: 800
+          style: italic
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

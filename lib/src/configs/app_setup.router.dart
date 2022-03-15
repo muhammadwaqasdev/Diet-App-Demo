@@ -6,18 +6,40 @@
 
 // ignore_for_file: public_member_api_docs
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
-import '../views/home/home_view.dart';
+import '../views/achievements/achievements_view.dart';
+import '../views/dashboard/dashboard_view.dart';
+import '../views/get_started/get_started_view.dart';
+import '../views/profile/profile_view.dart';
+import '../views/settings/settings_view.dart';
+import '../views/setup_goal/setup_goal_view.dart';
+import '../views/sign_in/sign_in_view.dart';
+import '../views/sign_up/sign_up_view.dart';
 import '../views/splash/splash_view.dart';
 
 class Routes {
   static const String splashView = '/';
-  static const String homeView = '/home-view';
+  static const String signInView = '/sign-in-view';
+  static const String signUpView = '/sign-up-view';
+  static const String getStartedView = '/get-started-view';
+  static const String setupGoalView = '/setup-goal-view';
+  static const String dashboardView = '/dashboard-view';
+  static const String achievementsView = '/achievements-view';
+  static const String profileView = '/profile-view';
+  static const String settingsView = '/settings-view';
   static const all = <String>{
     splashView,
-    homeView,
+    signInView,
+    signUpView,
+    getStartedView,
+    setupGoalView,
+    dashboardView,
+    achievementsView,
+    profileView,
+    settingsView,
   };
 }
 
@@ -26,22 +48,84 @@ class StackedRouter extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.splashView, page: SplashView),
-    RouteDef(Routes.homeView, page: HomeView),
+    RouteDef(Routes.signInView, page: SignInView),
+    RouteDef(Routes.signUpView, page: SignUpView),
+    RouteDef(Routes.getStartedView, page: GetStartedView),
+    RouteDef(Routes.setupGoalView, page: SetupGoalView),
+    RouteDef(Routes.dashboardView, page: DashboardView),
+    RouteDef(Routes.achievementsView, page: AchievementsView),
+    RouteDef(Routes.profileView, page: ProfileView),
+    RouteDef(Routes.settingsView, page: SettingsView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
     SplashView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => SplashView(),
+      var args = data.getArgs<SplashViewArguments>(
+        orElse: () => SplashViewArguments(),
+      );
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => SplashView(isInit: args.isInit),
         settings: data,
       );
     },
-    HomeView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => HomeView(),
+    SignInView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => SignInView(),
+        settings: data,
+      );
+    },
+    SignUpView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => SignUpView(),
+        settings: data,
+      );
+    },
+    GetStartedView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => GetStartedView(),
+        settings: data,
+      );
+    },
+    SetupGoalView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => SetupGoalView(),
+        settings: data,
+      );
+    },
+    DashboardView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => DashboardView(),
+        settings: data,
+      );
+    },
+    AchievementsView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => AchievementsView(),
+        settings: data,
+      );
+    },
+    ProfileView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => ProfileView(),
+        settings: data,
+      );
+    },
+    SettingsView: (data) {
+      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+        builder: (context) => const SettingsView(),
         settings: data,
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// SplashView arguments holder class
+class SplashViewArguments {
+  final bool isInit;
+  SplashViewArguments({this.isInit = true});
 }
