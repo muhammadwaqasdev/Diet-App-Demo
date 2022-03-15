@@ -168,6 +168,8 @@ class LocalNotificationService {
         }
       }
     }
+    await saveDataInPref(PrefKeys.GOAL_CREATION_DATE,
+        DateTime.now().millisecondsSinceEpoch, PrefDataType.INT);
     await Future.delayed(Duration(milliseconds: 2000));
     goalService.loadingStep++;
   }

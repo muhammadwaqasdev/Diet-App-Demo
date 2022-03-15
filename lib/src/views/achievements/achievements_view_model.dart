@@ -18,7 +18,9 @@ class AchievementsViewModel extends ReactiveViewModel {
   List<DailyIntake> intakes = [];
 
   DailyIntake get firstIntake => intakes.first;
+
   DailyIntake get lastIntake => intakes.last;
+
   DateTime get lastIntakeDateTime => lastIntake.date
       .setTime(lastIntake.alams[lastIntake.alams.length - 2].time);
 
@@ -56,8 +58,9 @@ class AchievementsViewModel extends ReactiveViewModel {
 
   init() async {
     setBusy(true);
-    goalStartDate = DateTime.fromMillisecondsSinceEpoch(
-        await getDataFromPref(PrefKeys.GOAL_CREATION_DATE, PrefDataType.INT));
+    var goalStartTS =
+        await getDataFromPref(PrefKeys.GOAL_CREATION_DATE, PrefDataType.INT);
+    goalStartDate = DateTime.fromMillisecondsSinceEpoch(goalStartTS);
     int? checkinsCount =
         await getDataFromPref(PrefKeys.CHECK_IN_COUNT, PrefDataType.INT);
     if (checkinsCount != null) {

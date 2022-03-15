@@ -2,13 +2,30 @@ import 'package:diet_app/src/models/foods_reponse.dart';
 import 'package:diet_app/src/services/remote/api_client.dart';
 import 'package:dio/dio.dart';
 
+class AppInterceptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    super.onRequest(options, handler);
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    super.onResponse(response, handler);
+  }
+
+  @override
+  void onError(DioError err, ErrorInterceptorHandler handler) {
+    super.onError(err, handler);
+  }
+}
+
 class ApiService {
   ApiClient? _apiClient;
   late Dio dio;
 
   ApiService() {
     dio = Dio();
-    _apiClient = ApiClient(dio);
+    _apiClient = ApiClient(dio, interceptors: [AppInterceptor()]);
   }
 
   Future<List<Food>?> getFoods(String query,
