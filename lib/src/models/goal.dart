@@ -91,32 +91,6 @@ class AlarmData {
 
 class Goal {
   static Map<int, List<AlarmData>> get mealSets => {
-        3: [
-          AlarmData(
-              type: AlarmType.Wakeup, time: TimeOfDay(hour: 8, minute: 0)),
-          AlarmData(
-              type: AlarmType.Breakfast, time: TimeOfDay(hour: 9, minute: 0)),
-          AlarmData(
-              type: AlarmType.Lunch, time: TimeOfDay(hour: 13, minute: 0)),
-          AlarmData(
-              type: AlarmType.Dinner, time: TimeOfDay(hour: 20, minute: 0)),
-          AlarmData(
-              type: AlarmType.Sleep, time: TimeOfDay(hour: 21, minute: 0)),
-        ],
-        4: [
-          AlarmData(
-              type: AlarmType.Wakeup, time: TimeOfDay(hour: 8, minute: 0)),
-          AlarmData(
-              type: AlarmType.Breakfast, time: TimeOfDay(hour: 9, minute: 0)),
-          AlarmData(
-              type: AlarmType.Lunch, time: TimeOfDay(hour: 13, minute: 0)),
-          AlarmData(
-              type: AlarmType.Snacks, time: TimeOfDay(hour: 16, minute: 0)),
-          AlarmData(
-              type: AlarmType.Dinner, time: TimeOfDay(hour: 20, minute: 0)),
-          AlarmData(
-              type: AlarmType.Sleep, time: TimeOfDay(hour: 21, minute: 0)),
-        ],
         5: [
           AlarmData(
               type: AlarmType.Wakeup, time: TimeOfDay(hour: 8, minute: 0)),
@@ -133,6 +107,24 @@ class Goal {
           AlarmData(
               type: AlarmType.Sleep, time: TimeOfDay(hour: 21, minute: 0)),
         ],
+        6: [
+          AlarmData(
+              type: AlarmType.Wakeup, time: TimeOfDay(hour: 8, minute: 0)),
+          AlarmData(
+              type: AlarmType.Breakfast, time: TimeOfDay(hour: 9, minute: 0)),
+          AlarmData(
+              type: AlarmType.Snacks, time: TimeOfDay(hour: 11, minute: 0)),
+          AlarmData(
+              type: AlarmType.Lunch, time: TimeOfDay(hour: 13, minute: 0)),
+          AlarmData(
+              type: AlarmType.Snacks, time: TimeOfDay(hour: 16, minute: 0)),
+          AlarmData(
+              type: AlarmType.Dinner, time: TimeOfDay(hour: 20, minute: 0)),
+          AlarmData(
+              type: AlarmType.Snacks, time: TimeOfDay(hour: 21, minute: 0)),
+          AlarmData(
+              type: AlarmType.Sleep, time: TimeOfDay(hour: 22, minute: 0)),
+        ]
       };
 
   String id;

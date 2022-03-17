@@ -109,7 +109,7 @@ class SetupGoalStepTwoView extends GoalStep {
               value: model.goal.meals.value.toDouble(),
               label: "Meals",
               subLabel: "per day",
-              values: List.generate(3, (index) => index + 3)),
+              values: Goal.mealSets.keys.map((e) => e.toDouble()).toList()),
           VerticalSpacing(5),
           PopupMenuButton(
             onSelected: model.onPreferredDietSelect,
