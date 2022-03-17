@@ -12,7 +12,7 @@ class GoalCreationStepsService with ReactiveServiceMixin {
     heightFt: ReactiveValue(0),
     heightIn: ReactiveValue(0),
     weight: ReactiveValue(0),
-    activityLevel: ReactiveValue(0.8),
+    activityLevel: ReactiveValue(1),
     goalTarget: ReactiveValue(GoalTarget.Weight_Loss),
     targetWeight: ReactiveValue(0),
     targetSleep: ReactiveValue(4),
