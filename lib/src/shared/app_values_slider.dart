@@ -85,17 +85,28 @@ class AppValuesSlider extends StatelessWidget {
             ),
           ],
         ),
-        if (bottomLabel.isNotEmpty && bottomSubLabel.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 10, right: 15),
-            child: Row(
-              children: [
-                if (bottomLabel.isNotEmpty)
-                  Text(bottomLabel, style: context.textTheme().headline5),
-                Spacer(),
-                if (bottomSubLabel.isNotEmpty)
-                  Text(bottomSubLabel, style: context.textTheme().headline5)
-              ],
+        if (bottomLabel.isNotEmpty || bottomSubLabel.isNotEmpty)
+          Transform.translate(
+            offset: Offset(0, -10),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 15),
+              child: Row(
+                children: [
+                  if (bottomLabel.isNotEmpty)
+                    Text(bottomLabel,
+                        style: context
+                            .textTheme()
+                            .headline6
+                            ?.copyWith(color: AppColors.greyBgDarkest)),
+                  Spacer(),
+                  if (bottomSubLabel.isNotEmpty)
+                    Text(bottomSubLabel,
+                        style: context
+                            .textTheme()
+                            .headline6
+                            ?.copyWith(color: AppColors.greyBgDarkest))
+                ],
+              ),
             ),
           ),
       ],

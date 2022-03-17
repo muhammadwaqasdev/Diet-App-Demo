@@ -98,7 +98,9 @@ class SetupGoalStepTwoView extends GoalStep {
               onChanged: (value) =>
                   model.goal.targetStress.value = value.round(),
               value: model.goal.targetStress.value.toDouble(),
-              label: "Stress level",
+              label: "Stress levels",
+              bottomLabel: "No Stress",
+              bottomSubLabel: "Stress",
               subLabel: "hrs",
               values: List.generate(10, (index) => index + 1)),
           VerticalSpacing(5),
@@ -168,6 +170,5 @@ class SetupGoalStepTwoView extends GoalStep {
   String get title => "Your Target";
 
   @override
-  bool validate(Goal goal) =>
-       goal.targetWeight.value > 0;
+  bool validate(Goal goal) => goal.targetWeight.value > 0;
 }
