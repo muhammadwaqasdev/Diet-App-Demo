@@ -325,18 +325,3 @@ class MaskedTextInputFormatter extends TextInputFormatter {
     return newValue;
   }
 }
-
-// if (widget.formatters == CreditCardFormatters.cardMask)
-//                 MaskedTextInputFormatter(
-//                   mask: 'xxxx-xxxx-xxxx-xxxx',
-//                   separator: '-',
-//                 ),
-//               if (widget.formatters == CreditCardFormatters.expDateMask) ...[
-//                 FilteringTextInputFormatter.digitsOnly,
-//                 LengthLimitingTextInputFormatter(4),
-//                 CardMonthInputFormatter(),
-//               ],
-//               if (widget.formatters == CreditCardFormatters.cvvMask) ...[
-//                 FilteringTextInputFormatter.digitsOnly,
-//                 LengthLimitingTextInputFormatter(3)
-//               ]

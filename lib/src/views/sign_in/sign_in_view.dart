@@ -50,11 +50,6 @@ class SignInView extends StatelessWidget {
                       AppTextField(
                         controller: model.emailTextFieldController,
                         label: "Email Address",
-                        // prefixIcon: Text("@",
-                        //     style: context
-                        //         .textTheme()
-                        //         .headline4
-                        //         ?.copyWith(color: AppColors.primary)),
                         hint: "Jhondoe@gmail.com",
                         defaultValidators: [
                           DefaultValidators.REQUIRED,
