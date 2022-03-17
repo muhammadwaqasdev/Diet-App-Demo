@@ -94,8 +94,10 @@ class SetupGoalStepOneView extends GoalStep {
               onChanged: (value) => model.goal.activityLevel.value = value,
               value: model.goal.activityLevel.value,
               label: "Activity Level",
-              values: [0.8, 1, 1.2, 1.35, 1.5],
-              shouldRound: false),
+              bottomLabel: "Inactive",
+              bottomSubLabel: "Active",
+              values: [1.0, 2.0, 3.0, 4.0, 5.0],
+              shouldRound: true),
           VerticalSpacing(45),
           Container(
             padding: EdgeInsets.all(30),

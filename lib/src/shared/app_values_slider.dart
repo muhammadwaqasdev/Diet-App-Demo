@@ -7,6 +7,8 @@ class AppValuesSlider extends StatelessWidget {
   final List<double> values;
   final String label;
   final String subLabel;
+  final String bottomLabel;
+  final String bottomSubLabel;
   final bool shouldRound;
   final ValueChanged<double> onChanged;
   final double value;
@@ -16,6 +18,8 @@ class AppValuesSlider extends StatelessWidget {
       required this.value,
       required this.onChanged,
       this.subLabel = "",
+      this.bottomLabel = "",
+      this.bottomSubLabel = "",
       required this.values,
       this.shouldRound = true});
 
@@ -81,6 +85,19 @@ class AppValuesSlider extends StatelessWidget {
             ),
           ],
         ),
+        if (bottomLabel.isNotEmpty && bottomSubLabel.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 15),
+            child: Row(
+              children: [
+                if (bottomLabel.isNotEmpty)
+                  Text(bottomLabel, style: context.textTheme().headline5),
+                Spacer(),
+                if (bottomSubLabel.isNotEmpty)
+                  Text(bottomSubLabel, style: context.textTheme().headline5)
+              ],
+            ),
+          ),
       ],
     );
   }
