@@ -1,16 +1,17 @@
 import 'dart:io';
 
-import 'package:diet_app/src/shared/load_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:diet_app/generated/images.asset.dart';
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/shared/app_bar_action_button.dart';
 import 'package:diet_app/src/shared/app_elevated_button.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
+import 'package:diet_app/src/shared/dates_dd_picker.dart';
 import 'package:diet_app/src/shared/empty_app_bar.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/shared/load_image.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import 'sign_up_view_model.dart';
@@ -99,16 +100,15 @@ class SignUpView extends StatelessWidget {
                         ],
                       ),
                       VerticalSpacing(25),
-                      GestureDetector(
-                        onTap: () => model.openDatePicker(context),
-                        child: AppTextField(
-                          readOnly: true,
-                          readonlyEffect: false,
-                          controller: model.dobTextFieldController,
-                          label: "Date of birth",
-                          placeholder: "dd / mm / yyyy",
-                          defaultValidators: [DefaultValidators.REQUIRED],
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text("Date Of Birth",
+                            style: context.textTheme().headline5),
+                      ),
+                      VerticalSpacing(5),
+                      DatesDDPicker(
+                        onChange: model.onDateChange,
+                        minDate: model.selectedDob,
                       ),
                       VerticalSpacing(25),
                       PopupMenuButton(

@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 extension UIExt on BuildContext {
   double topSpace() => MediaQuery.of(this).padding.top;
@@ -32,11 +32,32 @@ extension DblExt on double {
 
 extension DateExt on DateTime {
   String get toFormat1 => DateFormat("MMM d, y").format(this);
+
   DateTime setTime(TimeOfDay timeOfDay) {
     var dt = subtract(Duration(
         hours: hour - timeOfDay.hour, minutes: minute - timeOfDay.minute));
     return dt;
   }
+
+  DateTime copyWith(
+          {int? year,
+          int? month,
+          int? day,
+          int? hour,
+          int? minute,
+          int? second,
+          int? millisecond,
+          int? microsecond}) =>
+      DateTime(
+        year ?? this.year,
+        month ?? this.month,
+        day ?? this.day,
+        hour ?? this.hour,
+        minute ?? this.minute,
+        second ?? this.second,
+        millisecond ?? this.millisecond,
+        microsecond ?? this.microsecond,
+      );
 }
 
 enum SnackbarType { ERROR }
