@@ -38,7 +38,7 @@ jobs:
         run: flutter pub get
 
       - name: Build APPBUNDLE & APK
-        run: flutter build appbundle --release && flutter build apk --release
+        run: flutter build appbundle --release --flavor prod -t lib/main_prod.dart && flutter build apk --release --flavor prod -t lib/main_prod.dart
 
       - name: Upload to gdrive
         uses: Jodebu/upload-to-drive@master
