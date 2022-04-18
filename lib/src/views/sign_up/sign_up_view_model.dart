@@ -5,10 +5,7 @@ import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/app_user.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
-import 'package:diet_app/src/styles/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -64,19 +61,10 @@ class SignUpViewModel extends BaseViewModel {
     }
   }
 
-  void openDatePicker(BuildContext context) async {
-    selectedDob = await showRoundedDatePicker(
-        context: context,
-        theme: AppTheme.get(),
-        initialDate: DateTime(2000),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now(),
-        borderRadius: 16,
-        height: context.screenSize().height / 2);
-    dobTextFieldController.text =
-        selectedDob != null ? DateFormat('d / M / y').format(selectedDob!) : '';
+  void onDateChange(DateTime value) {
+    selectedDob = value;
+    user.dateOfBirth = value;
     notifyListeners();
-    context.closeKeyboardIfOpen();
   }
 
   void onGenderSelected(int index) {
