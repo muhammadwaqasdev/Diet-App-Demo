@@ -18,6 +18,7 @@ import '../services/local/local_database_service.dart';
 import '../services/local/local_notification_service.dart';
 import '../services/remote/api_service.dart';
 import '../services/remote/firebase_auth_service.dart';
+import '../services/remote/videos_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -39,4 +40,5 @@ void setupLocator({String? environment, EnvironmentFilter? environmentFilter}) {
   locator.registerLazySingleton(() => FirebaseAuthService());
   locator.registerLazySingleton(() => GoalCreationStepsService());
   locator.registerLazySingleton(() => LocalDatabaseService());
+  locator.registerLazySingleton(() => VideosService());
 }

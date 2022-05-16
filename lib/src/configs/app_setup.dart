@@ -18,6 +18,8 @@ import 'package:diet_app/src/views/splash/splash_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/remote/videos_service.dart';
+
 @StackedApp(routes: [
   CupertinoRoute(page: SplashView, initial: true),
   CupertinoRoute(page: SignInView),
@@ -42,6 +44,7 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: FirebaseAuthService),
   LazySingleton(classType: GoalCreationStepsService),
   LazySingleton(classType: LocalDatabaseService),
+  LazySingleton(classType: VideosService),
 ])
 class AppSetup {
   /** This class has no puporse besides housing the annotation that generates the required functionality **/

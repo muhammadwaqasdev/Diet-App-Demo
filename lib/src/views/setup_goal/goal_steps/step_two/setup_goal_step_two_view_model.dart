@@ -1,6 +1,8 @@
 import 'package:diet_app/generated/images.asset.dart';
+import 'package:diet_app/src/base/video_popup_screen_view_model_mixin.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:flutter/foundation.dart';
@@ -21,7 +23,7 @@ class _DietGoalOption {
   int get hashCode => int.parse(title.characters.last);
 }
 
-class SetupGoalStepTwoViewModel extends ReactiveViewModel {
+class SetupGoalStepTwoViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
   final GoalCreationStepsService _goalCreationStepsService =
       locator<GoalCreationStepsService>();
 
@@ -47,7 +49,8 @@ class SetupGoalStepTwoViewModel extends ReactiveViewModel {
 
   void onContinue() => NavService.getStarted();
 
-  init() {
+  init(BuildContext context,Screen screen) {
+    super.init(context, screen);
     weightTextFieldController.text =
         "${goal.targetWeight.value > 0 ? goal.targetWeight.value.round() : ''}";
     lowCarbsTextFieldController.text =

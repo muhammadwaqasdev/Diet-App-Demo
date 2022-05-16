@@ -1,5 +1,6 @@
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/shared/app_bar_action_button.dart';
 import 'package:diet_app/src/shared/app_elevated_button.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
@@ -115,6 +116,7 @@ class ProfileView extends StatelessWidget {
           ),
         ),
         viewModelBuilder: () => ProfileViewModel(),
+        onModelReady: (model) => model.init(context, Screen.PROFILE),
       ),
     );
   }

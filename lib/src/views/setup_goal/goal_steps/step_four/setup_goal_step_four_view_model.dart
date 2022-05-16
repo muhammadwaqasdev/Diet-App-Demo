@@ -1,3 +1,4 @@
+import 'package:diet_app/src/base/video_popup_screen_view_model_mixin.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/foods_reponse.dart';
 import 'package:diet_app/src/models/goal.dart';
@@ -7,7 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class SetupGoalStepFourViewModel extends ReactiveViewModel {
+class SetupGoalStepFourViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
   final GoalCreationStepsService _goalCreationStepsService =
       locator<GoalCreationStepsService>();
   final ApiService _apiService = locator<ApiService>();

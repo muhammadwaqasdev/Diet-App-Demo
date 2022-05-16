@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/shared/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -192,7 +193,7 @@ class _SplashViewState extends State<AchievementsView>
               ),
       ),
       viewModelBuilder: () => AchievementsViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) => model.init(context,Screen.ACHIEVEMENTS),
     );
   }
 }

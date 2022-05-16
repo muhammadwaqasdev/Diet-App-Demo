@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/shared/app_elevated_button.dart';
 import 'package:diet_app/src/shared/dashboard_app_bar.dart';
 import 'package:diet_app/src/shared/drawer_container.dart';
@@ -8,10 +9,10 @@ import 'package:diet_app/src/shared/page_end_spacer.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:diet_app/src/views/dashboard/widgets/dashboard_drawer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../models/video.dart';
 import 'get_started_view_model.dart';
 
 class GetStartedView extends StatefulWidget {
@@ -31,6 +32,7 @@ class _SplashViewState extends State<GetStartedView>
         ),
         body: Scaffold(
           appBar: DashboardAppBar(
+              onProfileIconTap: NavService.profile,
               onDrawerIconTap: () =>
                   model.drawerContainerController.toggleDrawer()),
           body: Center(
@@ -114,6 +116,7 @@ class _SplashViewState extends State<GetStartedView>
         ),
       ),
       viewModelBuilder: () => GetStartedViewModel(),
+      onModelReady: (model) => model.init(context, Screen.GET_STARTED),
     );
   }
 }
