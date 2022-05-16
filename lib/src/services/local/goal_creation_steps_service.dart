@@ -23,6 +23,7 @@ class GoalCreationStepsService with ReactiveServiceMixin {
     dislikedMeals: ReactiveList(),
     additionalIntakePercentage: ReactiveValue(0),
     lastCalculatedIntake: ReactiveValue(0),
+    isManualMacrosEntry: ReactiveValue(false),
   ));
 
   Goal get goal => _goal.value;
@@ -47,6 +48,7 @@ class GoalCreationStepsService with ReactiveServiceMixin {
       _goal.value.targetStress,
       _goal.value.preferredDiet,
       _goal.value.alarmData,
+      _goal.value.isManualMacrosEntry,
       _loadingStep
     ]);
   }

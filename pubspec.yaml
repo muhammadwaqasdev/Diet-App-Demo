@@ -26,9 +26,9 @@ dependencies:
   platform: ^3.1.0
   connectivity: ^3.0.6
   cupertino_icons: ^1.0.3
-  stacked: ^2.1.8
-  stacked_services: ^0.8.7
-  get_it: ^7.1.4
+  stacked: ^2.3.6
+  stacked_services: ^0.8.22+1
+  get_it: ^7.2.0
   package_info: ^2.0.2
   dio: ^4.0.0
   flutter_keyboard_visibility: ^5.0.2
@@ -37,11 +37,12 @@ dependencies:
   flutter_svg: ^0.21.0+1
   another_xlider: ^1.0.0
   intl: ^0.17.0
-  percent_indicator: ^3.0.1
+  percent_indicator: ^4.2.2
   flutter_rounded_date_picker: ^2.0.2
-  cached_network_image: ^3.1.0
+  cached_network_image: ^3.2.0
   image_picker: ^0.8.2
   rive: ^0.7.6
+  youtube_player_flutter: ^8.0.0
   
   # Firebase
   firebase_core: "^1.4.0"
@@ -70,9 +71,12 @@ dependencies:
 
 dev_dependencies:
   assets_indexer: ^0.0.10
-  stacked_generator: ^0.5.0
+  stacked_generator: ^0.6.2
   floor_generator: ^1.2.0
-  build_runner: ^2.1.2
+  build_runner: ^2.1.10
+
+dependency_overrides:
+  analyzer: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

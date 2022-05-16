@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/base/video_popup_screen_view_model_mixin.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/app_user.dart';
 import 'package:diet_app/src/services/local/auth_service.dart';
@@ -12,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ProfileViewModel extends ReactiveViewModel {
+class ProfileViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
   final _firebaseService = locator<FirebaseAuthService>();
   final _authService = locator<AuthService>();
   final scnakbarService = locator<SnackbarService>();

@@ -1,4 +1,5 @@
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/views/setup_goal/goal_steps/base/goal_step.dart';
 import 'package:diet_app/src/views/setup_goal/goal_steps/step_three/widgets/alarm_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,7 +32,7 @@ class SetupGoalStepThreeView extends GoalStep {
         ],
       ),
       viewModelBuilder: () => SetupGoalStepThreeViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) => model.init(context,Screen.GOAL_STEP_3),
     );
   }
 

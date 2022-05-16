@@ -1,5 +1,7 @@
 import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/models/video.dart';
+import 'package:diet_app/src/shared/app_checkbox.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
 import 'package:diet_app/src/shared/app_values_slider.dart';
 import 'package:diet_app/src/shared/spacing.dart';
@@ -135,6 +137,20 @@ class SetupGoalStepTwoView extends GoalStep {
             ),
           ),
           VerticalSpacing(25),
+          Row(
+            children: [
+              AppCheckbox(
+                isChecked: model.goal.isManualMacrosEntry.value,
+                onChange: (value) =>
+                    model.goal.isManualMacrosEntry.value = value,
+              ),
+              HorizontalSpacing(15),
+              Expanded(
+                  child: Text("Setup Manual",
+                      style: context.textTheme().headline5))
+            ],
+          ),
+          VerticalSpacing(25),
           Container(
             padding: EdgeInsets.all(30),
             alignment: Alignment.center,
@@ -156,7 +172,7 @@ class SetupGoalStepTwoView extends GoalStep {
         ],
       ),
       viewModelBuilder: () => SetupGoalStepTwoViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) => model.init(context, Screen.GOAL_STEP_2),
     );
   }
 

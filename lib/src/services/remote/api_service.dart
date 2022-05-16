@@ -1,4 +1,5 @@
 import 'package:diet_app/src/models/foods_reponse.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/services/remote/api_client.dart';
 import 'package:dio/dio.dart';
 
@@ -38,13 +39,13 @@ class ApiService {
       var params = {
         "query": query,
         "page": page,
-        "min_calorie": minCalorieLimit
+        "min_calorie": minCalorieLimit.round()
       };
       if (dislikedMeals.isNotEmpty) {
         params["not_included"] = dislikedMeals.join(",");
       }
       var response =
-          await _apiClient?.get('', params: params, cancelToken: cancelToken);
+          await _apiClient?.get('/foods', params: params, cancelToken: cancelToken);
       if (!(response?.data is List<dynamic>?)) {
         return [];
       }
@@ -53,6 +54,15 @@ class ApiService {
           .toList();
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<List<Video>?> getVideos() async{
+    try{
+      var res = (await _apiClient?.get("/videos"));
+      return Video.fromJsonList(res?.data);
+    }catch(e){
+      return Future.value(null);
     }
   }
 }

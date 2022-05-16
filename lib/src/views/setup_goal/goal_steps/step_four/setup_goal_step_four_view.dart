@@ -1,4 +1,5 @@
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/shared/app_progress_indicator.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
 import 'package:diet_app/src/shared/ink_touch.dart';
@@ -79,6 +80,7 @@ class SetupGoalStepFourView extends GoalStep {
         ],
       ),
       viewModelBuilder: () => SetupGoalStepFourViewModel(),
+      onModelReady: (model) => model.init(context, Screen.GOAL_STEP_4),
     );
   }
 

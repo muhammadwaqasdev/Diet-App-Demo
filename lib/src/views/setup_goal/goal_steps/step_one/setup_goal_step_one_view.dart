@@ -1,5 +1,6 @@
 import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
 import 'package:diet_app/src/shared/app_values_slider.dart';
 import 'package:diet_app/src/shared/spacing.dart';
@@ -126,7 +127,7 @@ class SetupGoalStepOneView extends GoalStep {
         ],
       ),
       viewModelBuilder: () => SetupGoalStepOneViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) => model.init(context,Screen.GOAL_STEP_1),
     );
   }
 

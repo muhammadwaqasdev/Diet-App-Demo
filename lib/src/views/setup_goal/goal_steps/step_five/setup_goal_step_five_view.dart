@@ -1,4 +1,5 @@
 import 'package:diet_app/src/models/goal.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/shared/loading_indicator.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
@@ -42,6 +43,7 @@ class SetupGoalStepFiveView extends GoalStep {
         ),
       ),
       viewModelBuilder: () => SetupGoalStepFiveViewModel(),
+      onModelReady: (model) => model.init(context, Screen.GOAL_STEP_5),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/services/remote/firebase_auth_service.dart';
+import 'package:diet_app/src/services/remote/videos_service.dart';
 import 'package:stacked/stacked.dart';
 
 class SplashViewModel extends BaseViewModel {
@@ -19,6 +20,8 @@ class SplashViewModel extends BaseViewModel {
   init() async {
     setBusy(true);
     var authService = locator<FirebaseAuthService>();
+    var videoService = locator<VideosService>();
+    await videoService.fetch();
     var isLoggedIn = await authService.init();
     if (isLoggedIn) {
       await authService.setupAppUser(null);

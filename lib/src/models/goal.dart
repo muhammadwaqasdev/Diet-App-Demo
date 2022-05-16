@@ -142,6 +142,7 @@ class Goal {
   final ReactiveList<AlarmData> alarmData;
   final ReactiveValue<double> additionalIntakePercentage;
   final ReactiveValue<double> lastCalculatedIntake;
+  final ReactiveValue<bool> isManualMacrosEntry;
 
   AlarmData get wakeUpAlarm =>
       alarmData.where((alarm) => alarm.type == AlarmType.Wakeup).first;
@@ -227,7 +228,8 @@ class Goal {
       required this.uid,
       required this.id,
       required this.additionalIntakePercentage,
-      required this.lastCalculatedIntake});
+      required this.lastCalculatedIntake,
+      required this.isManualMacrosEntry});
 
   Map<String, dynamic> toJson() {
     return {
@@ -246,6 +248,7 @@ class Goal {
       "alarmData": this.alarmData.map((alarm) => alarm.toJson()).toList(),
       "dislikedMeals": this.dislikedMeals,
       "lastCalculatedIntake": this.calculatedCaloriesIntake,
+      "isManualMacrosEntry": this.isManualMacrosEntry,
     };
   }
 
@@ -279,6 +282,7 @@ class Goal {
               .toList()),
       additionalIntakePercentage: ReactiveValue(0),
       lastCalculatedIntake: ReactiveValue<double>(json["lastCalculatedIntake"]),
+      isManualMacrosEntry: ReactiveValue<bool>(json['isManualMacrosEntry'] ?? false)
     );
   }
 //
