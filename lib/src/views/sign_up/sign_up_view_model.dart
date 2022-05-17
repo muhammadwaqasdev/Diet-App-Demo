@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SignUpViewModel extends BaseViewModel with VideoPopupScreenViewModelMixin{
+class SignUpViewModel extends BaseViewModel
+    with VideoPopupScreenViewModelMixin {
   final firebaseService = locator<FirebaseAuthService>();
   final scnakbarService = locator<SnackbarService>();
 

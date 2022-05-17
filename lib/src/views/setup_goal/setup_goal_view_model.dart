@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'goal_steps/widgets/completion_bottom_sheet.dart';
 import 'goal_steps/base/goal_step.dart';
-import 'goal_steps/step_one/setup_goal_step_one_view.dart';
-import 'goal_steps/step_two/setup_goal_step_two_view.dart';
-import 'goal_steps/step_three/setup_goal_step_three_view.dart';
-import 'goal_steps/step_four/setup_goal_step_four_view.dart';
 import 'goal_steps/step_five/setup_goal_step_five_view.dart';
+import 'goal_steps/step_four/setup_goal_step_four_view.dart';
+import 'goal_steps/step_one/setup_goal_step_one_view.dart';
+import 'goal_steps/step_three/setup_goal_step_three_view.dart';
+import 'goal_steps/step_two/setup_goal_step_two_view.dart';
+import 'goal_steps/widgets/completion_bottom_sheet.dart';
 
 class SetupGoalViewModel extends ReactiveViewModel {
   final KeyboardService _keyboardService = locator<KeyboardService>();

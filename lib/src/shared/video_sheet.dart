@@ -76,13 +76,13 @@ class _VideoSheetState extends State<VideoSheet> {
                   textAlign: TextAlign.left,
                 ),
               ),
-                GestureDetector(
-                  onTap: NavService.pop,
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Icon(Icons.close),
-                  ),
+              GestureDetector(
+                onTap: NavService.pop,
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Icon(Icons.close),
                 ),
+              ),
             ],
           ),
           SizedBox(height: 15),
@@ -96,13 +96,16 @@ class _VideoSheetState extends State<VideoSheet> {
               ),
               child: AnimatedCrossFade(
                 duration: Duration(milliseconds: 250),
-                crossFadeState: isLoading ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                crossFadeState: isLoading
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
                 firstChild: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      AppProgressIndicator(size: 20,brightness: Brightness.dark),
+                      AppProgressIndicator(
+                          size: 20, brightness: Brightness.dark),
                       VerticalSpacing(5),
                       Text("Please wait")
                     ],
@@ -113,7 +116,7 @@ class _VideoSheetState extends State<VideoSheet> {
                   controller: widget._controller,
                   showVideoProgressIndicator: true,
                   progressIndicatorColor: Colors.amber,
-                  onReady: () async{
+                  onReady: () async {
                     await Future.delayed(Duration(milliseconds: 5000));
                     setState(() {
                       isLoading = false;

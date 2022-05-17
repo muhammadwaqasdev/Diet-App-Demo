@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-enum Screen{
+enum Screen {
   GET_STARTED,
   GOAL_STEP_1,
   GOAL_STEP_2,
@@ -28,18 +28,21 @@ class Video {
 
   Video(
       {this.id,
-        this.title,
-        this.screen,
-        this.url,
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.videoId});
+      this.title,
+      this.screen,
+      this.url,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.videoId});
 
   Video.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
-    screen = Screen.values[Screen.values.map((e) => describeEnum(e)).toList().indexOf(json['screen'])];
+    screen = Screen.values[Screen.values
+        .map((e) => describeEnum(e))
+        .toList()
+        .indexOf(json['screen'])];
     url = json['url'];
     status = json['status'];
     createdAt = json['created_at'];
@@ -47,10 +50,10 @@ class Video {
     videoId = json['video_id'];
   }
 
-  static List<Video> fromJsonList(List<dynamic> jsonList){
+  static List<Video> fromJsonList(List<dynamic> jsonList) {
     List<Video> videos = [];
-    for(var videoJson in jsonList){
-      videos.add(Video.fromJson(videoJson as Map<String,dynamic>));
+    for (var videoJson in jsonList) {
+      videos.add(Video.fromJson(videoJson as Map<String, dynamic>));
     }
     return videos;
   }

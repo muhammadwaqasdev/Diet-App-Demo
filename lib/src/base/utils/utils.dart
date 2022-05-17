@@ -141,6 +141,7 @@ heightValueOnChange(
 }
 
 enum PrefKeys { GOAL_CREATION_DATE, CHECK_IN_COUNT }
+
 enum PrefDataType { STRING, INT, BOOL, DOUBLE, LIST_OF_STRINGS }
 
 saveDataInPref(PrefKeys key, dynamic value, PrefDataType type) async {

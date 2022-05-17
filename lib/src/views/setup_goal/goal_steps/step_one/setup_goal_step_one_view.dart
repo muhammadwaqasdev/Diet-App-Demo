@@ -127,7 +127,7 @@ class SetupGoalStepOneView extends GoalStep {
         ],
       ),
       viewModelBuilder: () => SetupGoalStepOneViewModel(),
-      onModelReady: (model) => model.init(context,Screen.GOAL_STEP_1),
+      onModelReady: (model) => model.init(context, Screen.GOAL_STEP_1),
     );
   }
 

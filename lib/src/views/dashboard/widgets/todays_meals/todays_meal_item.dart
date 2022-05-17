@@ -1,17 +1,19 @@
 import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:diet_app/src/views/dashboard/widgets/todays_meals/todays_meal_item_header.dart';
 import 'package:diet_app/src/views/dashboard/widgets/todays_meals/todays_meal_sub_item.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class TodaysMealItemModel {
   final int dailyIntakeId;
   final AlarmData alarm;
   final String subTitle;
+
   bool get isCompleted => alarm.isDone;
+
   bool get isTimePassed =>
       DateTime.now().setTime(alarm.time).difference(DateTime.now()).inSeconds <
       0;

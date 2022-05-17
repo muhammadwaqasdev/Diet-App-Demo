@@ -7,7 +7,8 @@ import 'package:diet_app/src/shared/drawer_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
 
-class GetStartedViewModel extends BaseViewModel with VideoPopupScreenViewModelMixin{
+class GetStartedViewModel extends BaseViewModel
+    with VideoPopupScreenViewModelMixin {
   DrawerContainerController drawerContainerController =
       DrawerContainerController();
 

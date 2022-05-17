@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
-import 'package:diet_app/src/models/db/daily_intake/daily_intake.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/shared/dashboard_app_bar.dart';
 import 'package:diet_app/src/shared/drawer_container.dart';

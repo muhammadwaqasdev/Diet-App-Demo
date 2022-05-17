@@ -23,9 +23,12 @@ class _DietGoalOption {
   int get hashCode => int.parse(title.characters.last);
 }
 
-class SetupGoalStepTwoViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
+class SetupGoalStepTwoViewModel extends ReactiveViewModel
+    with VideoPopupScreenViewModelMixin {
   final GoalCreationStepsService _goalCreationStepsService =
       locator<GoalCreationStepsService>();
+
+  final ScrollController listScrollController = ScrollController();
 
   Goal get goal => _goalCreationStepsService.goal;
 
@@ -47,9 +50,16 @@ class SetupGoalStepTwoViewModel extends ReactiveViewModel with VideoPopupScreenV
   final TextEditingController lowCarbsTextFieldController =
       TextEditingController(text: describeEnum(PreferredDiet.values.first));
 
+  final TextEditingController macroProteinTextFieldController =
+      TextEditingController();
+  final TextEditingController macroCarbsTextFieldController =
+      TextEditingController();
+  final TextEditingController macroFatsTextFieldController =
+      TextEditingController();
+
   void onContinue() => NavService.getStarted();
 
-  init(BuildContext context,Screen screen) {
+  init(BuildContext context, Screen screen) {
     super.init(context, screen);
     weightTextFieldController.text =
         "${goal.targetWeight.value > 0 ? goal.targetWeight.value.round() : ''}";
@@ -80,5 +90,28 @@ class SetupGoalStepTwoViewModel extends ReactiveViewModel with VideoPopupScreenV
     goal.meals.value = mealCount.round();
     goal.alarmData.clear();
     goal.alarmData.addAll(Goal.mealSets[goal.meals.value] ?? []);
+  }
+
+  void onChangeProtein(String value) {
+    goal.macroProtein.value = double.parse(value.isEmpty ? "0" : value);
+  }
+
+  void onChangeCarbs(String value) {
+    goal.macroCarbs.value = double.parse(value.isEmpty ? "0" : value);
+  }
+
+  void onChangeFats(String value) {
+    goal.macroFat.value = double.parse(value.isEmpty ? "0" : value);
+  }
+
+  void onManualEntryCheckChange(bool value) async {
+    goal.isManualMacrosEntry.value = value;
+    if (value) {
+      await Future.delayed(Duration(milliseconds: 100));
+      listScrollController.animateTo(
+          listScrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 250),
+          curve: Curves.ease);
+    }
   }
 }

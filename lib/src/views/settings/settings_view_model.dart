@@ -7,7 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SettingsViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
+class SettingsViewModel extends ReactiveViewModel
+    with VideoPopupScreenViewModelMixin {
   final firebaseService = locator<FirebaseAuthService>();
   final scnakbarService = locator<SnackbarService>();
   final _authService = locator<AuthService>();

@@ -24,11 +24,15 @@ class GoalCreationStepsService with ReactiveServiceMixin {
     additionalIntakePercentage: ReactiveValue(0),
     lastCalculatedIntake: ReactiveValue(0),
     isManualMacrosEntry: ReactiveValue(false),
+    macroProtein: ReactiveValue(0),
+    macroCarbs: ReactiveValue(0),
+    macroFat: ReactiveValue(0),
   ));
 
   Goal get goal => _goal.value;
 
   ReactiveValue<int> _loadingStep = ReactiveValue<int>(0);
+
   int get loadingStep => _loadingStep.value;
 
   set loadingStep(int value) {
@@ -49,6 +53,9 @@ class GoalCreationStepsService with ReactiveServiceMixin {
       _goal.value.preferredDiet,
       _goal.value.alarmData,
       _goal.value.isManualMacrosEntry,
+      _goal.value.macroProtein,
+      _goal.value.macroFat,
+      _goal.value.macroCarbs,
       _loadingStep
     ]);
   }

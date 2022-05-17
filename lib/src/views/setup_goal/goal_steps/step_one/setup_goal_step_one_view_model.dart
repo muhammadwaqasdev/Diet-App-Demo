@@ -7,7 +7,8 @@ import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class SetupGoalStepOneViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
+class SetupGoalStepOneViewModel extends ReactiveViewModel
+    with VideoPopupScreenViewModelMixin {
   final GoalCreationStepsService _goalCreationStepsService =
       locator<GoalCreationStepsService>();
 
@@ -19,9 +20,7 @@ class SetupGoalStepOneViewModel extends ReactiveViewModel with VideoPopupScreenV
 
   void onContinue() => NavService.getStarted();
 
-
-
-  init(BuildContext context,Screen screen) {
+  init(BuildContext context, Screen screen) {
     super.init(context, screen);
     heightFtTextCtrl.text =
         goal.heightFt.value > 0 ? "${goal.heightFt.value}" : "";

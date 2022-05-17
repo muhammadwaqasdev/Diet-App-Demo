@@ -6,6 +6,7 @@ class LocalDatabaseService {
   late LocalDatabase _localDatabase;
 
   LocalDatabase get db => _localDatabase;
+
   DailyInakeDao get intakeDao => _localDatabase.dailyIntakeDao;
 
   init() async {
