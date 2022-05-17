@@ -10,7 +10,8 @@ import 'package:diet_app/src/views/achievements/widgets/checkin_bottom_sheet.dar
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class AchievementsViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
+class AchievementsViewModel extends ReactiveViewModel
+    with VideoPopupScreenViewModelMixin {
   final GoalCreationStepsService _goalCreationStepsService =
       locator<GoalCreationStepsService>();
 
@@ -58,7 +59,7 @@ class AchievementsViewModel extends ReactiveViewModel with VideoPopupScreenViewM
   DateTime? goalStartDate;
   int totalCheckins = 0;
 
-  init(BuildContext context,Screen screen) async {
+  init(BuildContext context, Screen screen) async {
     super.init(context, screen);
     setBusy(true);
     var goalStartTS =

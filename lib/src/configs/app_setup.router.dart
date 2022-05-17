@@ -57,6 +57,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.profileView, page: ProfileView),
     RouteDef(Routes.settingsView, page: SettingsView),
   ];
+
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
@@ -127,5 +128,6 @@ class StackedRouter extends RouterBase {
 /// SplashView arguments holder class
 class SplashViewArguments {
   final bool isInit;
+
   SplashViewArguments({this.isInit = true});
 }

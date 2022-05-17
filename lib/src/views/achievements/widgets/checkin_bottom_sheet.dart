@@ -108,6 +108,7 @@ class CheckinBottomSheet extends StatelessWidget {
               })
         ],
       );
+
   Widget _progressView(BuildContext context) => Column(
         children: [
           Text("Please wait...", style: context.textTheme().headline4),

@@ -8,7 +8,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class SetupGoalStepFourViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
+class SetupGoalStepFourViewModel extends ReactiveViewModel
+    with VideoPopupScreenViewModelMixin {
   final GoalCreationStepsService _goalCreationStepsService =
       locator<GoalCreationStepsService>();
   final ApiService _apiService = locator<ApiService>();

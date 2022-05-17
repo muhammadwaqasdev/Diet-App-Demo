@@ -32,7 +32,7 @@ class SetupGoalStepThreeView extends GoalStep {
         ],
       ),
       viewModelBuilder: () => SetupGoalStepThreeViewModel(),
-      onModelReady: (model) => model.init(context,Screen.GOAL_STEP_3),
+      onModelReady: (model) => model.init(context, Screen.GOAL_STEP_3),
     );
   }
 

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class AlarmItem extends StatelessWidget {
   final AlarmData alarmData;
-  final Function onTap;
+  final GestureTapCallback onTap;
 
   const AlarmItem({required this.alarmData, required this.onTap});
 

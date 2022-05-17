@@ -1,3 +1,4 @@
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/shared/app_progress_indicator.dart';
@@ -5,13 +6,13 @@ import 'package:diet_app/src/shared/app_textfield.dart';
 import 'package:diet_app/src/shared/ink_touch.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
-import 'package:diet_app/src/views/setup_goal/goal_steps/step_four/widgets/food_meal_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:diet_app/src/views/setup_goal/goal_steps/base/goal_step.dart';
+import 'package:diet_app/src/views/setup_goal/goal_steps/step_four/widgets/food_meal_item.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
 import 'setup_goal_step_four_view_model.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
 
 class SetupGoalStepFourView extends GoalStep {
   @override

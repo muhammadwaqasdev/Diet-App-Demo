@@ -1,3 +1,4 @@
+import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/shared/loading_indicator.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:diet_app/src/base/utils/utils.dart';
 
 import 'setup_goal_step_five_view_model.dart';
 

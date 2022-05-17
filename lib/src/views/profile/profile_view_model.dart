@@ -13,7 +13,8 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ProfileViewModel extends ReactiveViewModel with VideoPopupScreenViewModelMixin{
+class ProfileViewModel extends ReactiveViewModel
+    with VideoPopupScreenViewModelMixin {
   final _firebaseService = locator<FirebaseAuthService>();
   final _authService = locator<AuthService>();
   final scnakbarService = locator<SnackbarService>();

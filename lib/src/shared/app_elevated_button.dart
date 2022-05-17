@@ -79,7 +79,7 @@ class _AppElevatedButtonState extends State<AppElevatedButton>
                       : AppColors.primary)
                   .withOpacity(widget.isEnabled ? 1 : .5),
               onTap:
-                  widget.isLoading || !widget.isEnabled ? null : widget.onTap,
+                  widget.isLoading || !widget.isEnabled ? () {} : widget.onTap,
               child: AnimatedSize(
                 vsync: this,
                 duration: Duration(milliseconds: 500),

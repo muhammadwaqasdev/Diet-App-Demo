@@ -8,7 +8,7 @@ import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DashboardDrawer extends StatelessWidget {
-  final Function? onDrawerCloseTap;
+  final GestureTapCallback? onDrawerCloseTap;
   final bool isGoalSetup;
 
   const DashboardDrawer({this.onDrawerCloseTap, this.isGoalSetup = false});
@@ -90,7 +90,7 @@ class DashboardDrawer extends StatelessWidget {
   }
 
   Widget _iconControl(BuildContext context,
-          {Function? onTap, required String icon, required Size size}) =>
+          {GestureTapCallback? onTap, required String icon, required Size size}) =>
       InkTouch(
           borderRadius: BorderRadius.circular(20),
           color: Colors.transparent,

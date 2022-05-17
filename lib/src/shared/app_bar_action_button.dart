@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/shared/ink_touch.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class AppBarActionButton extends StatelessWidget {
   final GestureTapCallback? onTap;

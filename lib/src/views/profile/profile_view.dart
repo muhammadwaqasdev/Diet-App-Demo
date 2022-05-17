@@ -6,7 +6,6 @@ import 'package:diet_app/src/shared/app_elevated_button.dart';
 import 'package:diet_app/src/shared/app_textfield.dart';
 import 'package:diet_app/src/shared/empty_app_bar.dart';
 import 'package:diet_app/src/shared/load_image.dart';
-import 'package:diet_app/src/shared/loading_indicator.dart';
 import 'package:diet_app/src/shared/page_end_spacer.dart';
 import 'package:diet_app/src/shared/spacing.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
