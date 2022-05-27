@@ -20,39 +20,46 @@ class VideoView extends StatelessWidget {
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.white,
           appBar: EmptyAppBar(color: AppColors.semiWhite),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  VerticalSpacing(10),
-                  AppBarActionButton(),
-                  VerticalSpacing(20),
-                  Column(
-                    children: model.videos
-                        .map((e) => VideoCardTile(
-                            videoId: e.videoId.toString(),
-                            title: e.title.toString(),
-                            onTap: () {
-                              showDialogVideo(context, e.url.toString());
-                            }))
-                        .toList(),
-                  ),
-                  // Expanded(
-                  //   child: ListView.builder(
-                  //     physics: NeverScrollableScrollPhysics(),
-                  //     itemCount: model.videos.length,
-                  //       shrinkWrap: true,
-                  //       itemBuilder: (context, index){
-                  //       return VideoCardTile(videoId: model.videos[index].videoId.toString(), title: model.videos[index].title.toString(), onTap: (){
-                  //         showDialogVideo(context, model.videos[index].url.toString());
-                  //       });
-                  //       }),
-                  // )
-                ],
+          body: Stack(
+            children: [
+              Container(
+                height: 230,
+                color: AppColors.fatsBlue.withOpacity(0.5),
+
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      VerticalSpacing(10),
+                      AppBarActionButton(),
+                      VerticalSpacing(20),
+                      Text(
+                        "Video List",
+                        style: context.textTheme().headline3,
+                      ),
+                      Text(
+                        "Lorem Ipsum is simply dummy text ",
+                        style: context.textTheme().headline5,
+                      ),
+                      VerticalSpacing(20),
+                      Column(
+                        children: model.videos
+                            .map((e) => VideoCardTile(
+                                videoId: e.videoId.toString(),
+                                title: e.title.toString(),
+                                onTap: () {
+                                  showDialogVideo(context, e.url.toString());
+                                }))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         viewModelBuilder: () => VideoViewModel(),
