@@ -62,4 +62,7 @@ class NavService {
 
   static Future<dynamic>? settings({dynamic arguments}) =>
       _navigationService!.navigateTo(Routes.settingsView, arguments: arguments);
+
+  static Future<dynamic>? video({dynamic arguments}) =>
+      _navigationService!.navigateTo(Routes.videoView, arguments: arguments);
 }

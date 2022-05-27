@@ -34,21 +34,22 @@ dependencies:
   flutter_keyboard_visibility: ^5.0.2
   adobe_xd: ^2.0.0+1
   carousel_slider: ^4.0.0
-  flutter_svg: ^0.21.0+1
+  flutter_svg: ^1.1.0
   another_xlider: ^1.0.0
   intl: ^0.17.0
   percent_indicator: ^4.2.2
   flutter_rounded_date_picker: ^2.0.2
   cached_network_image: ^3.2.0
   image_picker: ^0.8.2
-  rive: ^0.7.6
+  rive: ^0.8.4
   youtube_player_flutter: ^8.0.0
   expandable: ^5.0.1
+  youtube_player_iframe: ^2.2.2
   
   # Firebase
   firebase_core: "^1.4.0"
   firebase_auth: "^3.0.1"
-  cloud_firestore: "^2.4.0"
+  cloud_firestore: ^3.1.17
   firebase_storage: "^10.0.1"
 
   # Local DB
@@ -56,7 +57,7 @@ dependencies:
   shared_preferences: ^2.0.8
 
   #alarm
-  flutter_local_notifications: ^8.2.0 
+  flutter_local_notifications: ^9.5.3+1 
 
   # debugging
   #flutter_stetho:

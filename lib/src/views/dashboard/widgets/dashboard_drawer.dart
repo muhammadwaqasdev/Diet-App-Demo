@@ -46,6 +46,13 @@ class DashboardDrawer extends StatelessWidget {
             }
             NavService.profile();
           }),
+          _iconControl(context, icon: Images.icTotalCarbs, size: Size(38, 38),
+              onTap: () {
+                if (onDrawerCloseTap != null) {
+                  onDrawerCloseTap!();
+                }
+                NavService.video();
+              }),
           _iconControl(context, icon: Images.icSettings, size: Size(41, 41),
               onTap: () {
             if (onDrawerCloseTap != null) {
