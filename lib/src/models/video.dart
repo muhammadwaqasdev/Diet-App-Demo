@@ -12,6 +12,7 @@ enum Screen {
   GROCERY_LIST,
   PROFILE,
   SETTINGS,
+  VIDEOS,
   SIGN_IN,
   SIGN_UP,
 }
