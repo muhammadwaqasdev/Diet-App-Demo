@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/styles/app_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -167,4 +169,10 @@ Future<dynamic> getDataFromPref(PrefKeys key, PrefDataType type) async {
     PrefDataType.LIST_OF_STRINGS: prefs.getStringList,
   };
   return await prefFuns[type]!(describeEnum(key));
+}
+
+extension RandomListItem<T> on List<T> {
+  T randomItem() {
+    return this[Random().nextInt(length)];
+  }
 }

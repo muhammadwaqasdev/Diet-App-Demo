@@ -65,6 +65,16 @@ class SetupGoalStepTwoViewModel extends ReactiveViewModel
         "${goal.targetWeight.value > 0 ? goal.targetWeight.value.round() : ''}";
     lowCarbsTextFieldController.text =
         "${describeEnum(PreferredDiet.values.first)}";
+
+    if (goal.macroProtein.value > 0) {
+      macroProteinTextFieldController.text = "${goal.macroProtein.value}";
+    }
+    if (goal.macroCarbs.value > 0) {
+      macroCarbsTextFieldController.text = "${goal.macroCarbs.value}";
+    }
+    if (goal.macroFat.value > 0) {
+      macroFatsTextFieldController.text = "${goal.macroFat.value}";
+    }
   }
 
   @override
@@ -90,6 +100,7 @@ class SetupGoalStepTwoViewModel extends ReactiveViewModel
     goal.meals.value = mealCount.round();
     goal.alarmData.clear();
     goal.alarmData.addAll(Goal.mealSets[goal.meals.value] ?? []);
+    _goalCreationStepsService.registerReactiveValues();
   }
 
   void onChangeProtein(String value) {
