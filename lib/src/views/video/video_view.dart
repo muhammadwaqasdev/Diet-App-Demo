@@ -49,13 +49,12 @@ class VideoView extends StatelessWidget {
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: model.videos.length,
-                        itemBuilder: (_, index) =>
-                            ((Video video) => VideoCardTile(
+                        itemBuilder: (_, index) => ((Video video) =>
+                            VideoCardTile(
                                 videoId: video.videoId.toString(),
                                 title: video.title.toString(),
-                                onTap: () {
-                                  showDialogVideo(context, video);
-                                }))(model.videos[index]),
+                                onTap: () => showDialogVideo(
+                                    context, video)))(model.videos[index]),
                       ),
                     ],
                   ),
