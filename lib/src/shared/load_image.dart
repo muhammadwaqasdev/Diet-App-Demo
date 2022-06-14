@@ -195,7 +195,7 @@ class _LoadImageState extends State<LoadImage> {
                     borderRadius: widget.isCircle
                         ? BorderRadius.all(
                             Radius.circular((widget.size?.width ?? 2) / 2))
-                        : BorderRadius.zero,
+                        : BorderRadius.circular(10),
                     image: DecorationImage(
                       image: imageProvider,
                       fit: BoxFit.cover,
