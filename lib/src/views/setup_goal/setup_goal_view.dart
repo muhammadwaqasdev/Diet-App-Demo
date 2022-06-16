@@ -19,38 +19,53 @@ class SetupGoalView extends StatelessWidget {
         appBar: EmptyAppBar(),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            padding: EdgeInsets.symmetric(
+                horizontal: model.currentStep.overridePageHorizontalPadding
+                    ? 0
+                    : model.currentStep.pageHorizontalPadding),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  VerticalSpacing(20),
-                  GoalStepProgressBar(
-                      total: model.steps.length + 1,
-                      progress: model.currentGoalStepIndex + 1),
-                  VerticalSpacing(35),
-                  AnimatedSwitcher(
-                    duration: Duration(milliseconds: 200),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return FadeTransition(
-                        child: child,
-                        opacity: animation,
-                      );
-                    },
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal:
+                            model.currentStep.overridePageHorizontalPadding
+                                ? model.currentStep.pageHorizontalPadding
+                                : 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      key: ValueKey<String>(model.currentStep.title),
                       children: [
-                        Text(model.currentStep.title,
-                            style: context.textTheme().headline3),
-                        Text(model.currentStep.subTitle,
-                            style: context.textTheme().subtitle2)
+                        VerticalSpacing(20),
+                        GoalStepProgressBar(
+                            total: model.steps.length + 1,
+                            progress: model.currentGoalStepIndex + 1),
+                        VerticalSpacing(35),
+                        AnimatedSwitcher(
+                          duration: Duration(milliseconds: 200),
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return FadeTransition(
+                              child: child,
+                              opacity: animation,
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            key: ValueKey<String>(model.currentStep.title),
+                            children: [
+                              Text(model.currentStep.title,
+                                  style: context.textTheme().headline3),
+                              Text(model.currentStep.subTitle,
+                                  style: context.textTheme().subtitle2)
+                            ],
+                          ),
+                        ),
+                        VerticalSpacing(40),
                       ],
                     ),
                   ),
-                  VerticalSpacing(40),
                   // Steps goes here
                   Expanded(
                     child: PageView(
@@ -62,26 +77,33 @@ class SetupGoalView extends StatelessWidget {
                   ),
                   // Steps goes here
                   if (!model.isKeyboardVisible) ...[
-                    Row(
-                      children: [
-                        if (model.currentGoalStepIndex > 0 &&
-                            !model.isBusy) ...[
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              model.currentStep.overridePageHorizontalPadding
+                                  ? model.currentStep.pageHorizontalPadding
+                                  : 0),
+                      child: Row(
+                        children: [
+                          if (model.currentGoalStepIndex > 0 &&
+                              !model.isBusy) ...[
+                            Expanded(
+                              child: AppElevatedButton.flat(
+                                  child: "BACK", onTap: model.onStepBack),
+                            ),
+                            HorizontalSpacing(10)
+                          ],
                           Expanded(
-                            child: AppElevatedButton.flat(
-                                child: "BACK", onTap: model.onStepBack),
+                            child: AppElevatedButton.withIcon(
+                              isLoading: model.isBusy,
+                              isEnabled: model.currentStep.validate(model.goal),
+                              child: model.currentStep.buttonLabel,
+                              onTap: () => model.onStepSubmit(context),
+                              icon: Image.asset(Images.icRightArrow),
+                            ),
                           ),
-                          HorizontalSpacing(10)
                         ],
-                        Expanded(
-                          child: AppElevatedButton.withIcon(
-                            isLoading: model.isBusy,
-                            isEnabled: model.currentStep.validate(model.goal),
-                            child: model.currentStep.buttonLabel,
-                            onTap: () => model.onStepSubmit(context),
-                            icon: Image.asset(Images.icRightArrow),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                     PageEndSpacer()
                   ]

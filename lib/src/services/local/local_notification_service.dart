@@ -8,6 +8,7 @@ import 'package:diet_app/src/services/local/local_database_service.dart';
 import 'package:diet_app/src/services/remote/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:stacked/stacked.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -26,7 +27,7 @@ Future<dynamic> onSelectNotification(String? payload) async {
 class LocalNotificationService {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   bool isInitialized = false;
-  static const int alarmDays = 7;
+  static const int alarmNumOfDays = 7;
 
   init() async {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -54,49 +55,20 @@ class LocalNotificationService {
     var currentDate = tz.TZDateTime.now(tz.local);
     var db = locator<LocalDatabaseService>().db;
     var api = locator<ApiService>();
-    var perMealMaxCalorieLimit =
-        goal.calculatedCaloriesIntake / goal.meals.value;
-    var perMealCalorieLimit = perMealMaxCalorieLimit / 2;
+    var perMealCalorieLimit = goal.calculatedCaloriesIntake /
+        goal.alarmData.where((alarm) => alarm.isMeal).length;
     var notificationId = 0;
-    Map<String, List<Food>> foods = {};
-    Map<AlarmType, double> limitSections = {};
     var goalService = locator<GoalCreationStepsService>();
-    var dislikedMeals = [...goal.dislikedMealIds];
     goalService.loadingStep++;
     goalService.loadingStep++;
-    for (var alarm in goal.alarmData) {
-      if (!alarm.isMeal) {
-        continue;
-      }
-      if (!foods.containsKey(makeKey(alarm))) {
-        foods[makeKey(alarm)] = [];
-      }
-      List<Food> foodsRes = [];
-      int divVal = 0;
-
-      while (foodsRes.isEmpty) {
-        var limit = perMealCalorieLimit / (++divVal);
-        if ((limitSections[alarm.type] ?? 0) > 0) {
-          limit = limitSections[alarm.type] ?? 0;
-        }
-        foodsRes = (await api.getFoods(describeEnum(alarm.type),
-                dislikedMeals: dislikedMeals, minCalorieLimit: limit)) ??
-            [];
-
-        if (foodsRes.isNotEmpty) {
-          goalService.loadingStep++;
-          limitSections[alarm.type] = limit;
-          //dislikedMeals.addAll(foods.values.expand((element) => element).map((e) => int.parse(e.foodId ?? "0")));
-        }
-      }
-      foods[makeKey(alarm)]?.addAll(foodsRes);
-    }
+    bool isManualMacros = goal.isManualMacrosEntry.value;
     await db.dailyIntakeDao.clearIntakes();
-    for (int i = 1; i <= alarmDays; i++) {
+    for (int i = 1; i <= alarmNumOfDays; i++) {
       for (int alarmIndex = 0;
           alarmIndex < goal.alarmData.length;
           alarmIndex++) {
-        var alarm = goal.alarmData[alarmIndex];
+        var goalAlarmData = goal.alarmData[alarmIndex];
+        var alarm = goalAlarmData.copyWith(foods: ReactiveList());
 
         var notiTime = currentDate.add(Duration(days: i - 1));
         if (notiTime.hour > 0) {
@@ -118,17 +90,31 @@ class LocalNotificationService {
         var alarmDate = notiTime.add(Duration());
 
         if (alarm.isMeal) {
-          var foodsRes = foods[makeKey(alarm)]!
-              .where((food) =>
-                  !dislikedMeals.contains(int.parse(food.foodId ?? "0")))
-              .toList();
-          if (foodsRes != null && foodsRes.length - 1 >= i) {
-            alarm.foods = [];
-            int foodIndex = 0;
-            while (alarm.totalCalories < perMealMaxCalorieLimit) {
-              var food = foodsRes[foodIndex++];
-              alarm.foods.add(food);
-              dislikedMeals.add(int.parse(food.foodId ?? "0"));
+          var isManualMacrosFullFilled =
+              alarm.totalProteins >= goal.macroProtein.value &&
+                  alarm.totalCarbs >= goal.macroCarbs.value &&
+                  alarm.totalFats >= goal.macroFat.value;
+          while (isManualMacros
+              ? !isManualMacrosFullFilled
+              : alarm.totalCalories < perMealCalorieLimit) {
+            List<Food>? foods = goalAlarmData.foods?.toList();
+            if (isManualMacros) {
+              if (alarm.totalProteins < goal.macroProtein.value) {
+                foods = goalAlarmData.proteins;
+              } else if (alarm.totalCarbs < goal.macroCarbs.value) {
+                foods = goalAlarmData.carbs;
+              } else if (alarm.totalFats < goal.macroFat.value) {
+                foods = goalAlarmData.fats;
+              }
+            }
+            var food = foods
+                ?.toList()
+                .where((item) => !alarm.foods!.contains(item))
+                .toList()
+                .randomItem();
+            if (food != null) {
+              alarm.foods!.add(food);
+              goalService.loadingStep++;
             }
           }
 
@@ -141,15 +127,15 @@ class LocalNotificationService {
           await flutterLocalNotificationsPlugin.zonedSchedule(
               ++notificationId,
               '${describeEnum(alarm.type)} Meal Alarm!',
-              'You need to take your meal ${alarm.foods.map((meal) => meal.foodName).join(", ")} now!',
+              'You need to take your meal ${alarm.foods!.map((meal) => meal.foodName).join(", ")} now!',
               notiTime,
               const NotificationDetails(
                   iOS: IOSNotificationDetails(
                       presentAlert: false, badgeNumber: 1),
                   android: AndroidNotificationDetails(
-                      'meals_reminder_channel',
-                      'Meals reminder channel',
-                      'To suggest meals for your daily calorie intake!',
+                      'meals_reminder_channel', 'Meals reminder channel',
+                      channelDescription:
+                          'To suggest meals for your daily calorie intake!',
                       priority: Priority.max,
                       importance: Importance.max,
                       autoCancel: false,
@@ -193,14 +179,14 @@ class LocalNotificationService {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         notiId,
         '${describeEnum(alarm.type)} Meal Alarm!',
-        'You need to take your meal ${alarm.foods.map((meal) => meal.foodName).join(", ")} now!',
+        'You need to take your meal ${alarm.foods!.map((meal) => meal.foodName).join(", ")} now!',
         notiDateTime,
         const NotificationDetails(
             iOS: IOSNotificationDetails(presentAlert: false, badgeNumber: 1),
             android: AndroidNotificationDetails(
-                'meals_reminder_channel',
-                'Meals reminder channel',
-                'To suggest meals for your daily calorie intake!',
+                'meals_reminder_channel', 'Meals reminder channel',
+                channelDescription:
+                    'To suggest meals for your daily calorie intake!',
                 priority: Priority.max,
                 importance: Importance.max,
                 autoCancel: false,

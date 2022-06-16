@@ -20,7 +20,7 @@ class GoalCreationStepsService with ReactiveServiceMixin {
     meals: ReactiveValue(Goal.mealSets.keys.first),
     preferredDiet: ReactiveValue(PreferredDiet.Balanced),
     alarmData: ReactiveList.from(Goal.mealSets.values.first),
-    dislikedMeals: ReactiveList(),
+    likedMeals: ReactiveList(),
     additionalIntakePercentage: ReactiveValue(0),
     lastCalculatedIntake: ReactiveValue(0),
     isManualMacrosEntry: ReactiveValue(false),
@@ -40,25 +40,30 @@ class GoalCreationStepsService with ReactiveServiceMixin {
   }
 
   GoalCreationStepsService() {
-    listenToReactiveValues([
-      _goal,
-      _goal.value.heightFt,
-      _goal.value.heightIn,
-      _goal.value.weight,
-      _goal.value.activityLevel,
-      _goal.value.goalTarget,
-      _goal.value.targetWeight,
-      _goal.value.targetSleep,
-      _goal.value.targetStress,
-      _goal.value.preferredDiet,
-      _goal.value.alarmData,
-      _goal.value.isManualMacrosEntry,
-      _goal.value.macroProtein,
-      _goal.value.macroFat,
-      _goal.value.macroCarbs,
-      _loadingStep
-    ]);
+    registerReactiveValues();
   }
+
+  forceNotify() => this.notifyListeners();
+
+  registerReactiveValues() => listenToReactiveValues([
+        _goal,
+        _goal.value.heightFt,
+        _goal.value.heightIn,
+        _goal.value.weight,
+        _goal.value.activityLevel,
+        _goal.value.goalTarget,
+        _goal.value.targetWeight,
+        _goal.value.targetSleep,
+        _goal.value.targetStress,
+        _goal.value.preferredDiet,
+        _goal.value.alarmData,
+        _goal.value.isManualMacrosEntry,
+        _goal.value.macroProtein,
+        _goal.value.macroFat,
+        _goal.value.macroCarbs,
+        _loadingStep,
+        ..._goal.value.alarmData.map((p0) => p0.foods)
+      ]);
 
   set goal(Goal goal) {
     _goal.value = goal;

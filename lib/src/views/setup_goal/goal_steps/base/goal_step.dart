@@ -8,5 +8,9 @@ abstract class GoalStep extends StatelessWidget {
 
   String get buttonLabel;
 
+  bool get overridePageHorizontalPadding => false;
+
+  final double pageHorizontalPadding = 25;
+
   bool validate(Goal goal);
 }

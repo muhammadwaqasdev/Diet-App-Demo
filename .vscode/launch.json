@@ -48,6 +48,17 @@
           "--flavor",
           "prod"
         ]
+    },
+    {
+      "name": "Flutter_Debug Prod",
+      "program": "lib/main_prod.dart",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "args": [
+          "--flavor",
+          "prod"
+        ]
     }
   ]
 }

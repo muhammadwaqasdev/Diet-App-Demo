@@ -54,7 +54,7 @@ class DashboardViewModel extends ReactiveViewModel {
             alarm: alarm,
             subTitle:
                 "${alarm.totalCalories} cals, ${alarm.totalProteins}p, ${alarm.totalCarbs}c, ${alarm.totalFats}f",
-            mealItems: alarm.foods
+            mealItems: alarm.foods!
                 .map((food) => TodaysMealSubItemModel(
                     title: food.foodName ?? "",
                     subTitle:

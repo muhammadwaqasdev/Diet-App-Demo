@@ -1,3 +1,5 @@
+import 'package:diet_app/src/models/goal.dart';
+
 class FoodsResponse {
   Foods? foods;
 
@@ -59,6 +61,7 @@ class Food {
   double fat = 0;
   double carbs = 0;
   double protein = 0;
+  Macros? macro;
 
   Food(
       {this.foodDescription,
@@ -70,7 +73,19 @@ class Food {
       this.calories = 0,
       this.fat = 0,
       this.carbs = 0,
-      this.protein = 0});
+      this.protein = 0,
+      this.macro});
+
+  double getMacro(Macros macro) {
+    switch (macro) {
+      case Macros.Carbs:
+        return this.carbs;
+      case Macros.Protein:
+        return this.protein;
+      case Macros.Fat:
+        return this.fat;
+    }
+  }
 
   Food.fromJson(Map<String, dynamic> json) {
     double per = 0;
@@ -114,6 +129,32 @@ class Food {
     data['carbs'] = this.carbs;
     data['protein'] = this.protein;
     return data;
+  }
+
+  Food copyWith(
+      {String? foodDescription,
+      String? foodId,
+      String? foodName,
+      String? foodType,
+      String? foodUrl,
+      int? per,
+      int? calories,
+      double? fat,
+      double? carbs,
+      double? protein,
+      Macros? macro}) {
+    return Food(
+        foodDescription: foodDescription ?? this.foodDescription,
+        foodId: foodId ?? this.foodId,
+        foodName: foodName ?? this.foodName,
+        foodType: foodType ?? this.foodType,
+        foodUrl: foodUrl ?? this.foodUrl,
+        per: per ?? this.per,
+        calories: calories ?? this.calories,
+        fat: fat ?? this.fat,
+        carbs: carbs ?? this.carbs,
+        protein: protein ?? this.protein,
+        macro: macro ?? this.macro);
   }
 
   @override

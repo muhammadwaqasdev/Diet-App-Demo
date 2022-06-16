@@ -26,7 +26,7 @@ class FlavorService {
       //return "http://127.0.0.1:8000/api";
     }
     // return url other than prod one
-    return "https://projects.pocketsystems.net/diet-app-admin/dev/api";
-    //return "http://127.0.0.1:8000/api";
+    //return "https://projects.pocketsystems.net/diet-app-admin/dev/api";
+    return "http://127.0.0.1:8000/api";
   }
 }

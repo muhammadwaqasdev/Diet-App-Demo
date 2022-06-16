@@ -1,7 +1,9 @@
 import 'package:diet_app/src/models/foods_reponse.dart';
+import 'package:diet_app/src/models/goal.dart';
 import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/services/remote/api_client.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class AppInterceptor extends Interceptor {
   @override
@@ -31,6 +33,7 @@ class ApiService {
 
   Future<List<Food>?> getFoods(String query,
       {CancelToken? cancelToken,
+      Macros? sortBy,
       int page = 0,
       double minCalorieLimit = 0,
       List<int> dislikedMeals = const []}) async {
@@ -43,6 +46,9 @@ class ApiService {
       };
       if (dislikedMeals.isNotEmpty) {
         params["not_included"] = dislikedMeals.join(",");
+      }
+      if (sortBy != null) {
+        params["sort_by"] = describeEnum(sortBy).toLowerCase();
       }
       var response = await _apiClient?.get('/foods',
           params: params, cancelToken: cancelToken);

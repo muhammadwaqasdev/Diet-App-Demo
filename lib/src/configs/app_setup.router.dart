@@ -19,6 +19,7 @@ import '../views/setup_goal/setup_goal_view.dart';
 import '../views/sign_in/sign_in_view.dart';
 import '../views/sign_up/sign_up_view.dart';
 import '../views/splash/splash_view.dart';
+import '../views/video/video_view.dart';
 
 class Routes {
   static const String splashView = '/';
@@ -30,6 +31,7 @@ class Routes {
   static const String achievementsView = '/achievements-view';
   static const String profileView = '/profile-view';
   static const String settingsView = '/settings-view';
+  static const String videoView = '/video-view';
   static const all = <String>{
     splashView,
     signInView,
@@ -40,6 +42,7 @@ class Routes {
     achievementsView,
     profileView,
     settingsView,
+    videoView,
   };
 }
 
@@ -56,8 +59,8 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.achievementsView, page: AchievementsView),
     RouteDef(Routes.profileView, page: ProfileView),
     RouteDef(Routes.settingsView, page: SettingsView),
+    RouteDef(Routes.videoView, page: VideoView),
   ];
-
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
@@ -65,56 +68,62 @@ class StackedRouter extends RouterBase {
       var args = data.getArgs<SplashViewArguments>(
         orElse: () => SplashViewArguments(),
       );
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => SplashView(isInit: args.isInit),
         settings: data,
       );
     },
     SignInView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => SignInView(),
         settings: data,
       );
     },
     SignUpView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => SignUpView(),
         settings: data,
       );
     },
     GetStartedView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => GetStartedView(),
         settings: data,
       );
     },
     SetupGoalView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => SetupGoalView(),
         settings: data,
       );
     },
     DashboardView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => DashboardView(),
         settings: data,
       );
     },
     AchievementsView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => AchievementsView(),
         settings: data,
       );
     },
     ProfileView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => ProfileView(),
         settings: data,
       );
     },
     SettingsView: (data) {
-      return CupertinoPageRoute<CupertinoRoute<dynamic>>(
+      return CupertinoPageRoute<dynamic>(
         builder: (context) => const SettingsView(),
+        settings: data,
+      );
+    },
+    VideoView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => VideoView(),
         settings: data,
       );
     },
@@ -128,6 +137,5 @@ class StackedRouter extends RouterBase {
 /// SplashView arguments holder class
 class SplashViewArguments {
   final bool isInit;
-
   SplashViewArguments({this.isInit = true});
 }

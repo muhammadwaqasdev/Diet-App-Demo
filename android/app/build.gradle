@@ -27,7 +27,8 @@ apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
+    buildToolsVersion "29.0.2"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -39,8 +40,8 @@ android {
 
     defaultConfig {
         applicationId "com.pocketsystems.dietapp"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion 17
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

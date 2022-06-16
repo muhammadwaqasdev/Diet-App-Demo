@@ -10,46 +10,62 @@ import 'package:stacked/stacked.dart';
 enum GoalTarget { Weight_Loss, Gain_Weight, Maintain }
 enum PreferredDiet { Keto, Balanced, Low_Carbs }
 enum AlarmType { Wakeup, Breakfast, Lunch, Snacks, Dinner, Sleep }
+enum Macros { Protein, Carbs, Fat }
 
 class AlarmData {
   final AlarmType type;
   TimeOfDay time;
   bool isDone;
-  List<Food> foods;
+  ReactiveList<Food>? foods;
   int notificationId;
 
+  List<Food> get proteins => foods?.where((food) => food.macro == Macros.Protein).toList() ?? [];
+  List<Food> get carbs => foods?.where((food) => food.macro == Macros.Carbs).toList() ?? [];
+  List<Food> get fats => foods?.where((food) => food.macro == Macros.Fat).toList() ?? [];
+
   int get totalCalories =>
-      foods.isEmpty
+      foods!.isEmpty
           ? 0
-          : foods.map((food) => food.calories).reduce((v1, v2) => v1 + v2);
+          : foods!.map((food) => food.calories).reduce((v1, v2) => v1 + v2);
 
   int get totalFats =>
-      foods.isEmpty
+      foods!.isEmpty
           ? 0
-          : foods.map((food) => food.fat.round()).reduce((v1, v2) => v1 + v2);
+          : foods!.map((food) => food.fat.round()).reduce((v1, v2) => v1 + v2);
 
   int get totalProteins =>
-      foods.isEmpty
+      foods!.isEmpty
           ? 0
-          : foods.map((food) => food.protein.round()).reduce((v1, v2) =>
+          : foods!.map((food) => food.protein.round()).reduce((v1, v2) =>
       v1 + v2);
 
   int get totalCarbs =>
-      foods.isEmpty
+      foods!.isEmpty
           ? 0
-          : foods.map((food) => food.carbs.round()).reduce((v1, v2) => v1 + v2);
+          : foods!.map((food) => food.carbs.round()).reduce((v1, v2) => v1 + v2);
+
+  bool isFullFilled(Goal goal){
+    if(goal.isManualMacrosEntry.value){
+      return goal.macroProtein.value <= totalProteins && goal.macroFat.value <= totalFats && goal.macroCarbs.value <= totalCarbs;
+    }
+    return (goal.caloriesIntake / goal.meals.value) <= totalCalories;
+  }
 
   bool get isMeal => (type != AlarmType.Wakeup && type != AlarmType.Sleep);
 
   AlarmData({required this.type,
     required this.time,
     this.notificationId = 0,
-    this.foods = const [],
-    this.isDone = false});
+    this.foods,
+    this.isDone = false}){
+    if(this.foods == null){
+      this.foods = ReactiveList();
+    }
+  }
 
   Map<String, dynamic> toJson() {
     return {
-      "foods": foods.map((e) => e.toJson()).toList(),
+      "foods": foods!.map((e) => e.toJson()).toList(),
       "type": describeEnum(this.type),
       "notification_id": notificationId,
       "is_done": isDone,
@@ -61,7 +77,7 @@ class AlarmData {
 
   factory AlarmData.fromJson(Map<String, dynamic> json) {
     List<String> timeElements = (json["time"] as String).split(":");
-    List<Food> foods = [];
+    ReactiveList<Food> foods = ReactiveList();
     if (json['foods'] != null) {
       for (var food in (json['foods'] as List<dynamic>)) {
         foods.add(Food.fromJson(food));
@@ -81,7 +97,21 @@ class AlarmData {
     );
   }
 
-//
+  AlarmData copyWith({
+    AlarmType? type,
+    TimeOfDay? time,
+    bool? isDone,
+    ReactiveList<Food>? foods,
+    int? notificationId,
+  }) {
+    return AlarmData(
+      type: type ?? this.type,
+      time: time ?? this.time,
+      isDone: isDone ?? this.isDone,
+      notificationId: notificationId ?? this.notificationId,
+      foods: foods ?? this.foods,
+    );
+  }
 
   @override
   bool operator ==(Object other) =>
@@ -91,7 +121,7 @@ class AlarmData {
           other.type == type;
 
   @override
-  int get hashCode => time.hour.hashCode;
+  int get hashCode => type.hashCode;
 }
 
 class Goal {
@@ -177,10 +207,10 @@ class Goal {
       alarmData
           .where((alarm) => alarm.type == AlarmType.Sleep)
           .first;
-  final ReactiveList<String> dislikedMeals;
+  final ReactiveList<String> likedMeals;
 
-  List<int> get dislikedMealIds =>
-      dislikedMeals.map((mealIdStr) => int.parse(mealIdStr)).toList();
+  List<int> get likedMealIds =>
+      likedMeals.map((mealIdStr) => int.parse(mealIdStr)).toList();
 
   double get finalHeight =>
       ((heightFt.value * 30.48) + (heightIn.value * 2.54));
@@ -228,6 +258,9 @@ class Goal {
       (4 * macroCarbs.value) + (4 * macroProtein.value) + (9 * macroFat.value)
   ) : (_caloriesIntakeBase + _goalCalculatedSumValue);
 
+  Future<double> get caloriesIntakePerMeal async => caloriesIntake / (await meals.values.length);
+
+
   double get calculatedCaloriesIntake {
     var baseIntake = caloriesIntake;
     if (lastCalculatedIntake.value > 0) {
@@ -257,7 +290,7 @@ class Goal {
     required this.meals,
     required this.preferredDiet,
     required this.alarmData,
-    required this.dislikedMeals,
+    required this.likedMeals,
     required this.uid,
     required this.id,
     required this.additionalIntakePercentage,
@@ -283,9 +316,9 @@ class Goal {
       "meals": this.meals.value,
       "preferredDiet": describeEnum(this.preferredDiet.value),
       "alarmData": this.alarmData.map((alarm) => alarm.toJson()).toList(),
-      "dislikedMeals": this.dislikedMeals,
+      "likedMeals": this.likedMeals,
       "lastCalculatedIntake": this.calculatedCaloriesIntake,
-      "isManualMacrosEntry": this.isManualMacrosEntry,
+      "isManualMacrosEntry": this.isManualMacrosEntry.value,
       "macroProtein": this.macroProtein.value,
       "macroCarbs": this.macroCarbs.value,
       "macroFat": this.macroFat.value,
@@ -317,8 +350,8 @@ class Goal {
         alarmData: ReactiveList<AlarmData>.from(
             (json["alarmData"] as List<dynamic>)
                 .map((e) => AlarmData.fromJson(e))),
-        dislikedMeals: ReactiveList<String>.from(
-            (json["dislikedMeals"] as List<dynamic>)
+        likedMeals: ReactiveList<String>.from(
+            (json["likedMeals"] as List<dynamic>)
                 .map((e) => e as String)
                 .toList()),
         additionalIntakePercentage: ReactiveValue(0),

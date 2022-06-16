@@ -25,7 +25,11 @@ class CompletionBottomSheet extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Spacer(),
-          Icon(Icons.check_circle_outline, size: 200),
+          Icon(
+            Icons.check_circle_outline,
+            size: 200,
+            color: Colors.lightGreen,
+          ),
           Row(
             children: [
               Expanded(
