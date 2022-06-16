@@ -33,55 +33,56 @@ class VideoView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: model.isBusy
-                        ? CrossAxisAlignment.center
-                        : CrossAxisAlignment.start,
-                    mainAxisAlignment: model.isBusy
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.start,
-                    children: model.isBusy
-                        ? [LoadingIndicator()]
-                        : [
-                            VerticalSpacing(10),
-                            AppBarActionButton(),
-                            VerticalSpacing(20),
-                            Text(
-                              "Video List",
-                              style: context.textTheme().headline3,
-                            ),
-                            Text(
-                              "Videos uploaded so far!",
-                              style: context.textTheme().headline5,
-                            ),
-                            VerticalSpacing(20),
-                            if (model.videos.isEmpty) ...[
-                              VerticalSpacing(context.screenSize().height / 5),
-                              Center(
-                                child: Column(
-                                  children: [
-                                    Image.asset(Images.emptyFolder, width: 200),
-                                    Text(
-                                      "No videos available!",
-                                      style: context.textTheme().headline5,
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      VerticalSpacing(10),
+                      AppBarActionButton(),
+                      VerticalSpacing(20),
+                      Text(
+                        "Video List",
+                        style: context.textTheme().headline3,
+                      ),
+                      Text(
+                        "Videos uploaded so far!",
+                        style: context.textTheme().headline5,
+                      ),
+                      VerticalSpacing(20),
+                      if (model.isBusy)
+                        Center(
+                          child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: context.screenSize().height / 3),
+                              child: LoadingIndicator()),
+                        ),
+                      if (!model.isBusy && model.videos.isEmpty) ...[
+                        VerticalSpacing(context.screenSize().height / 5),
+                        Center(
+                          child: Column(
+                            children: [
+                              Image.asset(Images.emptyFolder, width: 200),
+                              Text(
+                                "No videos available!",
+                                style: context.textTheme().headline5,
+                                textAlign: TextAlign.center,
                               )
                             ],
-                            if (model.videos.isNotEmpty)
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: model.videos.length,
-                                itemBuilder: (_, index) => ((Video video) =>
-                                    VideoCardTile(
-                                        videoId: video.videoId.toString(),
-                                        title: video.title.toString(),
-                                        onTap: () => showDialogVideo(context,
-                                            video)))(model.videos[index]),
-                              ),
-                          ],
+                          ),
+                        )
+                      ],
+                      if (!model.isBusy && model.videos.isNotEmpty)
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: model.videos.length,
+                          itemBuilder: (_, index) => ((Video video) =>
+                              VideoCardTile(
+                                  videoId: video.videoId.toString(),
+                                  title: video.title.toString(),
+                                  onTap: () => showDialogVideo(
+                                      context, video)))(model.videos[index]),
+                        ),
+                    ],
                   ),
                 ),
               ),
