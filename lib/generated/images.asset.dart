@@ -15,6 +15,7 @@ class Images {
   static String get pp => "assets/images/pp.jpg";
   static String get icDrawerToggle => "assets/images/ic_drawer_toggle.png";
   static String get icReminder => "assets/images/ic_reminder.png";
+  static String get emptyFolder => "assets/images/empty-folder.png";
   static String get icSettings => "assets/images/ic_settings.png";
   static String get icTotalCarbs => "assets/images/ic_total_carbs.png";
   static String get icArrowDown => "assets/images/ic_arrow_down.png";
@@ -22,5 +23,6 @@ class Images {
   static String get icCheck => "assets/images/ic_check.png";
   static String get icWeightGain => "assets/images/ic_weight_gain.png";
   static String get icDrawerClose => "assets/images/ic_drawer_close.png";
+  static String get play => "assets/images/play.png";
   static String get icWeightMaintain => "assets/images/ic_weight_maintain.png";
 }

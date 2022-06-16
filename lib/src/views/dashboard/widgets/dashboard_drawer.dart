@@ -46,13 +46,13 @@ class DashboardDrawer extends StatelessWidget {
             }
             NavService.profile();
           }),
-          _iconControl(context, icon: Images.icTotalCarbs, size: Size(38, 38),
+          _iconControl(context, icon: Images.play, size: Size(38, 38),
               onTap: () {
-                if (onDrawerCloseTap != null) {
-                  onDrawerCloseTap!();
-                }
-                NavService.video();
-              }),
+            if (onDrawerCloseTap != null) {
+              onDrawerCloseTap!();
+            }
+            NavService.video();
+          }),
           _iconControl(context, icon: Images.icSettings, size: Size(41, 41),
               onTap: () {
             if (onDrawerCloseTap != null) {
@@ -97,7 +97,9 @@ class DashboardDrawer extends StatelessWidget {
   }
 
   Widget _iconControl(BuildContext context,
-          {GestureTapCallback? onTap, required String icon, required Size size}) =>
+          {GestureTapCallback? onTap,
+          required String icon,
+          required Size size}) =>
       InkTouch(
           borderRadius: BorderRadius.circular(20),
           color: Colors.transparent,
