@@ -13,6 +13,7 @@ import 'package:stacked/stacked_annotations.dart';
 import '../views/achievements/achievements_view.dart';
 import '../views/dashboard/dashboard_view.dart';
 import '../views/get_started/get_started_view.dart';
+import '../views/grocery_list/grocery_list_view.dart';
 import '../views/profile/profile_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/setup_goal/setup_goal_view.dart';
@@ -32,6 +33,7 @@ class Routes {
   static const String profileView = '/profile-view';
   static const String settingsView = '/settings-view';
   static const String videoView = '/video-view';
+  static const String groceryListView = '/grocery-list-view';
   static const all = <String>{
     splashView,
     signInView,
@@ -43,6 +45,7 @@ class Routes {
     profileView,
     settingsView,
     videoView,
+    groceryListView,
   };
 }
 
@@ -60,6 +63,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.profileView, page: ProfileView),
     RouteDef(Routes.settingsView, page: SettingsView),
     RouteDef(Routes.videoView, page: VideoView),
+    RouteDef(Routes.groceryListView, page: GroceryListView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -124,6 +128,12 @@ class StackedRouter extends RouterBase {
     VideoView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => VideoView(),
+        settings: data,
+      );
+    },
+    GroceryListView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => GroceryListView(),
         settings: data,
       );
     },

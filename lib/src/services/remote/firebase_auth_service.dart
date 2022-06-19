@@ -5,6 +5,7 @@ import 'package:diet_app/src/models/app_user.dart';
 import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/local_database_service.dart';
+import 'package:diet_app/src/services/local/local_notification_service.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/views/achievements/achievements_view_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -106,9 +107,10 @@ class FirebaseAuthService {
   }
 
   Future<void> signOut() async {
+    await locator<LocalNotificationService>().clear();
     await FirebaseAuth.instance.signOut();
+    NavService.splash(isInit: false);
     locator<AuthService>().user = null;
-    await NavService.splash(isInit: false);
     await locator<LocalDatabaseService>().clearIntakes();
   }
 

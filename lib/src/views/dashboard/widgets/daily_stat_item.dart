@@ -33,7 +33,6 @@ class DailyStatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 12),
       width: width,
       height: height,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),

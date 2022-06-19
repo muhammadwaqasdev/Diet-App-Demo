@@ -114,6 +114,7 @@ class SetupGoalView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => SetupGoalViewModel(),
+      onModelReady: (model) => model.init(),
     );
   }
 }

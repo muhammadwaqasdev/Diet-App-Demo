@@ -80,50 +80,44 @@ class _SplashViewState extends State<AchievementsView>
                       Transform.translate(
                         offset: Offset(0.0, -80),
                         child: Container(
-                          padding: EdgeInsets.only(left: 25, right: 10),
+                          padding: EdgeInsets.only(left: 15, right: 15),
                           height: 160,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                child: DailyStatItem(
-                                  height: 140,
-                                  width: null,
-                                  progress: model.totlalConsumedProteins,
-                                  total: model.totlalProteins,
-                                  hideProgressBar: true,
-                                  title: "Total Protien",
-                                  lightColor: AppColors.protienLightPurple,
-                                  darkColor: AppColors.protienPurple,
-                                  icon: Images.icTotalProtien,
-                                ),
+                              DailyStatItem(
+                                height: 140,
+                                width: null,
+                                progress: model.totlalConsumedProteins,
+                                total: model.totlalProteins,
+                                hideProgressBar: true,
+                                title: "Total Protein",
+                                lightColor: AppColors.protienLightPurple,
+                                darkColor: AppColors.protienPurple,
+                                icon: Images.icTotalProtien,
                               ),
-                              Expanded(
-                                child: DailyStatItem(
-                                  height: 140,
-                                  width: null,
-                                  iconPadding: 8,
-                                  progress: model.totlalConsumedCarbs,
-                                  total: model.totlalCarbs,
-                                  hideProgressBar: true,
-                                  title: "Total Carbs",
-                                  lightColor: AppColors.carbsLightGreen,
-                                  darkColor: AppColors.carbsGreen,
-                                  icon: Images.icTotalCarbs,
-                                ),
+                              DailyStatItem(
+                                height: 140,
+                                width: null,
+                                iconPadding: 8,
+                                progress: model.totlalConsumedCarbs,
+                                total: model.totlalCarbs,
+                                hideProgressBar: true,
+                                title: "Total Carbs",
+                                lightColor: AppColors.carbsLightGreen,
+                                darkColor: AppColors.carbsGreen,
+                                icon: Images.icTotalCarbs,
                               ),
-                              Expanded(
-                                child: DailyStatItem(
-                                  height: 140,
-                                  width: null,
-                                  progress: model.totlalConsumedFats,
-                                  total: model.totlalFats,
-                                  hideProgressBar: true,
-                                  title: "Total Fats",
-                                  lightColor: AppColors.fatsLightBlue,
-                                  darkColor: AppColors.fatsBlue,
-                                  icon: Images.icTotalFats,
-                                ),
+                              DailyStatItem(
+                                height: 140,
+                                width: null,
+                                progress: model.totlalConsumedFats,
+                                total: model.totlalFats,
+                                hideProgressBar: true,
+                                title: "Total Fats",
+                                lightColor: AppColors.fatsLightBlue,
+                                darkColor: AppColors.fatsBlue,
+                                icon: Images.icTotalFats,
                               )
                             ],
                           ),
@@ -131,7 +125,7 @@ class _SplashViewState extends State<AchievementsView>
                       ),
                       VerticalSpacing(15),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Transform.translate(
                           offset: Offset(0, -80),
                           child: Column(
@@ -172,11 +166,11 @@ class _SplashViewState extends State<AchievementsView>
                                     style: context.textTheme().subtitle2),
                               VerticalSpacing(20),
                               if (model.nextCheckinHoursLeft <= 0)
-                                AppElevatedButton.withIcon(
-                                  child: "Check In",
-                                  onTap: () => model.onCheckInTap(context),
-                                  icon: Image.asset(Images.icRightArrow),
-                                ),
+                              AppElevatedButton.withIcon(
+                                child: "Check In",
+                                onTap: () => model.onCheckInTap(context),
+                                icon: Image.asset(Images.icRightArrow),
+                              ),
                               PageEndSpacer()
                             ],
                           ),

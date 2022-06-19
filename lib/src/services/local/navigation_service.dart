@@ -44,10 +44,14 @@ class NavService {
           arguments: arguments);
 
   static Future<dynamic>? setupGoal(
-          {dynamic arguments, bool shouldReplace = false}) =>
+          {dynamic arguments,
+          bool shouldReplace = false,
+          bool shouldClear = false}) =>
       (!shouldReplace
               ? _navigationService!.navigateTo
-              : _navigationService!.replaceWith)(Routes.setupGoalView,
+              : shouldClear
+                  ? _navigationService!.clearStackAndShow
+                  : _navigationService!.replaceWith)(Routes.setupGoalView,
           arguments: arguments);
 
   static Future<dynamic>? dashboard({dynamic arguments}) => _navigationService!
@@ -65,4 +69,8 @@ class NavService {
 
   static Future<dynamic>? video({dynamic arguments}) =>
       _navigationService!.navigateTo(Routes.videoView, arguments: arguments);
+
+  static Future<dynamic>? groceryList({dynamic arguments}) =>
+      _navigationService!
+          .navigateTo(Routes.groceryListView, arguments: arguments);
 }

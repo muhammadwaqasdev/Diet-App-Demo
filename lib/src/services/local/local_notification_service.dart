@@ -160,8 +160,8 @@ class LocalNotificationService {
     goalService.loadingStep++;
   }
 
-  cancelAlarm(AlarmData alarm) {
-    flutterLocalNotificationsPlugin.cancel(alarm.notificationId);
+  Future<void> cancelAlarm(AlarmData alarm) async {
+    await flutterLocalNotificationsPlugin.cancel(alarm.notificationId);
   }
 
   scheduleSingleAlarm(int dailyIntakeId, AlarmData alarm) async {
@@ -195,5 +195,13 @@ class LocalNotificationService {
         payload: "${dailyIntake.date.millisecondsSinceEpoch}|$notiId",
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  Future<void> clear() async {
+    (await locator<LocalDatabaseService>().intakeDao.getAllIntakes())
+        .map((e) => e.alams)
+        .expand((alarms) => alarms)
+        .forEach(cancelAlarm);
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 }

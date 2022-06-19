@@ -57,6 +57,7 @@ dependencies:
 
   #alarm
   flutter_local_notifications: ^9.5.3+1
+  units_converter: ^2.0.0
 
     # debugging
   #flutter_stetho:

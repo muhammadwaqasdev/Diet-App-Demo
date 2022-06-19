@@ -56,7 +56,8 @@ class Food {
   String? foodName;
   String? foodType;
   String? foodUrl;
-  int per = 0;
+  String? servingUnit;
+  String? per;
   int calories = 0;
   double fat = 0;
   double carbs = 0;
@@ -69,7 +70,8 @@ class Food {
       this.foodName,
       this.foodType,
       this.foodUrl,
-      this.per = 0,
+      this.servingUnit,
+      this.per,
       this.calories = 0,
       this.fat = 0,
       this.carbs = 0,
@@ -88,28 +90,29 @@ class Food {
   }
 
   Food.fromJson(Map<String, dynamic> json) {
-    double per = 0;
-    try {
-      per = double.parse("${json['per']}");
-    } catch (e) {
-      try {
-        per = int.parse("${json['per']}") + 0.0;
-      } catch (e) {
-        String perStr = json['per'];
-        if (perStr.contains("/")) {
-          json['food_name'] += " " + json['per'];
-          per = int.parse(perStr.split("/").first) /
-              int.parse(perStr.split("/").last);
-        }
-      }
-    }
+    // double per = 0;
+    // try {
+    //   per = double.parse("${json['per']}");
+    // } catch (e) {
+    //   try {
+    //     per = int.parse("${json['per']}") + 0.0;
+    //   } catch (e) {
+    //     String perStr = json['per'];
+    //     if (perStr.contains("/")) {
+    //       json['food_name'] += " " + json['per'];
+    //       per = int.parse(perStr.split("/").first) /
+    //           int.parse(perStr.split("/").last);
+    //     }
+    //   }
+    // }
 
     foodDescription = json['food_description'];
     foodId = json['food_id'];
     foodName = json['food_name'];
     foodType = json['food_type'];
     foodUrl = json['food_url'];
-    per = per;
+    servingUnit = json['serving_unit'];
+    this.per = json['per'];
     calories = int.parse("${json['calories']}");
     fat = double.parse("${json['fat']}");
     carbs = double.parse("${json['carbs']}");
@@ -123,6 +126,7 @@ class Food {
     data['food_name'] = this.foodName;
     data['food_type'] = this.foodType;
     data['food_url'] = this.foodUrl;
+    data['serving_unit'] = this.servingUnit;
     data['per'] = this.per;
     data['calories'] = this.calories;
     data['fat'] = this.fat;
@@ -137,7 +141,8 @@ class Food {
       String? foodName,
       String? foodType,
       String? foodUrl,
-      int? per,
+      String? servingUnit,
+      String? per,
       int? calories,
       double? fat,
       double? carbs,
@@ -149,6 +154,7 @@ class Food {
         foodName: foodName ?? this.foodName,
         foodType: foodType ?? this.foodType,
         foodUrl: foodUrl ?? this.foodUrl,
+        servingUnit: servingUnit ?? this.servingUnit,
         per: per ?? this.per,
         calories: calories ?? this.calories,
         fat: fat ?? this.fat,

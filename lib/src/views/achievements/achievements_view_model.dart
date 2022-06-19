@@ -7,6 +7,7 @@ import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/local_database_service.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/views/achievements/widgets/checkin_bottom_sheet.dart';
+import 'package:diet_app/src/views/achievements/widgets/edit_goal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -86,13 +87,30 @@ class AchievementsViewModel extends ReactiveViewModel
           builder: (childContext) =>
               Form(child: CheckinBottomSheet(isForProgress: isForProgress)));
 
+  static Future<bool?> showUpdateGoalSheet(BuildContext context,
+          {bool isForProgress = false}) async =>
+      showModalBottomSheet<bool>(
+          isDismissible: !isForProgress,
+          enableDrag: !isForProgress,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          context: context,
+          builder: (childContext) =>
+              Form(child: EditGoalBottomSheet(isForProgress: isForProgress)));
+
   onCheckInTap(BuildContext context) async {
     bool? isDone = await showWeightSheet(context);
     if (isDone != null && isDone) {
-      showWeightSheet(context, isForProgress: true);
-      await _goalCreationStepsService.save();
-      _goalCreationStepsService.loadingStep = 0;
-      NavService.dashboard();
+      var shouldProceed =
+          await showUpdateGoalSheet(context, isForProgress: false);
+      if (shouldProceed ?? false) {
+        showWeightSheet(context, isForProgress: true);
+        await _goalCreationStepsService.save();
+        _goalCreationStepsService.loadingStep = 0;
+        NavService.dashboard();
+      } else {
+        NavService.setupGoal(shouldClear: true);
+      }
     }
   }
 

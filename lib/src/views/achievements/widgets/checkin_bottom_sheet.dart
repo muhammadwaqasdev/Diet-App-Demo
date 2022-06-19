@@ -40,14 +40,14 @@ class CheckinBottomSheet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20)),
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
             child:
-                isForProgress ? _progressView(context) : _wieghtForm(context),
+                isForProgress ? _progressView(context) : _weightForm(context),
           ),
         ],
       ),
     );
   }
 
-  Widget _wieghtForm(BuildContext context) => Column(
+  Widget _weightForm(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("New check in", style: context.textTheme().headline4),
@@ -58,7 +58,7 @@ class CheckinBottomSheet extends StatelessWidget {
             controller: _weightValue,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Pleae enter valid weight!";
+                return "Please enter valid weight!";
               }
               return null;
             },
@@ -74,24 +74,24 @@ class CheckinBottomSheet extends StatelessWidget {
                   Navigator.pop(context, true);
                   var goal = locator<GoalCreationStepsService>().goal;
                   var oldWeight = goal.weight;
-                  var newWieght = _weightValue.text.isNotEmpty
+                  var newWeight = _weightValue.text.isNotEmpty
                       ? double.parse(_weightValue.text)
                       : 0;
                   switch (goal.goalTarget.value) {
                     case GoalTarget.Weight_Loss:
-                      if (newWieght >= oldWeight.value) {
+                      if (newWeight >= oldWeight.value) {
                         goal.additionalIntakePercentage.value = -5;
                       }
                       break;
                     case GoalTarget.Gain_Weight:
-                      if (newWieght <= oldWeight.value) {
+                      if (newWeight <= oldWeight.value) {
                         goal.additionalIntakePercentage.value = 5;
                       }
                       break;
                     case GoalTarget.Maintain:
-                      if (newWieght > oldWeight.value) {
+                      if (newWeight > oldWeight.value) {
                         goal.additionalIntakePercentage.value = -5;
-                      } else if (newWieght < oldWeight.value) {
+                      } else if (newWeight < oldWeight.value) {
                         goal.additionalIntakePercentage.value = 5;
                       }
                       break;

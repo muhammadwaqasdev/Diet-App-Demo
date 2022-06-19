@@ -46,6 +46,10 @@ class SetupGoalViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
+  init() {
+    _goalService.registerReactiveValues();
+  }
+
   void onStepBack() {
     currentGoalStepIndex = currentGoalStepIndex - 1;
     pageController.animateToPage(

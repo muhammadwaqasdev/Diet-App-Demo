@@ -53,6 +53,13 @@ class DashboardDrawer extends StatelessWidget {
             }
             NavService.video();
           }),
+          _iconControl(context, icon: Images.icTotalCarbs, size: Size(38, 38),
+              onTap: () {
+            if (onDrawerCloseTap != null) {
+              onDrawerCloseTap!();
+            }
+            NavService.groceryList();
+          }),
           _iconControl(context, icon: Images.icSettings, size: Size(41, 41),
               onTap: () {
             if (onDrawerCloseTap != null) {
@@ -87,7 +94,7 @@ class DashboardDrawer extends StatelessWidget {
                         ),
                       ],
                     ));
-            if (confirm == true) {
+            if (confirm ?? false) {
               await locator<FirebaseAuthService>().signOut();
             }
           }),
@@ -106,7 +113,7 @@ class DashboardDrawer extends StatelessWidget {
           onTap: onTap,
           child: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: context.screenSize().height < 600 ? 20 : 30),
+                  vertical: context.screenSize().height < 600 ? 10 : 20),
               width: 100,
               child: Image.asset(
                 icon,
