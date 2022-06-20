@@ -57,7 +57,12 @@ class SetupGoalStepFourView extends GoalStep {
                         .indexOf(model.selectedMacro ?? Macros.Carbs),
                     horizontalPadding: pageHorizontalPadding,
                     itemsCount: Macros.values.length,
-                    labelBuilder: (index) => describeEnum(Macros.values[index]),
+                    labelBuilder: (index) =>
+                        "${describeEnum(Macros.values[index])} (${({
+                      Macros.Protein: model.selectedMeal?.totalProteins,
+                      Macros.Carbs: model.selectedMeal?.totalCarbs,
+                      Macros.Fat: model.selectedMeal?.totalFats,
+                    })[Macros.values[index]]})",
                     onTapChip: (index) => model.onMacroTap(index),
                   ),
                   expanded: ChipList(
@@ -67,7 +72,7 @@ class SetupGoalStepFourView extends GoalStep {
                     horizontalPadding: pageHorizontalPadding,
                     itemsCount: model.meals.length,
                     labelBuilder: (index) =>
-                        describeEnum(model.meals[index].type),
+                        "${describeEnum(model.meals[index].type)} (${model.meals[index].totalCalories} kcal)",
                     onTapChip: (index) => model.onMealSelect(index),
                   ),
                 ),
