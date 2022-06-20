@@ -166,11 +166,11 @@ class _SplashViewState extends State<AchievementsView>
                                     style: context.textTheme().subtitle2),
                               VerticalSpacing(20),
                               if (model.nextCheckinHoursLeft <= 0)
-                              AppElevatedButton.withIcon(
-                                child: "Check In",
-                                onTap: () => model.onCheckInTap(context),
-                                icon: Image.asset(Images.icRightArrow),
-                              ),
+                                AppElevatedButton.withIcon(
+                                  child: "Check In",
+                                  onTap: () => model.onCheckInTap(context),
+                                  icon: Image.asset(Images.icRightArrow),
+                                ),
                               PageEndSpacer()
                             ],
                           ),

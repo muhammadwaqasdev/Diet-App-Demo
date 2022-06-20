@@ -112,7 +112,7 @@ class Food {
     foodType = json['food_type'];
     foodUrl = json['food_url'];
     servingUnit = json['serving_unit'];
-    this.per = json['per'];
+    this.per = json['per'].toString();
     calories = int.parse("${json['calories']}");
     fat = double.parse("${json['fat']}");
     carbs = double.parse("${json['carbs']}");
