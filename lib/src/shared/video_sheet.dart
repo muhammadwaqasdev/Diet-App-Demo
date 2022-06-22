@@ -23,7 +23,10 @@ class VideoSheet extends StatefulWidget {
   @override
   State<VideoSheet> createState() => _VideoSheetState();
 
-  static show(BuildContext context, Video video) async {
+  static show(BuildContext context, Video? video) async {
+    if (video == null) {
+      return;
+    }
     var videoPlayer = VideoSheet(video);
     await Future.delayed(Duration(milliseconds: 100));
     await showModalBottomSheet(

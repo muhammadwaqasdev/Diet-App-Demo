@@ -1,3 +1,4 @@
+import 'package:diet_app/src/base/video_popup_screen_view_model_mixin.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
 import 'package:diet_app/src/models/db/daily_intake/daily_intake.dart';
 import 'package:diet_app/src/models/goal.dart';
@@ -6,12 +7,16 @@ import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
 import 'package:diet_app/src/services/local/local_database_service.dart';
 import 'package:diet_app/src/services/local/local_notification_service.dart';
 import 'package:diet_app/src/shared/drawer_container.dart';
+import 'package:diet_app/src/shared/video_sheet.dart';
 import 'package:diet_app/src/views/dashboard/widgets/todays_meals/todays_meal_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../models/video.dart';
 import 'widgets/todays_meals/todays_meal_sub_item.dart';
 
-class DashboardViewModel extends ReactiveViewModel {
+class DashboardViewModel extends ReactiveViewModel
+    with VideoPopupScreenViewModelMixin {
   AlarmData? expandedAlarm;
 
   DrawerContainerController drawerContainerController =
@@ -28,6 +33,8 @@ class DashboardViewModel extends ReactiveViewModel {
 
   final AuthService _authService = locator<AuthService>();
 
+  DashboardViewModel({required this.isFromSetup});
+
   Future<DailyIntake> get _dailyIntakeRecord async =>
       (await _localDatabaseService.intakeDao.getAllIntakes())
           .where((di) => (di.date.day == DateTime.now().day &&
@@ -39,7 +46,14 @@ class DashboardViewModel extends ReactiveViewModel {
 
   List<TodaysMealItemModel> todaysIntakes = [];
 
-  init() async {
+  final bool isFromSetup;
+
+  init(BuildContext context, Screen screen) async {
+    if (!isFromSetup) {
+      super.init(context, screen);
+    } else {
+      VideoSheet.show(context, getVideo(Screen.MEAL_PLAN_COMPLETE));
+    }
     setBusy(true);
     dailyIntake = (await _dailyIntakeRecord);
     todaysIntakes = dailyIntake.alams

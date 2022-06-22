@@ -88,7 +88,7 @@ class GroceryListView extends StatelessWidget {
           ),
         ),
         viewModelBuilder: () => GroceryListViewModel(),
-        onModelReady: (model) => model.init(context, Screen.VIDEOS),
+        onModelReady: (model) => model.init(context, Screen.GROCERY_LIST),
       ),
     );
   }

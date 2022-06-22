@@ -1,5 +1,6 @@
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/configs/app_setup.router.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/shared/app_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,8 @@ class CompletionBottomSheet extends StatelessWidget {
               Expanded(
                 child: AppElevatedButton.withIcon(
                   child: "CONTINUE",
-                  onTap: NavService.dashboard,
+                  onTap: () => NavService.dashboard(
+                      arguments: DashboardViewArguments(isFromSetup: true)),
                   icon: Image.asset(Images.icRightArrow),
                 ),
               ),

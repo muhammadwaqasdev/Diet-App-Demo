@@ -8,9 +8,11 @@ import '../configs/app_setup.locator.dart';
 
 mixin VideoPopupScreenViewModelMixin on BaseViewModel {
   init(BuildContext context, Screen screen) {
-    var video = locator<VideosService>().getVideoByScreen(screen);
+    var video = getVideo(screen);
     if (video != null) {
       VideoSheet.show(context, video);
     }
   }
+
+  getVideo(Screen screen) => locator<VideosService>().getVideoByScreen(screen);
 }

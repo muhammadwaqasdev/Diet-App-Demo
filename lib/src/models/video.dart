@@ -15,6 +15,7 @@ enum Screen {
   VIDEOS,
   SIGN_IN,
   SIGN_UP,
+  MEAL_PLAN_COMPLETE
 }
 
 class Video {

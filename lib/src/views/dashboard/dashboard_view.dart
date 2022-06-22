@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:diet_app/generated/images.asset.dart';
 import 'package:diet_app/src/base/utils/utils.dart';
+import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/services/local/navigation_service.dart';
 import 'package:diet_app/src/shared/dashboard_app_bar.dart';
 import 'package:diet_app/src/shared/drawer_container.dart';
@@ -20,6 +21,10 @@ import 'package:stacked/stacked.dart';
 import 'dashboard_view_model.dart';
 
 class DashboardView extends StatelessWidget {
+  final bool isFromSetup;
+
+  const DashboardView({required this.isFromSetup});
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.reactive(
@@ -148,8 +153,8 @@ class DashboardView extends StatelessWidget {
                         ),
                       ),
           )),
-      viewModelBuilder: () => DashboardViewModel(),
-      onModelReady: (model) => model.init(),
+      viewModelBuilder: () => DashboardViewModel(isFromSetup: isFromSetup),
+      onModelReady: (model) => model.init(context, Screen.DASHBOARD),
     );
   }
 }

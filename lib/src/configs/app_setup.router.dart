@@ -102,8 +102,9 @@ class StackedRouter extends RouterBase {
       );
     },
     DashboardView: (data) {
+      var args = data.getArgs<DashboardViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => DashboardView(),
+        builder: (context) => DashboardView(isFromSetup: args.isFromSetup),
         settings: data,
       );
     },
@@ -148,4 +149,10 @@ class StackedRouter extends RouterBase {
 class SplashViewArguments {
   final bool isInit;
   SplashViewArguments({this.isInit = true});
+}
+
+/// DashboardView arguments holder class
+class DashboardViewArguments {
+  final bool isFromSetup;
+  DashboardViewArguments({required this.isFromSetup});
 }
