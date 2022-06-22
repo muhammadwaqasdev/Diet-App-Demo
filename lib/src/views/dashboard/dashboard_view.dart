@@ -155,6 +155,7 @@ class DashboardView extends StatelessWidget {
           )),
       viewModelBuilder: () => DashboardViewModel(isFromSetup: isFromSetup),
       onModelReady: (model) => model.init(context, Screen.DASHBOARD),
+      disposeViewModel: true,
     );
   }
 }

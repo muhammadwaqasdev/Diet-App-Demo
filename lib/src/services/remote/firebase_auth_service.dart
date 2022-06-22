@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:diet_app/src/configs/app_setup.locator.dart';
+import 'package:diet_app/src/configs/app_setup.router.dart';
 import 'package:diet_app/src/models/app_user.dart';
 import 'package:diet_app/src/services/local/auth_service.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
@@ -98,7 +99,8 @@ class FirebaseAuthService {
             locator<GoalCreationStepsService>().loadingStep = 0;
             await locator<GoalCreationStepsService>().save();
           }
-          await NavService.dashboard();
+          await NavService.dashboard(
+              arguments: DashboardViewArguments(isFromSetup: false));
         }
       }
     } catch (e) {

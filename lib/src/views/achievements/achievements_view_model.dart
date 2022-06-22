@@ -1,6 +1,7 @@
 import 'package:diet_app/src/base/utils/utils.dart';
 import 'package:diet_app/src/base/video_popup_screen_view_model_mixin.dart';
 import 'package:diet_app/src/configs/app_setup.locator.dart';
+import 'package:diet_app/src/configs/app_setup.router.dart';
 import 'package:diet_app/src/models/db/daily_intake/daily_intake.dart';
 import 'package:diet_app/src/models/video.dart';
 import 'package:diet_app/src/services/local/goal_creation_steps_service.dart';
@@ -107,7 +108,8 @@ class AchievementsViewModel extends ReactiveViewModel
         showWeightSheet(context, isForProgress: true);
         await _goalCreationStepsService.save();
         _goalCreationStepsService.loadingStep = 0;
-        NavService.dashboard();
+        NavService.dashboard(
+            arguments: DashboardViewArguments(isFromSetup: false));
       } else {
         NavService.setupGoal(shouldClear: true);
       }
